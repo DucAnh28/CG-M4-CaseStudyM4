@@ -2,6 +2,8 @@ package com.ducanh.casestudy.service.coach;
 
 import com.ducanh.casestudy.model.Coach;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.ducanh.casestudy.repository.ICoachRepository;
 
@@ -11,7 +13,7 @@ import java.util.Optional;
 
 @Service
 public class CoachService implements ICoachService {
-    List<Coach> coaches = new ArrayList<>();
+
     @Autowired
     private ICoachRepository coachRepository;
 
@@ -35,5 +37,8 @@ public class CoachService implements ICoachService {
         coachRepository.deleteById(id);
     }
 
-
+    @Override
+    public Page<Coach> findAllPage(Pageable pageable) {
+        return coachRepository.findAll(pageable);
+    }
 }

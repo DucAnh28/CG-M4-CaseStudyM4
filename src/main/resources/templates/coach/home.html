@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    <title>Coach</title>
+
+    </script>
+
 </head>
 <body>
+<table>
+    <tr>
+        <td>Id</td>
+        <td>Name</td>
+        <td>Country</td>
+        <td>Achievement</td>
+        <td>Salary</td>
+        <td>Role</td>
+        <td>Image</td>
+    </tr>
 
+    <tr th:each="c:${coach}" >
+        <td th:text="${c.id}"></td>
+        <td th:text="${c.name}"></td>
+        <td th:text="${c.country}"></td>
+        <td th:text="${c.achievement}"></td>
+        <td th:text="${c.salary}"></td>
+        <td th:text="${c.role}"></td>
+<!--        <td th:multiple="${c.image}"></td>-->
+    </tr>
+</table>
+<div>
+    <a th:if="${coach.hasPrevious()}" th:href="@{'/coach/page'(page=${coach.number-1})}">Trang trước</a>
+    <span th:text="${coach.number+1}"></span>/<span th:text="${coach.totalPages}"></span>
+    <a th:if="${coach.hasNext()}" th:href="@{'/coach/page'(page =${coach.number+1})}">Trang sau</a>
+
+</div>
 </body>
+
 </html>
