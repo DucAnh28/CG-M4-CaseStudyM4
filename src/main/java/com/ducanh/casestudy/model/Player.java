@@ -14,7 +14,7 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private LocalDate birthday;
+
     private String country;
     private double height;
     private double weight;
@@ -63,14 +63,6 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public LocalDate getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
     }
 
     public String getCountry() {
