@@ -2,34 +2,50 @@ package com.ducanh.casestudy.model;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Coach {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String country;
     private String achievement;
     private double salary;
     private String role;
-    private String image;
 
-    public Coach() {
-    }
+    @Transient
+    private MultipartFile avaFile;
+    private String avatarURL;
 
-    public Coach( String name, String country, String achievement, double salary, String role, String image) {
-        this.id = id;
+    public Coach(String name, String country, String achievement, double salary, String role, MultipartFile avaFile, String avatarURL) {
         this.name = name;
         this.country = country;
         this.achievement = achievement;
         this.salary = salary;
         this.role = role;
-        this.image = image;
+        this.avaFile = avaFile;
+        this.avatarURL = avatarURL;
+    }
+
+    public Coach() {
+    }
+
+    public MultipartFile getAvaFile() {
+        return avaFile;
+    }
+
+    public void setAvaFile(MultipartFile avaFile) {
+        this.avaFile = avaFile;
+    }
+
+    public String getAvatarURL() {
+        return avatarURL;
+    }
+
+    public void setAvatarURL(String avatarURL) {
+        this.avatarURL = avatarURL;
     }
 
     public Long getId() {
@@ -80,11 +96,4 @@ public class Coach {
         this.role = role;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
 }
