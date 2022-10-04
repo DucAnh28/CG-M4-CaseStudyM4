@@ -1,13 +1,60 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <div th:insert="~{homepage/header_footer::css_head}"></div>
+    <meta charset=utf-8>
+    <meta name=description content="">
+    <meta name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="shortcut icon" href=/webservice/template/favicon.ico>
+    <link rel=stylesheet href=/webservice/template/vendor.css>
+    <link rel=stylesheet href=/webservice/template/style.css>
+    <link rel=stylesheet type=text/css href=/webservice/template/css/layerslider.css>
+    <script src=/webservice/template/js/vendor/modernizr.js></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous">
+    </script>
+    <script>
+        $(function () {
+            $("#header").load("header.html");
+            $("#footer").load("footer.html");
+        });
+    </script>
     <title>Home</title>
 </head>
 <body>
-<div th:insert="~{homepage/header_footer::header}"></div>
+<div class=wrapper>
+    <div id="header"></div>
+    <div class=banner id=layerSlider style="width: 100%;">
+        <div class=ls-slide data-ls="transition3d: 33,15; slidedelay: 8000 ; durationin:0;"><img
+                src=/webservice/template/images/banner/background01.jpg class=ls-bg alt="Slide background">
+            <div class="ls-l layercontent01" style="top: 50%; left: 50%; z-index:4;"
+                 data-ls="offsetxin:left; offsetxout:right; durationin: 4000; parallaxlevel: 8;"><img
+                    src=/webservice/template/images/banner/player.png alt=innerimage class=img-responsive
+                    style="max-width: 100% !important ;"></div>
+            <img src=/webservice/template/images/banner/ball.png alt=innerimage class="ls-l layercontent02"
+                 style=z-index:5;
+                 data-ls="offsetxin: right; offsetxout:left; rotatein:-360; easingin: easeoutquart; durationin: 4000; delayin: 250; parallaxlevel: -5;">
+            <img src=/webservice/template/images/banner/front_particles.png alt=particles class=ls-l
+                 style="z-index:3; left:0;"
+                 data-ls="offsetxin: left; offsetxout:left; scalexin:50; easingin: easeoutquart; durationin: 3000; delayin: 250;">
+            <img src=/webservice/template/images/banner/back_particles.png alt=particles class=ls-l
+                 style="z-index:3; left:50%;"
+                 data-ls="offsetxin: left; offsetxout:left; scalein:90; easingin: easeoutquart; durationin: 3000; delayin: 250;">
 
+            <h2 class="ls-l bannertext layercontent03" data-ls="offsetxin:left; rotatexin:90 ; durationin: 3500;">
+                action</h2>
 
-<div th:insert="~{homepage/header_footer::footer}"></div>
+            <h2 class="ls-l bannertext01 italic01 layercontent04"
+                data-ls="offsetxin:left; scalexin:9; durationin: 4000;">starts</h2><h4
+                    class="ls-l bannertext02 layercontent05" data-ls="offsetxin:left; rotatexin:90 ; durationin: 4500;">
+                from</h4>
+
+            <h2 class="ls-l bannertext01 layercontent06" style="left: 87%; top:760px;"
+                data-ls="offsetxin:left; flipxin:90 ; durationin: 5000;">21<sup>st</sup></h2><h6
+                    class="ls-l bannertext03 layercontent07" data-ls="offsetxin:left; flipxin:90 ; durationin: 6000;">
+                july , 2015</h6></div>
+    </div>
+    <div id="footer"></div>
+</div>
 </body>
 </html>
