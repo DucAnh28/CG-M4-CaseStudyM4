@@ -129,8 +129,6 @@ public class Player {
     }
 
 
-
-
     public Position getPosition() {
         return position;
     }
