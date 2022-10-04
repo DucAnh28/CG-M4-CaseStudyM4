@@ -12,14 +12,18 @@ public class Blog {
     private String author;
     private String description;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Account account;
+
     public Blog() {
     }
 
-    public Blog(Long id, String name, String author, String description) {
+    public Blog(Long id, String name, String author, String description, Account account) {
         this.id = id;
         this.name = name;
         this.author = author;
         this.description = description;
+        this.account = account;
     }
 
     public Long getId() {
@@ -53,4 +57,6 @@ public class Blog {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
 }

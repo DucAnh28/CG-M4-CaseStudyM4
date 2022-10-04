@@ -17,4 +17,9 @@ public class HomeController {
         ModelAndView modelAndView = new ModelAndView("/homepage/blog");
         return modelAndView;
     }
+    @GetMapping("/about")
+    public ModelAndView about(){
+        ModelAndView modelAndView = new ModelAndView("/homepage/about");
+        return modelAndView;
+    }
 }
