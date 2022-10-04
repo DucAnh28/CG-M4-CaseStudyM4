@@ -18,9 +18,9 @@ public class Player {
     private String country;
     private double height;
     private double weight;
-    private double BMI;//W/(H*H)
+
     private double salary;
-    private double bonus;
+
     private String introduction;
 
     @Transient
@@ -30,10 +30,7 @@ public class Player {
     @Transient
     private MultipartFile backGroundFile;
     private String avatarBackGround;
-    @Column(unique = true, nullable = false)
-    private String gmail;
-    @Column(nullable = false)
-    private String password;
+
 
     @ManyToOne
     @JoinColumn(name = "position_id")
@@ -89,13 +86,6 @@ public class Player {
         this.weight = weight;
     }
 
-    public double getBMI() {
-        return BMI;
-    }
-
-    public void setBMI(double BMI) {
-        this.BMI = BMI;
-    }
 
     public double getSalary() {
         return salary;
@@ -105,13 +95,6 @@ public class Player {
         this.salary = salary;
     }
 
-    public double getBonus() {
-        return bonus;
-    }
-
-    public void setBonus(double bonus) {
-        this.bonus = bonus;
-    }
 
     public MultipartFile getAvaFile() {
         return avaFile;
@@ -145,22 +128,8 @@ public class Player {
         this.avatarBackGround = avatarBackGround;
     }
 
-    public String getGmail() {
-        return gmail;
-    }
-
-    public void setGmail(String gmail) {
-        this.gmail = gmail;
-    }
 
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public Position getPosition() {
         return position;

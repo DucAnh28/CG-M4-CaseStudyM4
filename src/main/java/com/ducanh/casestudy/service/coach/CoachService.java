@@ -35,7 +35,6 @@ public class CoachService implements ICoachService {
         coachRepository.deleteById(id);
     }
 
-    @Override
     public void edit(Long id, Coach coach) {
         for (Coach c : coaches) {
             if (id == c.getId()) {
