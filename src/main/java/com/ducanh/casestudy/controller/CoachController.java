@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -54,5 +55,8 @@ public class CoachController {
         coach.setId(coachOptional.get().getId());
         return new ResponseEntity<>(coachService.save(coach), HttpStatus.OK);
     }
-
+    @GetMapping("/home")
+    public ModelAndView home(){
+        return new ModelAndView("/coach/home");
+    }
 }
