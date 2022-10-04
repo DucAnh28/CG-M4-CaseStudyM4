@@ -5,23 +5,24 @@
         <meta charset="UTF-8">
         <meta name="viewport"
               content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-        <link rel="stylesheet" href="../../static/style.css">
-        <link rel="stylesheet" href="../../static/vendor.css">
-        <link rel="stylesheet" href="../../static/css/layerslider.css">
-        <script src="../../static/js/vendor/vendor.js"></script>
-        <script src="../../static/js/vendor/modernizr.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="vendor.css">
+        <link rel="stylesheet" href="css/layerslider.css">
+        <script src="js/vendor/vendor.js"></script>
+        <script src="js/vendor/modernizr.js"></script>
     </div>
 </head>
+
 <body>
 <header class=header-main th:fragment="header">
     <div class=header-upper style="height: 40px">
         <div class=container>
             <div class=row>
                 <ul>
-                    <li><img src="/static/images/sponsor/adidas.png" class="sponsor-img"></li>
-                    <li><img src="/static/images/sponsor/teamview.png" class="sponsor-img"></li>
-                    <li><img src="/static/images/sponsor/tezos.png" class="sponsor-img"></li>
-                    <li><img src="/static/images/sponsor/dxc.png" class="sponsor-img"></li>
+                    <li><img src="images/sponsor/adidas.png" class="sponsor-img"></li>
+                    <li><img src="images/sponsor/teamview.png" class="sponsor-img"></li>
+                    <li><img src="images/sponsor/tezos.png" class="sponsor-img"></li>
+                    <li><img src="images/sponsor/dxc.png" class="sponsor-img"></li>
                 </ul>
             </div>
         </div>
@@ -29,7 +30,7 @@
     <div class="header-lower clearfix" style="top: 36px">
         <div class=container>
             <div class=row><h1 class=logo><a href=/home>
-                    <img src="../../static/images/MU_logo.png" alt=image style="width: 100px;height: 100px"></a></h1>
+                <img src="images/MU_logo.png" alt=image style="width: 100px;height: 100px;"></a></h1>
 
                 <div class=menubar>
                     <nav class=navbar>
@@ -42,7 +43,7 @@
                                 <ul class="nav navbar-nav menu-bar">
                                     <li><a href=/home>Home <span></span> <span></span>
                                         <span></span> <span></span></a></li>
-                                    <li><a href=/about>about <span></span> <span></span> <span></span>
+                                    <li><a href=/home/blog>about <span></span> <span></span> <span></span>
                                         <span></span></a></li>
                                     <li><a>gallery <span></span> <span></span> <span></span> <span></span></a>
                                         <ul class=sub-menu>
@@ -51,7 +52,7 @@
                                             <li><a href=gallery03.html>gallery column 03</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href=blog.html>blog <span></span> <span></span> <span></span>
+                                    <li><a href=/home/blog>blog <span></span> <span></span> <span></span>
                                         <span></span></a></li>
                                     <li><a href=bookTicket.html>book Tickets <span></span> <span></span>
                                         <span></span> <span></span></a></li>
@@ -73,7 +74,7 @@
     </div>
 </header>
 
-<footer class=footer-type01>
+<footer class=footer-type01 th:fragment="footer">
     <div class=container>
         <div class=row>
             <ul class=footer-widget>
@@ -90,26 +91,24 @@
                     <ul class="widget-newsdetails clearfix">
                         <li class=clearfix><a href="/home" class=clearfix>
                             <div class=widget-pic
-                                 style="background:url(static/images/widget/widget01.jpg) center no-repeat"></div>
+                                 style="background:url(/images/widget/widget01.jpg) center no-repeat"></div>
                             <div class=widget-newsinfo><p>Erik Ten Hag</p>
 
                                 <p class=uppercaseheading>22 august ,<span class=red>2022</span></p></div>
                         </a></li>
                         <li class=clearfix><a href="/home" class=clearfix>
                             <div class=widget-pic
-                                 style="background:url(images/widget/widget02.jpg) center no-repeat"></div>
-                            <div class=widget-newsinfo><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                Numquam soluta excepturi.</p>
+                                 style="background:url(/images/widget/widget02.jpg) center no-repeat"></div>
+                            <div class=widget-newsinfo><p>Yolo </p>
 
-                                <p class=uppercaseheading>18 september ,<span class=red>2015</span></p></div>
+                                <p class=uppercaseheading>2 september ,<span class=red>2022</span></p></div>
                         </a></li>
-                        <li class=clearfix><a href="#" class=clearfix>
+                        <li class=clearfix><a href="/home" class=clearfix>
                             <div class=widget-pic
-                                 style="background:url(images/widget/widget03.jpg) center no-repeat"></div>
-                            <div class=widget-newsinfo><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                Numquam soluta excepturi.</p>
+                                 style="background:url(/images/widget/widget03.jpg) center no-repeat"></div>
+                            <div class=widget-newsinfo><p>Yolo 2</p>
 
-                                <p class=uppercaseheading>18 september ,<span class=red>2015</span></p></div>
+                                <p class=uppercaseheading>4 october ,<span class=red>2022</span></p></div>
                         </a></li>
                     </ul>
                 </li>
@@ -117,33 +116,43 @@
                     <ul class=widget_commentDetails>
                         <li><a href=# class=clearfix>
                             <div class=comment-pic>
-                                <div class=columnpic><img src=images/widget/comment01.jpg alt=image></div>
+                                <div class=columnpic><img src=/images/widget/comment1.jpg alt=image></div>
                             </div>
-                            <div class=commentinfo><p class=uppercaseheading>jhon doe</p>
+                            <div class=commentinfo><p class=uppercaseheading>DucAnh</p>
 
-                                <p>18 April ,<span class=red>2015</span></p>
+                                <p>4 October ,<span class=red>2022</span></p>
 
-                                <p>nice and cool</p></div>
+                                <p>Duc Anh Pro</p></div>
                         </a></li>
                         <li><a href=# class=clearfix>
                             <div class=comment-pic>
-                                <div class=columnpic><img src=images/widget/comment02.jpg alt=image></div>
+                                <div class=columnpic><img src=/images/widget/comment1.jpg alt=image></div>
                             </div>
-                            <div class=commentinfo><p class=uppercaseheading>jhon doe</p>
+                            <div class=commentinfo><p class=uppercaseheading>Quang Anh</p>
 
-                                <p>18 April ,<span class=red>2015</span></p>
+                                <p>4 October ,<span class=red>2022</span></p>
 
-                                <p>nice and cool</p></div>
+                                <p>Quang Anh Pro</p></div>
                         </a></li>
                         <li><a href=# class=clearfix>
                             <div class=comment-pic>
-                                <div class=columnpic><img src=images/widget/comment03.jpg alt=image></div>
+                                <div class=columnpic><img src=/images/widget/comment1.jpg alt=image></div>
                             </div>
-                            <div class=commentinfo><p class=uppercaseheading>jhon doe</p>
+                            <div class=commentinfo><p class=uppercaseheading>Phuong Nam</p>
 
-                                <p>18 April ,<span class=red>2015</span></p>
+                                <p>4 October ,<span class=red>2022</span></p>
 
-                                <p>nice and cool</p></div>
+                                <p>Phuong Nam Pro</p></div>
+                        </a></li>
+                        <li><a href=# class=clearfix>
+                            <div class=comment-pic>
+                                <div class=columnpic><img src=/images/widget/comment1.jpg alt=image></div>
+                            </div>
+                            <div class=commentinfo><p class=uppercaseheading>Dinh Tran</p>
+
+                                <p>4 October ,<span class=red>2022</span></p>
+
+                                <p>Dinh Tran Pro</p></div>
                         </a></li>
                     </ul>
                 </li>
@@ -152,21 +161,21 @@
     </div>
     <div class=footer-type02>
         <div class=container>
-            <div class=row><a href=index-2.html class=footer-logo><img src=images/logo.png alt=image></a>
+            <div class=row><a href=/home class=footer-logo><img src=/images/MU_logo.png alt=image"></a>
 
                 <div class=footer-container>
                     <ul class=clearfix>
-                        <li><a href=https://www.facebook.com/templatespoint.net class=bigsocial-link><i
+                        <li><a href=https://www.facebook.com class=bigsocial-link><i
                                 class="fa fa-facebook"></i></a></li>
-                        <li><a href=https://twitter.com/ class=bigsocial-link target=_blank><i
+                        <li><a href=https://twitter.com class=bigsocial-link target=_blank><i
                                 class="fa fa-twitter"></i></a></li>
-                        <li><a href=https://www.behance.net/ class=bigsocial-link target=_blank><i
+                        <li><a href=https://www.behance.net class=bigsocial-link target=_blank><i
                                 class="fa fa-behance"></i></a></li>
                     </ul>
-                    <p><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></p></div>
-                <div class=footer-appstore>
-                    <figure><a href=#><img src=images/appstore/apple.png alt=image></a></figure>
-                    <figure><a href=#><img src=images/appstore/google.png alt=image></a></figure>
+                    <div class=footer-appstore>
+                        <figure><a href=#><img src=/images/appstore/apple.png alt=image></a></figure>
+                        <figure><a href=#><img src=/images/appstore/google.png alt=image></a></figure>
+                    </div>
                 </div>
             </div>
         </div>
