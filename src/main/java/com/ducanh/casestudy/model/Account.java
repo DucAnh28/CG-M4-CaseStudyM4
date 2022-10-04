@@ -21,9 +21,6 @@ public class Account {
     @Column(unique = true)
     private String phone;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Blog blog;
-
     public Account() {
     }
 
@@ -77,11 +74,4 @@ public class Account {
         this.phone = phone;
     }
 
-    public Blog getBlog() {
-        return blog;
-    }
-
-    public void setBlog(Blog blog) {
-        this.blog = blog;
-    }
 }
