@@ -1,24 +1,21 @@
-package com.ducanh.casestudy.service.appuser;
+package com.ducanh.casestudy.service.jwt;
 
 
 import com.ducanh.casestudy.model.AppUser;
-import com.ducanh.casestudy.repo.AppUserRepo;
+import com.ducanh.casestudy.repository.jwt.IAppUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class AppUserService implements IAppUserService, UserDetailsService {
     @Autowired
-    private AppUserRepo appUserRepo;
+    private IAppUserRepo appUserRepo;
 
     @Override
     public Iterable<AppUser> findAll() {
@@ -43,16 +40,11 @@ public class AppUserService implements IAppUserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser appUser = appUserRepo.findByName(username);
+        return new User(appUser.getName(), appUser.getPassword(), appUser.getAppRole());
+    }
 
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        grantedAuthorities.add(appUser.getAppRole());
-
-        UserDetails userDetails = new User(
-                appUser.getName(),
-                appUser.getPassword(),
-                grantedAuthorities
-        );
-
-        return userDetails;
+    @Override
+    public AppUser findUserByName(String username) {
+        return appUserRepo.findByName(username);
     }
 }

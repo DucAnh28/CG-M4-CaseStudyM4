@@ -15,8 +15,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/home")
 public class HomeController {
-    @Autowired
-    private IPlayerService playerService;
+//    @Autowired
+//    private IPlayerService playerService;
     @Autowired
     private ICoachService coachService;
 
