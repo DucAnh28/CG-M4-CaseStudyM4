@@ -24,8 +24,8 @@ public class CoachRestController {
     @Autowired
     ServletContext application;
 
-    @Value("${upload_file_avatar}")
-    private String upload_file_avatar;
+//    @Value("${upload_file_avatar}")
+//    private String upload_file_avatar;
 
     @GetMapping
     public ResponseEntity<Iterable<Coach>> displayAllCoach() {
