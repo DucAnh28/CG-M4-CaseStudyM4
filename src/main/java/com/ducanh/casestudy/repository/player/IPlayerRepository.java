@@ -14,11 +14,8 @@ public interface IPlayerRepository extends PagingAndSortingRepository<Player, Lo
 //    @Query(value = "select * from player as p order by p.id desc limit 1;", nativeQuery = true)
 //    Player findPlayerLast();
 
-//    @Query(value = "select * from player as p where p.gmail = ?;", nativeQuery = true)
-//    Optional<Player> findByGmail(String username);
-
     Iterable<Player> findAllByNameContaining(String name);
-//
+
 //    @Query(value = "select sum(p.salary) from player as p ;", nativeQuery = true)
 //    Double totalPlayerSalary();
 
