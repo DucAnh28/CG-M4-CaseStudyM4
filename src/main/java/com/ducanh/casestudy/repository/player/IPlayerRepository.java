@@ -1,4 +1,4 @@
-package com.ducanh.casestudy.repository;
+package com.ducanh.casestudy.repository.player;
 
 import com.ducanh.casestudy.model.Player;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,14 +13,14 @@ public interface IPlayerRepository extends JpaRepository<Player, Long> {
     @Query(value = "select * from player as p order by p.id desc limit 1;", nativeQuery = true)
     Player findPlayerLast();
 
-    @Query(value = "select * from player as p where p.gmail = ?;", nativeQuery = true)
-    Optional<Player> findByGmail(String username);
+//    @Query(value = "select * from player as p where p.gmail = ?;", nativeQuery = true)
+//    Optional<Player> findByGmail(String username);
 
     Iterable<Player> findAllByNameContaining(String name);
 
     @Query(value = "select sum(p.salary) from player as p ;", nativeQuery = true)
     Double totalPlayerSalary();
 
-    @Query(value = "select sum(p.bonus) from player as p ;", nativeQuery = true)
-    Double totalPlayerBonus();
+//    @Query(value = "select sum(p.bonus) from player as p ;", nativeQuery = true)
+//    Double totalPlayerBonus();
 }

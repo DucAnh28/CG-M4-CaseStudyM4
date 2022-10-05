@@ -9,25 +9,21 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletContext;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/coach")
-public class CoachController {
+public class CoachRestController {
     @Autowired
     private ICoachService coachService;
     @Autowired
     ServletContext application;
 
-<<<<<<< HEAD
     @Value("${upload_file_avatar}")
     private String upload_file_avatar;
 
@@ -44,12 +40,12 @@ public class CoachController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Coach> findCoachById(@PathVariable Long id) {
-    Optional<Coach> coachOptional = coachService.findById(id);
-    if (!coachOptional.isPresent()) {
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        Optional<Coach> coachOptional = coachService.findById(id);
+        if (!coachOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(coachOptional.get(), HttpStatus.OK);
     }
-    return new ResponseEntity<>(coachOptional.get(), HttpStatus.OK);
-}
 
     @PostMapping
     public ResponseEntity<Coach> addCoach(@RequestBody Coach coach ) {
@@ -84,18 +80,4 @@ public class CoachController {
     }
 
 
-=======
-    @GetMapping("/home")
-    public String homeCoach(){
-        return "/coach/home";
-    }
-
-//    @GetMapping("/page")
-//    public ModelAndView find(@PageableDefault(value = 2) Pageable pageable){
-//        ModelAndView modelAndView =new ModelAndView("coach/home");
-//        Page<Coach> coaches=coachService.findAllPage(pageable);
-//        modelAndView.addObject("coach",coaches);
-//        return modelAndView;
-//    }
->>>>>>> master
 }
