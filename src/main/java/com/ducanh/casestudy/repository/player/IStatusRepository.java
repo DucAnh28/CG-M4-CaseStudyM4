@@ -1,4 +1,4 @@
-package com.ducanh.casestudy.repository;
+package com.ducanh.casestudy.repository.player;
 
 import com.ducanh.casestudy.model.Status;
 import org.springframework.data.repository.CrudRepository;

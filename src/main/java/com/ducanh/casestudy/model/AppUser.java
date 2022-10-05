@@ -1,6 +1,11 @@
 package com.ducanh.casestudy.model;
+import lombok.Data;
+
 import javax.persistence.*;
+import java.util.Set;
+
 @Entity
+@Data
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -10,21 +15,21 @@ public class AppUser {
 
     private String password;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private AppRole appRole;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<AppRole> appRole;
 
-    public AppUser(Long id, String name, String password, AppRole appRole) {
+    public AppUser(Long id, String name, String password, Set<AppRole> appRole) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.appRole = appRole;
     }
 
-    public AppRole getAppRole() {
+    public Set<AppRole> getAppRole() {
         return appRole;
     }
 
-    public void setAppRole(AppRole appRole) {
+    public void setAppRole(Set<AppRole> appRole) {
         this.appRole = appRole;
     }
 
@@ -60,4 +65,5 @@ public class AppUser {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

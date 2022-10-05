@@ -1,4 +1,4 @@
-package com.ducanh.casestudy.repository;
+package com.ducanh.casestudy.repository.player;
 
 import com.ducanh.casestudy.model.Player;
 import org.springframework.data.jpa.repository.JpaRepository;
