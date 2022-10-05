@@ -26,6 +26,7 @@ public class Player {
 
     @Transient
     private MultipartFile avaFile;
+
     private String avatarURL;
 
     @Transient
