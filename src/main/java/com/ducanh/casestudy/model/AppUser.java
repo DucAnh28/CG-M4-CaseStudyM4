@@ -10,7 +10,7 @@ public class AppUser {
 
     private String password;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private AppRole appRole;
 
     public AppUser(Long id, String name, String password, AppRole appRole) {
