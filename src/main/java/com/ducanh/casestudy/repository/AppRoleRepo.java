@@ -1,4 +1,4 @@
-package com.ducanh.casestudy.repo;
+package com.ducanh.casestudy.repository;
 
 
 import com.ducanh.casestudy.model.AppRole;

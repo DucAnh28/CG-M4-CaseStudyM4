@@ -29,14 +29,9 @@ public class PlayerController {
 
 
 
-//    @Autowired
-//    private IRoleService roleService;
-//
+
     @Autowired
     private IAccountRepository accountRepository;
-//
-//    @Autowired
-//    private IAccountService accountService;
 
     @Value("${upload_file_avatar}")
     private String upload_file_avatar;

@@ -2,7 +2,7 @@ package com.ducanh.casestudy.service.appuser;
 
 
 import com.ducanh.casestudy.model.AppUser;
-import com.ducanh.casestudy.repo.AppUserRepo;
+import com.ducanh.casestudy.repository.AppUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
