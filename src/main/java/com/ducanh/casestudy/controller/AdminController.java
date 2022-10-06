@@ -31,4 +31,9 @@ public class AdminController {
         Iterable<ICountRole> countRoles = appUserService.getRoleNumber();
         return new ResponseEntity<>(countRoles,HttpStatus.OK);
     }
+
+    @GetMapping("/end")
+    public String end(){
+        return "end";
+    }
 }
