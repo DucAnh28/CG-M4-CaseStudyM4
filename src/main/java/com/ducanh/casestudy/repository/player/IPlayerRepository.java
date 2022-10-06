@@ -21,4 +21,7 @@ public interface IPlayerRepository extends PagingAndSortingRepository<Player, Lo
 
 //    @Query(value = "select sum(p.bonus) from player as p ;", nativeQuery = true)
 //    Double totalPlayerBonus();
+    @Query(value = "select sum(p.bonus) from player as p ;", nativeQuery = true)
+    Double totalPlayerBonus();
+
 }
