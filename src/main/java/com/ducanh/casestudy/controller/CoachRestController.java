@@ -80,8 +80,8 @@ public class CoachRestController {
     }
 
     @GetMapping("/role")
-    public ResponseEntity<Optional<Coach>> findCoachByRole(@RequestBody String role){
-        Optional<Coach> coach1 = coachService.findCoachByRole(role);
+    public ResponseEntity<Iterable<Coach>> findCoachByRole(@RequestParam String role){
+        Iterable<Coach> coach1 = coachService.findCoachByRole(role);
         return new ResponseEntity<>(coach1,HttpStatus.OK);
     }
 }

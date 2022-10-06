@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface ICoachRepository extends PagingAndSortingRepository<Coach,Long> {
-    public Optional<Coach> findCoachByRole(String role);
+    public Iterable<Coach> findCoachByRole(String role);
 }

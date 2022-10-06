@@ -41,7 +41,7 @@ public class CoachService implements ICoachService {
     }
 
     @Override
-    public Optional<Coach> findCoachByRole(String role) {
+    public Iterable<Coach> findCoachByRole(String role) {
         return coachRepository.findCoachByRole(role);
     }
 }
