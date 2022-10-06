@@ -18,7 +18,7 @@ public interface IPlayerService extends IGeneralService<Player> {
 
     Iterable<Status> findAllStatus();
 
-    Optional<Player> findByGmail(String mail);
+
 
     Iterable<Player> findAllByName(String name);
 
