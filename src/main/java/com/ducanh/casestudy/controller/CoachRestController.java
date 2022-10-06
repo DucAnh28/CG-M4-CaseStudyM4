@@ -32,10 +32,11 @@ public class CoachRestController {
         List<Coach> coaches = (List<Coach>) coachService.findAll();
         return new ResponseEntity<>(coaches, HttpStatus.OK);
     }
+
     @GetMapping("/page")
-    public ResponseEntity displayCoachPage  (@PageableDefault(value = 2) Pageable pageable){
-        Page<Coach> coaches=coachService.findAllPage(pageable);
-        return new ResponseEntity<>(coaches,HttpStatus.OK) ;
+    public ResponseEntity displayCoachPage(@PageableDefault(value = 2) Pageable pageable) {
+        Page<Coach> coaches = coachService.findAllPage(pageable);
+        return new ResponseEntity<>(coaches, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -48,7 +49,7 @@ public class CoachRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Coach> addCoach(@RequestBody Coach coach ) {
+    public ResponseEntity<Coach> addCoach(@RequestBody Coach coach) {
 //    String avaFileName=coach.getAvaFile().getOriginalFilename();
 //    try {
 //        FileCopyUtils.copy(coach.getAvaFile().getBytes(),new File(upload_file_avatar+avaFileName));
@@ -69,6 +70,7 @@ public class CoachRestController {
         coachService.remove(id);
         return new ResponseEntity<>(coachDelete.get(), HttpStatus.NO_CONTENT);
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<Coach> editCoach(@PathVariable Long id, @RequestBody Coach coach) {
         Optional<Coach> coachOptional = coachService.findById(id);
@@ -78,6 +80,5 @@ public class CoachRestController {
         coach.setId(coachOptional.get().getId());
         return new ResponseEntity<>(coachService.save(coach), HttpStatus.OK);
     }
-
 
 }

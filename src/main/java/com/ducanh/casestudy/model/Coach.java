@@ -19,7 +19,11 @@ public class Coach {
     private MultipartFile avaFile;
     private String avatarURL;
 
-    public Coach(String name, String country, String achievement, double salary, String role, MultipartFile avaFile, String avatarURL) {
+    @ManyToOne
+    @JoinColumn(name = "appUser_id")
+    private AppUser appUser;
+
+    public Coach(String name, String country, String achievement, double salary, String role, MultipartFile avaFile, String avatarURL, AppUser appUser) {
         this.name = name;
         this.country = country;
         this.achievement = achievement;
@@ -27,6 +31,7 @@ public class Coach {
         this.role = role;
         this.avaFile = avaFile;
         this.avatarURL = avatarURL;
+        this.appUser = appUser;
     }
 
     public Coach() {
@@ -96,4 +101,11 @@ public class Coach {
         this.role = role;
     }
 
+    public AppUser getAppUser() {
+        return appUser;
+    }
+
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
+    }
 }
