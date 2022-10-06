@@ -1,7 +1,7 @@
 package com.ducanh.casestudy.controller;
 
 import com.ducanh.casestudy.model.AppUser;
-import com.ducanh.casestudy.service.jwt.IAppUserService;
+import com.ducanh.casestudy.service.appuser.IAppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

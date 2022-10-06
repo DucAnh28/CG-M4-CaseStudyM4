@@ -1,4 +1,4 @@
-package com.ducanh.casestudy.service.jwt;
+package com.ducanh.casestudy.service.appuser;
 
 
 import com.ducanh.casestudy.model.AppUser;
@@ -48,3 +48,4 @@ public class AppUserService implements IAppUserService, UserDetailsService {
         return appUserRepo.findByName(username);
     }
 }
+
