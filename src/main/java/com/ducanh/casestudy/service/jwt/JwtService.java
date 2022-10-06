@@ -1,5 +1,6 @@
 package com.ducanh.casestudy.service.jwt;
 
+import com.ducanh.casestudy.service.appuser.IAppUserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;

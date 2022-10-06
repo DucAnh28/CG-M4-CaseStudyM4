@@ -3,7 +3,7 @@ package com.ducanh.casestudy.controller;
 import com.ducanh.casestudy.model.AppRole;
 import com.ducanh.casestudy.model.AppUser;
 import com.ducanh.casestudy.model.dto.UserToken;
-import com.ducanh.casestudy.service.jwt.IAppUserService;
+import com.ducanh.casestudy.service.appuser.IAppUserService;
 import com.ducanh.casestudy.service.jwt.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

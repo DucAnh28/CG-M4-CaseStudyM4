@@ -2,8 +2,7 @@ package com.ducanh.casestudy.controller;
 
 import com.ducanh.casestudy.model.*;
 import com.ducanh.casestudy.repository.jwt.IAppUserRepo;
-import com.ducanh.casestudy.repository.player.IPlayerRepository;
-import com.ducanh.casestudy.service.jwt.IAppUserService;
+import com.ducanh.casestudy.service.appuser.IAppUserService;
 
 import com.ducanh.casestudy.service.player.IPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 @RestController
 @CrossOrigin("*")
