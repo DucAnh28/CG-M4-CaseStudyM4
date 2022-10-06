@@ -1,7 +1,7 @@
 package com.ducanh.casestudy.config;
 
 import com.ducanh.casestudy.config.filter.JwtAuthenticationFilter;
-import com.ducanh.casestudy.service.jwt.IAppUserService;
+import com.ducanh.casestudy.service.appuser.IAppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
