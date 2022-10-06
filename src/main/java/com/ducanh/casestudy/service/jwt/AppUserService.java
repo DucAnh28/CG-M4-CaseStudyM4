@@ -2,11 +2,8 @@ package com.ducanh.casestudy.service.jwt;
 
 
 import com.ducanh.casestudy.model.AppUser;
-<<<<<<< HEAD:src/main/java/com/ducanh/casestudy/service/appuser/AppUserService.java
-import com.ducanh.casestudy.repository.AppUserRepo;
-=======
+
 import com.ducanh.casestudy.repository.jwt.IAppUserRepo;
->>>>>>> master:src/main/java/com/ducanh/casestudy/service/jwt/AppUserService.java
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
