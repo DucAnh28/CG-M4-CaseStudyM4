@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface ICoachRepository extends PagingAndSortingRepository<Coach,Long> {
-
+public interface ICoachRepository extends PagingAndSortingRepository<Coach, Long> {
+    Iterable<Coach> findCoachByRole(String role);
 }

@@ -40,6 +40,8 @@ public class CoachService implements ICoachService {
         return coachRepository.findAll(pageable);
     }
 
-
-
+    @Override
+    public Iterable<Coach> findCoachByRole(String role) {
+        return coachRepository.findCoachByRole(role);
+    }
 }
