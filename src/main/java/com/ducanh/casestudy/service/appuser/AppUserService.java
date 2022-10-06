@@ -2,6 +2,7 @@ package com.ducanh.casestudy.service.appuser;
 
 
 import com.ducanh.casestudy.model.AppUser;
+import com.ducanh.casestudy.model.dto.ICountRole;
 import com.ducanh.casestudy.repository.jwt.IAppUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -41,6 +42,11 @@ public class AppUserService implements IAppUserService, UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser appUser = appUserRepo.findByName(username);
         return new User(appUser.getName(), appUser.getPassword(), appUser.getAppRole());
+    }
+
+    @Override
+    public Iterable<ICountRole> getRoleNumber() {
+        return appUserRepo.getRoleNumber();
     }
 
     @Override

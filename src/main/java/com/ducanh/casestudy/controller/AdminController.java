@@ -1,6 +1,7 @@
 package com.ducanh.casestudy.controller;
 
 import com.ducanh.casestudy.model.AppUser;
+import com.ducanh.casestudy.model.dto.ICountRole;
 import com.ducanh.casestudy.service.appuser.IAppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,5 +25,10 @@ public class AdminController {
     public ResponseEntity<Iterable<AppUser>> getAllUser(){
         List<AppUser> appUsers = (List<AppUser>) appUserService.findAll();
         return new ResponseEntity<>(appUsers, HttpStatus.OK);
+    }
+    @GetMapping("/countRole")
+    public ResponseEntity<Iterable<ICountRole>> getCountRole(){
+        Iterable<ICountRole> countRoles = appUserService.getRoleNumber();
+        return new ResponseEntity<>(countRoles,HttpStatus.OK);
     }
 }

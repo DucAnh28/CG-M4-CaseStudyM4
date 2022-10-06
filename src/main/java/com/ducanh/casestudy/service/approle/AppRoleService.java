@@ -1,6 +1,7 @@
 package com.ducanh.casestudy.service.approle;
 
 import com.ducanh.casestudy.model.AppRole;
+import com.ducanh.casestudy.model.dto.ICountRole;
 import com.ducanh.casestudy.repository.jwt.IAppRoleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 
