@@ -20,7 +20,7 @@ import java.util.Set;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/player")
+//@RequestMapping("")
 public class PlayerController {
 
 
@@ -52,7 +52,7 @@ public class PlayerController {
     }
 
     @GetMapping("/pagePlayer")
-    public ResponseEntity<Page<Player>> showPagePlayer(@PageableDefault(value = 8) Pageable pageable) {
+    public ResponseEntity<Page<Player>> showPagePlayer(@PageableDefault(value = 5) Pageable pageable) {
         Page<Player> player_page = playerService.findPage(pageable);
         if (!player_page.iterator().hasNext()) {
             new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -140,10 +140,13 @@ public class PlayerController {
     }
 
 
-//    @GetMapping("/totalPlayerSalary")
-//    public ResponseEntity<?> totalPlayerSalary(){
-//        Double totalCoachSalary = playerRepository.totalPlayerSalary();
-//        return new ResponseEntity<>(totalCoachSalary, HttpStatus.OK);
+//    @GetMapping ("total-player")
+//    public ResponseEntity<Iterable<Player>> totalPlayer(){
+//        Iterable<Player> players = playerService.findAll();
+//        if (!players.iterator().hasNext()){
+//            new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//        return new ResponseEntity<>(players,HttpStatus.OK);
 //    }
 
 

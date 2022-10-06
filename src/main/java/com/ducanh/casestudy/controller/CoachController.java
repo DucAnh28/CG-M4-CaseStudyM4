@@ -23,7 +23,7 @@ public class CoachController {
 
     @GetMapping("/page")
     public ModelAndView find(@PageableDefault(value = 2) Pageable pageable){
-        ModelAndView modelAndView =new ModelAndView("coach/home");
+        ModelAndView modelAndView =new ModelAndView("/coach");
         Page<Coach> coaches=coachService.findAllPage(pageable);
         modelAndView.addObject("coach",coaches);
         return modelAndView;
