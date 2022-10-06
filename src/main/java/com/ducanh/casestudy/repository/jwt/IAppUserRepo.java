@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:src/main/java/com/ducanh/casestudy/repository/AppUserRepo.java
-package com.ducanh.casestudy.repository;
-========
 package com.ducanh.casestudy.repository.jwt;
->>>>>>>> master:src/main/java/com/ducanh/casestudy/repository/jwt/IAppUserRepo.java
 
 
 import com.ducanh.casestudy.model.AppUser;

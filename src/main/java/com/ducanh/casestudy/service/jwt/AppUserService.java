@@ -52,3 +52,4 @@ public class AppUserService implements IAppUserService, UserDetailsService {
         return appUserRepo.findByName(username);
     }
 }
+
