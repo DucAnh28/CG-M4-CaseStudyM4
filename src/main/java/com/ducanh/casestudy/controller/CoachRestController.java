@@ -79,5 +79,9 @@ public class CoachRestController {
         return new ResponseEntity<>(coachService.save(coach), HttpStatus.OK);
     }
 
-
+    @GetMapping("/role")
+    public ResponseEntity<Optional<Coach>> findCoachByRole(@RequestBody String role){
+        Optional<Coach> coach1 = coachService.findCoachByRole(role);
+        return new ResponseEntity<>(coach1,HttpStatus.OK);
+    }
 }
