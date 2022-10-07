@@ -4,9 +4,11 @@ import com.ducanh.casestudy.model.Coach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.ducanh.casestudy.repository.coach.ICoachRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -44,4 +46,14 @@ public class CoachService implements ICoachService {
     public Iterable<Coach> findCoachByRole(String role) {
         return coachRepository.findCoachByRole(role);
     }
+
+    @Override
+    public Iterable<Coach> findAllCoachSalaryAsc() {
+        return coachRepository.findAllCoachSalaryAsc();
+    }
+//    @Override
+//    public Iterable<Coach> findAllCoachSalaryDesc() {
+//        return coachRepository.findAllCoachSalaryDesc();
+//    }
+
 }

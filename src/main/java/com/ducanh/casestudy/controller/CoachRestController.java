@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletContext;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,14 +52,6 @@ public class CoachRestController {
 
     @PostMapping
     public ResponseEntity<Coach> addCoach(@RequestBody Coach coach) {
-//    String avaFileName=coach.getAvaFile().getOriginalFilename();
-//    try {
-//        FileCopyUtils.copy(coach.getAvaFile().getBytes(),new File(upload_file_avatar+avaFileName));
-//        coach.setAvatarURL("image/Avatar"+avaFileName);
-//    } catch (IOException ex) {
-//        coach.setAvatarURL("image/Error");
-//        ex.printStackTrace();
-//    }
         return new ResponseEntity<>(coachService.save(coach), HttpStatus.CREATED);
     }
 
@@ -85,5 +79,22 @@ public class CoachRestController {
     public ResponseEntity<Iterable<Coach>> findCoachByRole(@RequestParam String role){
         Iterable<Coach> coach1 = coachService.findCoachByRole(role);
         return new ResponseEntity<>(coach1,HttpStatus.OK);
+    }
+
+//    @PostMapping("saveOrUpdate")
+//    public String saveOrUpdate(@ModelAttribute("coach") Coach coach){
+//        if(!coach.getAvaFile().isEmpty()){
+//            String path=application.getRealPath("/");
+//        try {
+//            coach.setAvatarURL(coach.getAvaFile().getOriginalFilename());
+//            String filePath =path+"/image/"+coach.getAvatarURL();
+//            coach.getAvaFile().transferTo(Path.class));
+//        }
+//    }
+//    }
+    @GetMapping("/sort")
+    public ResponseEntity<Iterable<Coach>> sortCoachBySalary(){
+        Iterable<Coach> coaches=coachService.findAllCoachSalaryAsc();
+        return new ResponseEntity<>(coaches,HttpStatus.OK);
     }
 }
