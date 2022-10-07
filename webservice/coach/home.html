@@ -1,15 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript">
     <title>Coach</title>
 
-    </script>
 
 </head>
 <body>
+<input id="id">
+<input id="name">
+<input id="country">
+<input id="achievement">
+<input id="salary">
+<input id="role">
+<input id="image">
+<button onclick="addNewCoach(this)">Add</button>
+<button onclick="updateCoach(this)">Update</button>
+
+<input type="submit" id="search" value="Search" onclick="searchCoach()">
+
 <table>
     <tr>
         <td>Id</td>
@@ -21,22 +31,17 @@
         <td>Image</td>
     </tr>
 
-    <tr th:each="c:${coach}" >
-        <td th:text="${c.id}"></td>
-        <td th:text="${c.name}"></td>
-        <td th:text="${c.country}"></td>
-        <td th:text="${c.achievement}"></td>
-        <td th:text="${c.salary}"></td>
-        <td th:text="${c.role}"></td>
-<!--        <td th:multiple="${c.image}"></td>-->
+    <tr id="list"><br/>
     </tr>
 </table>
-<div>
-    <a th:if="${coach.hasPrevious()}" th:href="@{'/coach/page'(page=${coach.number-1})}">Trang trước</a>
-    <span th:text="${coach.number+1}"></span>/<span th:text="${coach.totalPages}"></span>
-    <a th:if="${coach.hasNext()}" th:href="@{'/coach/page'(page =${coach.number+1})}">Trang sau</a>
+<!--<div>-->
+<!--    <a th:if="${coach.hasPrevious()}" th:href="@{'/coach/page'(page=${coach.number-1})}">Trang trước</a>-->
+<!--    <span th:text="${coach.number+1}"></span>/<span th:text="${coach.totalPages}"></span>-->
+<!--    <a th:if="${coach.hasNext()}" th:href="@{'/coach/page'(page =${coach.number+1})}">Trang sau</a>-->
 
-</div>
+<!--</div>-->
+
+<script src="home.js"></script>
 </body>
 
 </html>

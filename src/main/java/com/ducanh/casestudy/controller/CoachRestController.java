@@ -20,6 +20,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/coach")
+@CrossOrigin("*")
 public class CoachRestController {
     @Autowired
     private ICoachService coachService;
@@ -92,9 +93,14 @@ public class CoachRestController {
 //        }
 //    }
 //    }
-    @GetMapping("/sort")
-    public ResponseEntity<Iterable<Coach>> sortCoachBySalary(){
-        Iterable<Coach> coaches=coachService.findAllCoachSalaryAsc();
+    @GetMapping("/sortAsc")
+    public ResponseEntity<Iterable<Coach>> sortCoachBySalaryAsc(){
+        Iterable<Coach> coaches=coachService.sortCoachSalaryAsc();
+        return new ResponseEntity<>(coaches,HttpStatus.OK);
+    }
+    @GetMapping("/sortDesc")
+    public ResponseEntity<Iterable<Coach>> sortCoachBySalaryDesc(){
+        Iterable<Coach> coaches=coachService.sortCoachSalaryDesc();
         return new ResponseEntity<>(coaches,HttpStatus.OK);
     }
 }
