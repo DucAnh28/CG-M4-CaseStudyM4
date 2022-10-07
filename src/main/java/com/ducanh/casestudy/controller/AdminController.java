@@ -6,6 +6,7 @@ import com.ducanh.casestudy.service.appuser.IAppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,5 +31,10 @@ public class AdminController {
     public ResponseEntity<Iterable<ICountRole>> getCountRole(){
         Iterable<ICountRole> countRoles = appUserService.getRoleNumber();
         return new ResponseEntity<>(countRoles,HttpStatus.OK);
+    }
+
+    @GetMapping("/end")
+    public String end(){
+        return "end";
     }
 }

@@ -5,5 +5,5 @@ import com.ducanh.casestudy.model.AppRole;
 import org.springframework.data.repository.CrudRepository;
 
 public interface IAppRoleRepo extends CrudRepository<AppRole, Long> {
-    public AppRole findByName(String name);
+    AppRole findByName(String name);
 }
