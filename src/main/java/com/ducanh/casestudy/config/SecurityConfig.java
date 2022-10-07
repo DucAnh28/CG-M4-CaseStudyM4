@@ -52,6 +52,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/login", "/register", "/home/**").permitAll().and().authorizeRequests().antMatchers("/admin/**").permitAll().and().authorizeRequests().antMatchers("/coach/**").permitAll().and().authorizeRequests().antMatchers("/player/**").permitAll().and().csrf().disable();
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class).exceptionHandling();
+        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling();
+//        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
+
         http.cors().configurationSource(c -> {
             CorsConfiguration configuration = new CorsConfiguration();
             configuration.applyPermitDefaultValues();
@@ -65,5 +69,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             return configuration;
         });
     }
+
 
 }

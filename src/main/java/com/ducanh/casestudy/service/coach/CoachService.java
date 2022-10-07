@@ -1,6 +1,7 @@
 package com.ducanh.casestudy.service.coach;
 
 import com.ducanh.casestudy.model.Coach;
+import com.ducanh.casestudy.model.dto.ICountRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,12 +49,16 @@ public class CoachService implements ICoachService {
     }
 
     @Override
-    public Iterable<Coach> findAllCoachSalaryAsc() {
-        return coachRepository.findAllCoachSalaryAsc();
+    public Iterable<Coach> sortCoachSalaryAsc() {
+//        Iterable<Coach> coaches = coachRepository.findAll();
+        //sap xep;
+        return coachRepository.sortCoachSalaryAsc();
     }
-//    @Override
-//    public Iterable<Coach> findAllCoachSalaryDesc() {
-//        return coachRepository.findAllCoachSalaryDesc();
-//    }
+
+    @Override
+    public Iterable<Coach> sortCoachSalaryDesc() {
+        return coachRepository.sortCoachSalaryDesc();
+    }
+
 
 }

@@ -22,9 +22,6 @@ public class Coach {
     private MultipartFile avaFile;
     private String avatarURL;
 
-    @ManyToOne
-    @JoinColumn(name = "appUser_id")
-    private AppUser appUser;
 
     public Coach(String name, String country, String achievement, double salary, String role, MultipartFile avaFile, String avatarURL, AppUser appUser) {
         this.name = name;
@@ -52,13 +49,7 @@ public class Coach {
     public Coach() {
     }
 
-    public AppUser getAppUser() {
-        return appUser;
-    }
 
-    public void setAppUser(AppUser appUser) {
-        this.appUser = appUser;
-    }
 
     public MultipartFile getAvaFile() {
         return avaFile;
