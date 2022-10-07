@@ -69,6 +69,7 @@ function displayStatus(status) {
 }
 
 function displayEditPlayer(player) {
+
     $('#name-player-edit').val(player.name);
     $('#country-player-edit').val(player.country);
     $('#height-player-edit').val(player.height);
@@ -82,6 +83,7 @@ function displayEditPlayer(player) {
 
 function displayBGPlayer(player) {
     return `<img class="img-fluid" src="${player.avatarBackGround}" alt="Card image cap" width="800px" height="500px">`;
+    // alt dùng để hiển thị khi ảnh không hiển thị
 }
 
 function displayAvaPlayer(player) {
@@ -91,22 +93,7 @@ function displayAvaPlayer(player) {
 }
 
 function displayValuePlayer(player) {
-    return `<tr>
-                <th>
-                  <strong>Email</strong>
-                </th>
-                <td>
-                  <h6>${player.gmail}</h6>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                  <strong>Date of Birth</strong>
-                </th>
-                <td>
-                  <h6>${player.birthday}</h6>
-                </td>
-            </tr>
+    return `
             <tr>
                 <th>
                   <strong>Country</strong>
@@ -131,22 +118,15 @@ function displayValuePlayer(player) {
                   <h6>${player.weight}</h6>
                 </td>
             </tr>
-            <tr>
-                <th>
-                  <strong>BMI</strong>
-                </th>
-                <td>
-                  <h6>${player.BMI}</h6>
-                </td>
-            </tr>
+          
             <tr>
                 <th>
                    <strong>Salary</strong>
-                   <small class="badge float-right badge-light">bonus</small>
+<!--                   // strong dùng để in đậm-->
+<!--                   <small class="badge float-right badge-light">bonus</small>-->
                 </th>
                 <td>
                     <strong>$ ${player.salary}</strong>
-                    <span class="badge float-right badge-success">$ ${player.bonus}</span>
                 </td>
             </tr>
             <tr>
@@ -191,40 +171,37 @@ function findPlayerById() {
 
 findPlayerById();
 
-function editPlayer() {
+function editPlayer()
+{
     let data = new FormData();
+    // let data dùng để lưu dữ liệu
+    // new FormData() dùng để lưu dữ liệu dạng file
     let name = $('#name-player-edit').val();
-    let gmail = $('#gmail-player-edit').val();
-    let birthday = $('#birthday-player-edit').val();
+    // let name = $('#name-player-edit') dùng để lấy giá trị của id
+    // .val() dùng để lấy giá trị của id
     let country = $('#country-player-edit').val();
     let height = $('#height-player-edit').val();
     let weight = $('#weight-player-edit').val();
     let salary = $('#salary-player-edit').val();
-    let bonus = $('#bonus-player-edit').val();
     let introduction = $('#introduction-player-edit').val();
     let position = $('#position-player-edit').val();
     let performance = $('#performance-player-edit').val();
     let status = $('#status-player-edit').val();
-    let password = $('#password-player-edit').val();
-    if (gmail === '') {
-        document.getElementById("card-edit-player").innerHTML = "Gmail cannot be blank!";
-        return false;
-    }
-    if (password === '') {
-        document.getElementById("card-edit-player").innerHTML = "Password cannot be blank!";
-        return false;
-    }
+    // if (gmail === '') {
+    //     document.getElementById("card-edit-player").innerHTML = "Gmail cannot be blank!";
+    //     return false;
+    // }
+    // if (password === '') {
+    //     document.getElementById("card-edit-player").innerHTML = "Password cannot be blank!";
+    //     return false;
+    // }
     let newPlayer = {
         name: name,
-        gmail: gmail,
-        birthday: birthday,
         country: country,
         height: height,
         weight: weight,
         salary: salary,
-        bonus: bonus,
         introduction: introduction,
-        password: password,
         position: {
             id: position,
         },
@@ -236,10 +213,17 @@ function editPlayer() {
         }
     };
     data.append("player", new Blob([JSON.stringify(newPlayer)], {type: 'application/json'}))
+    // append dùng để thêm dữ liệu
+    // new Blob([JSON.stringify(newPlayer)], {type: 'application/json'}) dùng để chuyển dữ liệu thành dạng json
+    // data.append("player", new Blob([JSON.stringify(newPlayer)], {type: 'application/json'})) dùng để thêm dữ liệu
     if ($("#avaFile-player-edit")[0].files[0] !== undefined) {
         data.append("avaFile-player", $('#avaFile-player-edit')[0].files[0]);
     }
-    if ($("#backGroundFile-player-edit")[0].files[0] !== undefined) {
+    if ($("#backGroundFile-player-edit")[0].files[0] !== undefined)
+    // $("#backGroundFile-player-edit")[0].files[0] dùng để lấy giá trị của id
+        // .files[0] dùng để lấy giá trị của id
+        // !== undefined dùng để kiểm tra giá trị của id có phải là undefined hay không
+    {
         data.append("backGroundFile-player", $('#backGroundFile-player-edit')[0].files[0]);
     }
     if (confirm("Are you sure you want to edit event ?")) {
