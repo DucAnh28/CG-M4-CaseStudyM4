@@ -15,6 +15,9 @@ public class Coach {
     private double salary;
     private String role;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private AppUser appUser;
+
     @Transient
     private MultipartFile avaFile;
     private String avatarURL;
@@ -29,7 +32,27 @@ public class Coach {
         this.avatarURL = avatarURL;
     }
 
+    public Coach(Long id, String name, String country, String achievement, double salary, String role, AppUser appUser, MultipartFile avaFile, String avatarURL) {
+        this.id = id;
+        this.name = name;
+        this.country = country;
+        this.achievement = achievement;
+        this.salary = salary;
+        this.role = role;
+        this.appUser = appUser;
+        this.avaFile = avaFile;
+        this.avatarURL = avatarURL;
+    }
+
     public Coach() {
+    }
+
+    public AppUser getAppUser() {
+        return appUser;
+    }
+
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
     }
 
     public MultipartFile getAvaFile() {
