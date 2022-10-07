@@ -118,7 +118,7 @@ function displayValuePlayer(player) {
                   <h6>${player.weight}</h6>
                 </td>
             </tr>
-          
+
             <tr>
                 <th>
                    <strong>Salary</strong>
