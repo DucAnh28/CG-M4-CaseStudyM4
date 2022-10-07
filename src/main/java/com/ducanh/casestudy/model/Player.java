@@ -30,7 +30,6 @@ public class Player {
 
     @Transient
     private MultipartFile backGroundFile;
-    private String avatarBackGround;
 
 
     @ManyToOne
@@ -121,15 +120,6 @@ public class Player {
     public void setBackGroundFile(MultipartFile backGroundFile) {
         this.backGroundFile = backGroundFile;
     }
-
-    public String getAvatarBackGround() {
-        return avatarBackGround;
-    }
-
-    public void setAvatarBackGround(String avatarBackGround) {
-        this.avatarBackGround = avatarBackGround;
-    }
-
 
     public Position getPosition() {
         return position;
