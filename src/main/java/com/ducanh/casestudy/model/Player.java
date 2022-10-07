@@ -28,10 +28,6 @@ public class Player {
     private MultipartFile avaFile;
     private String avatarURL;
 
-    @Transient
-    private MultipartFile backGroundFile;
-
-
     @ManyToOne
     @JoinColumn(name = "position_id")
     private Position position;
@@ -111,14 +107,6 @@ public class Player {
 
     public void setAvatarURL(String avatarURL) {
         this.avatarURL = avatarURL;
-    }
-
-    public MultipartFile getBackGroundFile() {
-        return backGroundFile;
-    }
-
-    public void setBackGroundFile(MultipartFile backGroundFile) {
-        this.backGroundFile = backGroundFile;
     }
 
     public Position getPosition() {
