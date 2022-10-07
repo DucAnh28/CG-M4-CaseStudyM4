@@ -6,20 +6,24 @@ import com.ducanh.casestudy.service.appuser.IAppUserService;
 
 import com.ducanh.casestudy.service.player.IPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
 //@RequestMapping("")
 public class PlayerController {
-
 
 
     @Autowired
@@ -29,11 +33,11 @@ public class PlayerController {
     private IAppUserRepo iAppUserRepo;
 
 
-//    @Value("${upload_file_avatar}")
-//    private String upload_file_avatar;
-//
-//    @Value("${upload_file_background}")
-//    private String upload_file_background;
+    @Value("${upload_file_avatar}")
+    private String upload_file_avatar;
+
+    @Value("${upload_file_background}")
+    private String upload_file_background;
 
     @Autowired
     private IPlayerService playerService;
@@ -100,42 +104,68 @@ public class PlayerController {
     }
 
 
-
     @PostMapping("/create-player")
     public ResponseEntity<Player> createPlayer(@RequestBody Player player) {
         playerService.save(player);
         return new ResponseEntity<>(player, HttpStatus.CREATED);
     }
 
-    @PutMapping("/edit-player/{id}")
-    public ResponseEntity<Player> editPlayer(@PathVariable Long id, @RequestBody Player player) {
-        Optional<Player> playerOptional = playerService.findById(id);
-        if (!playerOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        player.setId(id);
-        playerService.save(player);
-        return new ResponseEntity<>(player, HttpStatus.OK);
-    }
-    @DeleteMapping ("/delete-player/{id}")
-    public ResponseEntity<Player> deletePlayer(@PathVariable Long id){
-        Optional<Player> playerOptional = playerService.findById(id);
-        if (!playerOptional.isPresent()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        playerService.remove(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+//    @PutMapping("/edit-player/{id}")
+//    public ResponseEntity<Optional<Player>>
+//    editPlayer(@RequestPart("player") Player playerEdit,
+//               @PathVariable("id") Long id,
+//               @RequestPart("avaFile-player") MultipartFile avaFile,
+//               @RequestPart("backGroundFile-player") MultipartFile backGroundFile) {
+//        Optional<Player> player = playerService.findById(id);
+//        String avaFileName = avaFile.getOriginalFilename();
+//        String backGroundFileName = backGroundFile.getOriginalFilename();
+//        try {
+//            FileCopyUtils.copy(avaFile.getBytes(), new File(upload_file_avatar + avaFileName));
+//            playerEdit.setAvatarURL("Images/Avatar/" + avaFileName);
+//        } catch (IOException e) {
+//            playerEdit.setAvatarURL(player.get().getAvatarURL());
+//            e.printStackTrace();
+//        }
+//        try {
+//            FileCopyUtils.copy(backGroundFile.getBytes(), new File(upload_file_background + backGroundFileName));
+//            playerEdit.setAvatarBackGround("Images/BackGround/" + backGroundFileName);
+//        } catch (IOException e) {
+//            playerEdit.setAvatarURL(player.get().getAvatarBackGround());
+//            e.printStackTrace();
+//        }
+//        playerEdit.setId(player.get().getId());
+//        playerService.save(playerEdit);
+//        Optional<Player> playerEditNew = playerService.findById(id);
+//        Account account = accountRepository.findAccountByPlayer(id);
+////        account.setGmail(playerEditNew.get().getGmail());
+////        account.setPassword(passwordEncoder.encode(playerEditNew.get().getPassword()));
+//        accountService.save(account);
+//        return new ResponseEntity<>(playerEditNew, HttpStatus.OK);
 
+//        appUser.setGmail(playerEditNew.get().getGmail());
+//        appUser.setPassword(passwordEncoder.encode(playerEditNew.get().getPassword()));
+//        iAppUserRepo.save(appUser);
+//        return new ResponseEntity<>(playerEditNew, HttpStatus.OK);
+//    }
+//    @DeleteMapping ("/delete-player/{id}")
+//    public ResponseEntity<Player> deletePlayer(@PathVariable Long id){
+//        Optional<Player> playerOptional = playerService.findById(id);
+//        if (!playerOptional.isPresent()){
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        playerService.remove(id);
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
 
-    @GetMapping("/page-player")
-    public ResponseEntity<Page<Player>> showAllPage(@PageableDefault(value = 5) Pageable pageable) {
-        Page<Player> playerPage = playerService.findPage(pageable);
-        if (!playerPage.iterator().hasNext()) {
-            new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(playerPage, HttpStatus.OK);
-    }
+//
+//    @GetMapping("/page-player")
+//    public ResponseEntity<Page<Player>> showAllPage(@PageableDefault(value = 5) Pageable pageable) {
+//        Page<Player> playerPage = playerService.findPage(pageable);
+//        if (!playerPage.iterator().hasNext()) {
+//            new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//        return new ResponseEntity<>(playerPage, HttpStatus.OK);
+//    }
 
 
 //    @GetMapping ("total-player")
@@ -148,4 +178,5 @@ public class PlayerController {
 //    }
 
 
-}
+    }
+
