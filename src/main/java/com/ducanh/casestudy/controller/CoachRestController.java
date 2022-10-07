@@ -1,22 +1,26 @@
 package com.ducanh.casestudy.controller;
 
+import com.ducanh.casestudy.model.AppRole;
 import com.ducanh.casestudy.model.Coach;
+import com.ducanh.casestudy.service.approle.IAppRoleService;
 import com.ducanh.casestudy.service.coach.ICoachService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletContext;
-import java.nio.file.Path;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/coach")
@@ -24,10 +28,10 @@ public class CoachRestController {
     @Autowired
     private ICoachService coachService;
     @Autowired
-    ServletContext application;
+    private IAppRoleService appRoleService;
 
-//    @Value("${upload_file_avatar}")
-//    private String upload_file_avatar;
+    @Value("${upload_file_avatar}")
+    private String upload_file_avatar;
 
     @GetMapping
     public ResponseEntity<Iterable<Coach>> displayAllCoach() {
@@ -51,8 +55,21 @@ public class CoachRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Coach> addCoach(@RequestBody Coach coach) {
-        return new ResponseEntity<>(coachService.save(coach), HttpStatus.CREATED);
+    public ResponseEntity<Coach> addCoach(@ModelAttribute("coach") Coach coach, @ModelAttribute("avaFile") MultipartFile avaFile) {
+        String avaFileName = avaFile.getOriginalFilename();
+        try {
+            FileCopyUtils.copy(avaFile.getBytes(), new File(upload_file_avatar + avaFileName));
+            coach.setAvatarURL("image/Avatar" + avaFileName);
+        } catch (IOException ex) {
+            coach.setAvatarURL("image/Error");
+            System.out.println("Loi khi upload File");
+            ex.printStackTrace();
+        }
+        Set<AppRole> roles = new HashSet<>();
+        roles.add(appRoleService.findById(2L).get());
+        coach.getAppUser().setAppRole(roles);
+        coachService.save(coach);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")

@@ -25,4 +25,5 @@ public class HomeController {
         List<Coach> coaches = (List<Coach>) coachService.findAll();
         return new ResponseEntity<>(coaches, HttpStatus.OK);
     }
+
 }
