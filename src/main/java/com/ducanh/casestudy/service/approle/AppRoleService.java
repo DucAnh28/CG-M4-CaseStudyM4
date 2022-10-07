@@ -4,9 +4,10 @@ import com.ducanh.casestudy.model.AppRole;
 import com.ducanh.casestudy.model.dto.ICountRole;
 import com.ducanh.casestudy.repository.jwt.IAppRoleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
+@Service
 public class AppRoleService implements IAppRoleService{
     @Autowired
     private IAppRoleRepo roleRepo;

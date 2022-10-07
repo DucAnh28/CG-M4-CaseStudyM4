@@ -3,6 +3,7 @@ package com.ducanh.casestudy.controller;
 import com.ducanh.casestudy.model.AppRole;
 import com.ducanh.casestudy.model.AppUser;
 import com.ducanh.casestudy.model.dto.UserToken;
+import com.ducanh.casestudy.service.approle.IAppRoleService;
 import com.ducanh.casestudy.service.appuser.IAppUserService;
 import com.ducanh.casestudy.service.jwt.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @RestController
@@ -30,6 +32,9 @@ public class LoginAPI {
 
     @Autowired
     private IAppUserService userService;
+
+    @Autowired
+    private IAppRoleService appRoleService;
 
     @PostMapping("/login")
     public UserToken login(@RequestBody AppUser appUser) {
@@ -49,15 +54,9 @@ public class LoginAPI {
 
     @PostMapping("/register")
     public ResponseEntity<AppUser> register(@RequestBody AppUser appUser) {
-        if (appUser.getAppRole() != null) {
-            AppRole appRole = new AppRole();
-            appRole.setId(2L);
-            appUser.setAppRole((Set<AppRole>) appRole);
-        } else if (appUser.getAppRole() == null) {
-            AppRole appRole = new AppRole();
-            appRole.setId(3L);
-            appUser.setAppRole((Set<AppRole>) appRole);
-        }
+        Set<AppRole> roles = new HashSet<>();
+        roles.add(appRoleService.findById(3L).get());
+        appUser.setAppRole(roles);
         return new ResponseEntity<>(userService.save(appUser), HttpStatus.OK);
     }
 }
