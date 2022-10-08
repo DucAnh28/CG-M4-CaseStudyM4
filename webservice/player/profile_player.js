@@ -81,10 +81,10 @@ function displayEditPlayer(player) {
     $('#status-player-edit').val(player.status.id);
 }
 
-function displayBGPlayer(player) {
-    return `<img class="img-fluid" src="${player.avatarBackGround}" alt="Card image cap" width="800px" height="500px">`;
-    // alt dùng để hiển thị khi ảnh không hiển thị
-}
+// function displayBGPlayer(player) {
+//     return `<img class="img-fluid" src="${player.avatarBackGround}" alt="Card image cap" width="800px" height="500px">`;
+//     // alt dùng để hiển thị khi ảnh không hiển thị
+//
 
 function displayAvaPlayer(player) {
     return `<img src="${player.avatarURL}" alt="profile-image" class="profile" width="110px" height="110px">
