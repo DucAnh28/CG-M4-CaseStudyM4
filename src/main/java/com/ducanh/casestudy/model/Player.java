@@ -37,7 +37,7 @@ public class Player {
     private Performance performance;
 
     @ManyToOne
-    @JoinColumn(name = "status_id")
+    @JoinColumn(name = "statu2s_id")
     private Status status;
 
     public Player() {

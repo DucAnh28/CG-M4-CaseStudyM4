@@ -36,9 +36,6 @@ public class PlayerController {
     @Value("${upload_file_avatar}")
     private String upload_file_avatar;
 
-    @Value("${upload_file_background}")
-    private String upload_file_background;
-
     @Autowired
     private IPlayerService playerService;
 
@@ -178,5 +175,5 @@ public class PlayerController {
 //    }
 
 
-    }
+}
 
