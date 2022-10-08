@@ -107,73 +107,47 @@ public class PlayerController {
         return new ResponseEntity<>(player, HttpStatus.CREATED);
     }
 
-//    @PutMapping("/edit-player/{id}")
-//    public ResponseEntity<Optional<Player>>
-//    editPlayer(@RequestPart("player") Player playerEdit,
-//               @PathVariable("id") Long id,
-//               @RequestPart("avaFile-player") MultipartFile avaFile,
-//               @RequestPart("backGroundFile-player") MultipartFile backGroundFile) {
-//        Optional<Player> player = playerService.findById(id);
-//        String avaFileName = avaFile.getOriginalFilename();
-//        String backGroundFileName = backGroundFile.getOriginalFilename();
-//        try {
-//            FileCopyUtils.copy(avaFile.getBytes(), new File(upload_file_avatar + avaFileName));
-//            playerEdit.setAvatarURL("Images/Avatar/" + avaFileName);
-//        } catch (IOException e) {
-//            playerEdit.setAvatarURL(player.get().getAvatarURL());
-//            e.printStackTrace();
-//        }
-//        try {
-//            FileCopyUtils.copy(backGroundFile.getBytes(), new File(upload_file_background + backGroundFileName));
-//            playerEdit.setAvatarBackGround("Images/BackGround/" + backGroundFileName);
-//        } catch (IOException e) {
-//            playerEdit.setAvatarURL(player.get().getAvatarBackGround());
-//            e.printStackTrace();
-//        }
-//        playerEdit.setId(player.get().getId());
-//        playerService.save(playerEdit);
-//        Optional<Player> playerEditNew = playerService.findById(id);
-//        Account account = accountRepository.findAccountByPlayer(id);
-////        account.setGmail(playerEditNew.get().getGmail());
-////        account.setPassword(passwordEncoder.encode(playerEditNew.get().getPassword()));
-//        accountService.save(account);
-//        return new ResponseEntity<>(playerEditNew, HttpStatus.OK);
+    @PutMapping("/edit-player/{id}")
+    public ResponseEntity<Player> editPlayer(@PathVariable Long id, @RequestBody Player player) {
+        Optional<Player> playerOptional = playerService.findById(id);
+        if (!playerOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        player.setId(id);
+        playerService.save(player);
+        return new ResponseEntity<>(player, HttpStatus.OK);
+    }
 
-//        appUser.setGmail(playerEditNew.get().getGmail());
-//        appUser.setPassword(passwordEncoder.encode(playerEditNew.get().getPassword()));
-//        iAppUserRepo.save(appUser);
-//        return new ResponseEntity<>(playerEditNew, HttpStatus.OK);
-//    }
-//    @DeleteMapping ("/delete-player/{id}")
-//    public ResponseEntity<Player> deletePlayer(@PathVariable Long id){
-//        Optional<Player> playerOptional = playerService.findById(id);
-//        if (!playerOptional.isPresent()){
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        playerService.remove(id);
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
+    @DeleteMapping("/delete-player/{id}")
+    public ResponseEntity<Player> deletePlayer(@PathVariable Long id) {
+        Optional<Player> playerOptional = playerService.findById(id);
+        if (!playerOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        playerService.remove(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
-//
-//    @GetMapping("/page-player")
-//    public ResponseEntity<Page<Player>> showAllPage(@PageableDefault(value = 5) Pageable pageable) {
-//        Page<Player> playerPage = playerService.findPage(pageable);
-//        if (!playerPage.iterator().hasNext()) {
+
+//   @GetMapping("pagePlayerByPosition/{id}")
+//    public ResponseEntity<Page<Player>> showPagePlayerByPosition(@PathVariable Long id, @PageableDefault(value = 5) Pageable pageable) {
+//        Page<Player> player_page = playerService.findPageByPosition(id, pageable);
+//        if (!player_page.iterator().hasNext()) {
 //            new ResponseEntity<>(HttpStatus.NO_CONTENT);
 //        }
-//        return new ResponseEntity<>(playerPage, HttpStatus.OK);
+//        return new ResponseEntity<>(player_page, HttpStatus.OK);
 //    }
 
 
-//    @GetMapping ("total-player")
-//    public ResponseEntity<Iterable<Player>> totalPlayer(){
+
+//    @GetMapping("total-player")
+//    public ResponseEntity<Iterable<Player>> totalPlayer() {
 //        Iterable<Player> players = playerService.findAll();
-//        if (!players.iterator().hasNext()){
+//        if (!players.iterator().hasNext()) {
 //            new ResponseEntity<>(HttpStatus.NO_CONTENT);
 //        }
-//        return new ResponseEntity<>(players,HttpStatus.OK);
+//        return new ResponseEntity<>(players, HttpStatus.OK);
 //    }
-
 
 }
 
