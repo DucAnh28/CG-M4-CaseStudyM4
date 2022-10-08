@@ -56,7 +56,7 @@ public class CoachRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Coach> addCoach(@ModelAttribute("coach") Coach coach, @ModelAttribute("avaFile") MultipartFile avaFile) {
+    public ResponseEntity<Coach> addCoach(@ModelAttribute Coach coach, @ModelAttribute("avaFile") MultipartFile avaFile) {
         String avaFileName = avaFile.getOriginalFilename();
         try {
             FileCopyUtils.copy(avaFile.getBytes(), new File(upload_file_avatar + avaFileName));

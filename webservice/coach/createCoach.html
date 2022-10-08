@@ -15,29 +15,30 @@
             let role = $('#input-5').val();
             let username = $('#input-6').val();
             let password = $('#input-7').val();
+            let avatar = $('#input-8')[0].files[0];
             formData.append('name', name);
             formData.append('country', country);
-            formData.append('achivement', achievement);
+            formData.append('achievement', achievement);
             formData.append('salary', salary);
             formData.append('role', role);
-            formData.append('appUser', );
-            // let newCoach = {
-            //     name: name,
-            //     country: country,
-            //     achievement: achievement,
-            //     salary: salary,
-            //     role: role,
-            //     appUser: {
-            //         name: username,
-            //         password: password
-            //     }
+            // let coach = {
+            //     'name': name,
+            //     'country': country,
+            //     'achievement': achievement,
+            //     'salary': salary,
+            //     'role': role
             // }
-            // formData.append("coach", new Blob([JSON.stringify(newCoach)], {type: 'application/json'}))
+            formData.append('username', username);
+            formData.append('password', password);
+            // formData.append('coach',coach);
+            formData.append('avaFile', avatar);
             $.ajax({
-                contentType : false,
-                processData : false,
+                contentType: false,
+                processData: false,
+                enctype: 'multipart/form-data',
+                dataType: "json",
                 type: "POST",
-                url: "http://localhost:2828/coach",
+                url: "http://localhost:2828/test",
                 data: formData,
                 success: function (data) {
                     console.log(data);
@@ -48,20 +49,45 @@
     </script>
 </head>
 <body>
-    name
-    <input type="text" name="name" id="input-1"><br>
-    country
-    <input type="text" name="country" id="input-2"><br>
-    achievement
-    <input type="text" name="achievement" id="input-3"><br>
-    salary
-    <input type="text" name="salary" id="input-4"><br>
-    role
-    <input type="text" name="role" id="input-5"><br>
-    username
-    <input type="text" name="username" id="input-6"><br>
-    password
-    <input type="text" name="password" id="input-7"><br>
-    <button onclick="createCoach()">yolo</button>
+<table>
+    <tr>
+        <td>name</td>
+        <td><input type="text" name="name" id="input-1"></td>
+    </tr>
+    <tr>
+        <td>country</td>
+        <td><input type="text" name="country" id="input-2"></td>
+    </tr>
+    <tr>
+        <td>achievement</td>
+        <td><input type="text" name="achievement" id="input-3"></td>
+    </tr>
+    <tr>
+        <td>salary</td>
+        <td><input type="text" name="salary" id="input-4"></td>
+    </tr>
+    <tr>
+        <td>role</td>
+        <td><input type="text" name="role" id="input-5"><br></td>
+    </tr>
+    <tr>
+        <td>username</td>
+        <td><input type="text" name="username" id="input-6"></td>
+    </tr>
+    <tr>
+        <td>password</td>
+        <td><input type="text" name="password" id="input-7"></td>
+    </tr>
+    <tr>
+        <td>Image</td>
+        <td><input type="file" id="input-8"></td>
+    </tr>
+    <tr>
+        <td>
+            <button onclick="createCoach()">yolo</button>
+        </td>
+    </tr>
+
+</table>
 </body>
 </html>

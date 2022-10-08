@@ -26,6 +26,11 @@ public class AppUser {
         this.appRole = appRole;
     }
 
+    public AppUser(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
+
     public Set<AppRole> getAppRole() {
         return appRole;
     }
