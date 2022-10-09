@@ -73,7 +73,7 @@ public class TestController {
         }
         return new ResponseEntity<>(coachOptional.get(), HttpStatus.OK);
     }
-
+//        trả về ảnh
     @RequestMapping(value = "/image/{path}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getImageAsResponseEntity(@PathVariable String path) throws IOException {
         HttpHeaders headers = new HttpHeaders();
