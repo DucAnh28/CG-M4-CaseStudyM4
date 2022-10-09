@@ -89,6 +89,29 @@ public class CoachRestController {
         coachService.save(coach);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<Coach> editCoach(@PathVariable Long id, Coach coach,@ModelAttribute("avaFile") MultipartFile avaFile) {
+        Optional<Coach> coachOptional = coachService.findById(id);
+        if (!coachOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        String path = servletContext.getRealPath("/");
+        System.out.println("path: "+ path);
+        if (avaFile != null) {
+            String avaFileName = avaFile.getOriginalFilename();
+            try {
+                FileCopyUtils.copy(avaFile.getBytes(), new File(upload_file_avatar + avaFileName));
+                coach.setAvatarURL("/image/" + avaFileName);
+            } catch (IOException ex) {
+                coach.setAvatarURL("image/Error");
+                System.out.println("Loi khi upload File");
+                ex.printStackTrace();
+            }
+        }
+        coach.setId(coachOptional.get().getId());
+        return new ResponseEntity<>(coachService.save(coach), HttpStatus.OK);
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Coach> deleteCoach(@PathVariable Long id) {
@@ -100,15 +123,6 @@ public class CoachRestController {
         return new ResponseEntity<>(coachDelete.get(), HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Coach> editCoach(@PathVariable Long id, @RequestBody Coach coach) {
-        Optional<Coach> coachOptional = coachService.findById(id);
-        if (!coachOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        coach.setId(coachOptional.get().getId());
-        return new ResponseEntity<>(coachService.save(coach), HttpStatus.OK);
-    }
 
     @GetMapping("/role")
     public ResponseEntity<Iterable<Coach>> findCoachByRole(@RequestParam String role){

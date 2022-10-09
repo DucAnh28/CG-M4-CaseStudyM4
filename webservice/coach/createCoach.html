@@ -36,14 +36,14 @@
 
         function createCoach() {
             let formData = new FormData();
-            let name = $('#input-1').val();
-            let country = $('#input-2').val();
-            let achievement = $('#input-3').val();
-            let salary = $('#input-4').val();
-            let role = $('#input-5').val();
-            let username = $('#input-6').val();
-            let password = $('#input-7').val();
-            let image = $('#input-8')[0].files[0];
+            let name = $('#name').val();
+            let country = $('#country').val();
+            let achievement = $('#achievement').val();
+            let salary = $('#salary').val();
+            let role = $('#role').val();
+            let username = $('#username').val();
+            let password = $('#password').val();
+            let image = $('#image')[0].files[0];
             formData.append('name', name);
             formData.append('country', country);
             formData.append('achievement', achievement);
@@ -94,31 +94,30 @@
         }
 
         function updateCoach() {
+            let formData = new FormData();
             let id = $('#id').val();
             let name = $('#name').val();
             let country = $('#country').val();
             let achievement = $('#achievement').val();
             let salary = $('#salary').val();
             let role = $('#role').val();
-            let image = $('#image').val();
-            let editCoach={
-                name:name,
-                country:country,
-                achievement:achievement,
-                salary:salary,
-                role:role,
-                image:image,
-            }
+            let image = $('#image')[0].files[0];
+            formData.append('name', name);
+            formData.append('country', country);
+            formData.append('achievement', achievement);
+            formData.append('salary', salary);
+            formData.append('role', role);
+            formData.append('avaFile', image);
             $.ajax({
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
+                contentType: false,
+                processData: false,
+                enctype: 'multipart/form-data',
+                dataType: "json",
                 type: "put",
                 url: "http://localhost:2828/coach/"+id,
-                data:JSON.stringify(editCoach),
+                data: formData,
                 success: function (data) {
-                    console.log("cap nhat thanh cong"+editCoach)
+                    console.log(data);
                     showAllCoach();
                 }
             })
@@ -207,6 +206,10 @@
 <body>
 <table>
     <tr>
+        <td>Id</td>
+        <td><input type="text" name="name" id="id"></td>
+    </tr>
+    <tr>
         <td>name</td>
         <td><input type="text" name="name" id="name"></td>
     </tr>
@@ -236,7 +239,7 @@
     </tr>
     <tr>
         <td>avatar</td>
-        <td><input type="file" name="avatar" id="avatar"></td>
+        <td><input type="file" name="avatar" id="image"></td>
     </tr>
     <tr>
         <td>
