@@ -8,19 +8,46 @@
 
 </head>
 <body>
-<input id="id">
-<input id="name">
-<input id="country">
-<input id="achievement">
-<input id="salary">
-<input id="role">
-<input id="image">
-<button onclick="addNewCoach(this)">Add</button>
-<button onclick="updateCoach(this)">Update</button>
-
-<input type="submit" id="search" value="Search" onclick="searchCoach()">
-
 <table>
+    <tr>
+        <td>Name</td>
+        <td><input id="name"></td>
+    </tr>
+    <tr>
+        <td>Country</td>
+        <td><input id="country"></td>
+    </tr>
+    <tr>
+        <td>Achievement</td>
+        <td><input id="achievement"></td>
+    </tr>
+
+    <tr>
+        <td>Salary</td>
+        <td><input id="salary"></td>
+    </tr>
+    <tr>
+        <td>Role</td>
+        <td><input id="role"></td>
+    </tr>
+    <tr>
+        <td>Image</td>
+        <td><input  id="image"></td>
+    </tr>
+
+
+    <tr>
+        <td><button onclick="addNewCoach(this)">Add</button></td>
+        <td><input type="submit" id="search" value="Search" onclick="searchCoach()"></td>
+    </tr>
+        <tr>
+         <td><button onclick="updateCoach(this)">Update</button></td>
+        </tr>
+
+
+</table>
+
+<table border="1px" id="list">
     <tr>
         <td>Id</td>
         <td>Name</td>
@@ -29,10 +56,10 @@
         <td>Salary</td>
         <td>Role</td>
         <td>Image</td>
+        <td>Action</td>
     </tr>
 
-    <tr id="list"><br/>
-    </tr>
+
 </table>
 <!--<div>-->
 <!--    <a th:if="${coach.hasPrevious()}" th:href="@{'/coach/page'(page=${coach.number-1})}">Trang trước</a>-->

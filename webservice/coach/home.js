@@ -1,3 +1,4 @@
+
 function showAllCoach(){
     $.ajax({
         type:"get",
@@ -60,7 +61,7 @@ function addNewCoach(){
         },
         type: "POST",
         data: JSON.stringify(newCoach),
-        url: "http://localhost:2828/coach/",
+        url: "http://localhost:2828/coach",
         success: function (){
             console.log("tao thanh cong"+newCoach)
             showAllCoach();

@@ -1,22 +1,29 @@
 package com.ducanh.casestudy.controller;
 
 import com.ducanh.casestudy.model.AppRole;
+import com.ducanh.casestudy.model.AppUser;
 import com.ducanh.casestudy.model.Coach;
 import com.ducanh.casestudy.service.approle.IAppRoleService;
+import com.ducanh.casestudy.service.appuser.AppUserService;
 import com.ducanh.casestudy.service.coach.ICoachService;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -27,10 +34,13 @@ import java.util.Set;
 @CrossOrigin("*")
 public class CoachRestController {
     @Autowired
+    private AppUserService appUserService;
+    @Autowired
     private ICoachService coachService;
     @Autowired
     private IAppRoleService appRoleService;
-
+    @Autowired
+    private ServletContext servletContext;
     @Value("${upload_file_avatar}")
     private String upload_file_avatar;
 
@@ -56,21 +66,28 @@ public class CoachRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Coach> addCoach(@ModelAttribute Coach coach, @ModelAttribute("avaFile") MultipartFile avaFile) {
-        String avaFileName = avaFile.getOriginalFilename();
-        try {
-            FileCopyUtils.copy(avaFile.getBytes(), new File(upload_file_avatar + avaFileName));
-            coach.setAvatarURL("image/Avatar" + avaFileName);
-        } catch (IOException ex) {
-            coach.setAvatarURL("image/Error");
-            System.out.println("Loi khi upload File");
-            ex.printStackTrace();
+    public ResponseEntity<Coach> addCoach(@ModelAttribute("coach") Coach coach, @ModelAttribute("username") String username, @ModelAttribute("password") String password, @ModelAttribute("avaFile") MultipartFile avaFile) {
+        String path = servletContext.getRealPath("/");
+        System.out.println("path: "+ path);
+        if (avaFile != null) {
+            String avaFileName = avaFile.getOriginalFilename();
+            try {
+                FileCopyUtils.copy(avaFile.getBytes(), new File(upload_file_avatar + avaFileName));
+                coach.setAvatarURL("/image/" + avaFileName);
+            } catch (IOException ex) {
+                coach.setAvatarURL("image/Error");
+                System.out.println("Loi khi upload File");
+                ex.printStackTrace();
+            }
         }
+        AppUser newUser = new AppUser(username, password);
         Set<AppRole> roles = new HashSet<>();
         roles.add(appRoleService.findById(2L).get());
-        coach.getAppUser().setAppRole(roles);
+        newUser.setAppRole(roles);
+        appUserService.save(newUser);
+        coach.setAppUser(newUser);
         coachService.save(coach);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>( HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
@@ -99,17 +116,16 @@ public class CoachRestController {
         return new ResponseEntity<>(coach1,HttpStatus.OK);
     }
 
-//    @PostMapping("saveOrUpdate")
-//    public String saveOrUpdate(@ModelAttribute("coach") Coach coach){
-//        if(!coach.getAvaFile().isEmpty()){
-//            String path=application.getRealPath("/");
-//        try {
-//            coach.setAvatarURL(coach.getAvaFile().getOriginalFilename());
-//            String filePath =path+"/image/"+coach.getAvatarURL();
-//            coach.getAvaFile().transferTo(Path.class));
-//        }
-//    }
-//    }
+    @RequestMapping(value = "/image/{path}", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> getImageAsResponseEntity(@PathVariable String path) throws IOException {
+        HttpHeaders headers = new HttpHeaders();
+        InputStream in = servletContext.getResourceAsStream(upload_file_avatar+path);
+        byte[] media = IOUtils.toByteArray(in);
+        headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
+        return responseEntity;
+    }
+
     @GetMapping("/sortAsc")
     public ResponseEntity<Iterable<Coach>> sortCoachBySalaryAsc(){
         Iterable<Coach> coaches=coachService.sortCoachSalaryAsc();
