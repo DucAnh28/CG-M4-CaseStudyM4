@@ -145,7 +145,6 @@ public class PlayerController {
     }
 
     @PostMapping("create-player")
-
     public ResponseEntity<Player> addPlayer(@ModelAttribute("player") Player player, @ModelAttribute("avaFile") MultipartFile avaFile) {
         String path = servletContext.getRealPath("/");
         System.out.println("path: "+ path);
@@ -160,24 +159,10 @@ public class PlayerController {
                 ex.printStackTrace();
             }
         }
-
         playerService.save(player);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
-
-    @RequestMapping(value = "/image/{path}", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> getImageAsResponseEntity(@PathVariable String path) throws IOException {
-        HttpHeaders headers = new HttpHeaders();
-        InputStream in = servletContext.getResourceAsStream(upload_file_avatar+path);
-        byte[] media = IOUtils.toByteArray(in);
-        headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
-        return responseEntity;
-    }
-
-
-//   @GetMapping("pagePlayerByPosition/{id}")
+    //   @GetMapping("pagePlayerByPosition/{id}")
 //    public ResponseEntity<Page<Player>> showPagePlayerByPosition(@PathVariable Long id, @PageableDefault(value = 5) Pageable pageable) {
 //        Page<Player> player_page = playerService.findPageByPosition(id, pageable);
 //        if (!player_page.iterator().hasNext()) {

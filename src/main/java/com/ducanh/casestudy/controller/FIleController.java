@@ -27,7 +27,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/test")
-public class TestController {
+public class FIleController {
     @Autowired
     private ServletContext servletContext;
     @Autowired

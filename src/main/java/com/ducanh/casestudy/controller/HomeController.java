@@ -20,10 +20,9 @@ public class HomeController {
     @Autowired
     private ICoachService coachService;
 
-    @GetMapping("/c")
+    @GetMapping("/coach")
     public ResponseEntity<Iterable<Coach>> displayAllCoach() {
         List<Coach> coaches = (List<Coach>) coachService.findAll();
         return new ResponseEntity<>(coaches, HttpStatus.OK);
     }
-
 }
