@@ -45,11 +45,11 @@ public class LoginAPI {
 
             String token = jwtService.createToken(authentication);
             AppUser appUser1 = userService.findUserByName(appUser.getName());
-            UserToken userToken = new UserToken(appUser1.getId(), appUser1.getPassword(), token, appUser1.getAppRole());
+            UserToken userToken = new UserToken(appUser1.getId(), appUser1.getName(), token, appUser1.getAppRole());
             return new ResponseEntity<>(userToken,HttpStatus.ACCEPTED);
         } catch (Exception e) {
             System.out.println("Loi khi dang nhap");
-            return null;
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 

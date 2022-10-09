@@ -1,6 +1,7 @@
 package com.ducanh.casestudy.controller;
 
 import com.ducanh.casestudy.model.Coach;
+import com.ducanh.casestudy.model.Player;
 import com.ducanh.casestudy.service.coach.ICoachService;
 import com.ducanh.casestudy.service.player.IPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/home")
 public class HomeController {
-//    @Autowired
-//    private IPlayerService playerService;
+    @Autowired
+    private IPlayerService playerService;
     @Autowired
     private ICoachService coachService;
 
@@ -25,5 +26,11 @@ public class HomeController {
     public ResponseEntity<Iterable<Coach>> displayAllCoach() {
         List<Coach> coaches = (List<Coach>) coachService.findAll();
         return new ResponseEntity<>(coaches, HttpStatus.OK);
+    }
+
+    @GetMapping("/player")
+    public ResponseEntity<Iterable<Player>> displayAllPlayer(){
+        List<Player> players = (List<Player>) playerService.findAll();
+        return new ResponseEntity<>(players,HttpStatus.OK);
     }
 }

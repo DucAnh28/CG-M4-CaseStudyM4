@@ -26,7 +26,6 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/test")
 public class FIleController {
     @Autowired
     private ServletContext servletContext;
@@ -40,10 +39,9 @@ public class FIleController {
     @Value("${upload_file_avatar}")
     private String upload_file_avatar;
 
-    @PostMapping
     public ResponseEntity<Coach> addCoach(@ModelAttribute("coach") Coach coach, @ModelAttribute("username") String username, @ModelAttribute("password") String password, @ModelAttribute("avaFile") MultipartFile avaFile) {
         String path = servletContext.getRealPath("/");
-        System.out.println("path: "+ path);
+        System.out.println("path: " + path);
         if (avaFile != null) {
             String avaFileName = avaFile.getOriginalFilename();
             try {
@@ -65,19 +63,11 @@ public class FIleController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Coach> findCoachById(@PathVariable Long id) throws IOException {
-        Optional<Coach> coachOptional = coachService.findById(id);
-        if (!coachOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(coachOptional.get(), HttpStatus.OK);
-    }
-//        trả về ảnh
+    //  Trả về ảnh
     @RequestMapping(value = "/image/{path}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getImageAsResponseEntity(@PathVariable String path) throws IOException {
         HttpHeaders headers = new HttpHeaders();
-        InputStream in = servletContext.getResourceAsStream(upload_file_avatar+path);
+        InputStream in = servletContext.getResourceAsStream(upload_file_avatar + path);
         byte[] media = IOUtils.toByteArray(in);
         headers.setCacheControl(CacheControl.noCache().getHeaderValue());
         ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
