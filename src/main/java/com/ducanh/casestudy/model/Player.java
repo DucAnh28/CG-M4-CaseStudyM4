@@ -140,4 +140,7 @@ public class Player {
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
     }
+
+    public void setAppUser(AppUser newUser) {
+    }
 }

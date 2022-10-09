@@ -37,7 +37,7 @@ public class LoginAPI {
     private IAppRoleService appRoleService;
 
     @PostMapping("/login")
-    public UserToken login(@RequestBody AppUser appUser) {
+    public ResponseEntity<UserToken> login(@RequestBody AppUser appUser) {
         try {
             // Tạo 1 đối tượng authentication
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(appUser.getName(), appUser.getPassword()));
@@ -45,7 +45,8 @@ public class LoginAPI {
 
             String token = jwtService.createToken(authentication);
             AppUser appUser1 = userService.findUserByName(appUser.getName());
-            return new UserToken(appUser1.getId(), appUser1.getPassword(), token, appUser1.getAppRole());
+            UserToken userToken = new UserToken(appUser1.getId(), appUser1.getPassword(), token, appUser1.getAppRole());
+            return new ResponseEntity<>(userToken,HttpStatus.ACCEPTED);
         } catch (Exception e) {
             System.out.println("Loi khi dang nhap");
             return null;
@@ -54,9 +55,14 @@ public class LoginAPI {
 
     @PostMapping("/register")
     public ResponseEntity<AppUser> register(@RequestBody AppUser appUser) {
-        Set<AppRole> roles = new HashSet<>();
-        roles.add(appRoleService.findById(3L).get());
-        appUser.setAppRole(roles);
-        return new ResponseEntity<>(userService.save(appUser), HttpStatus.OK);
+        if (userService.findUserByName(appUser.getName()) == null) {
+            Set<AppRole> roles = new HashSet<>();
+            roles.add(appRoleService.findById(3L).get());
+            appUser.setAppRole(roles);
+            return new ResponseEntity<>(userService.save(appUser), HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
     }
 }

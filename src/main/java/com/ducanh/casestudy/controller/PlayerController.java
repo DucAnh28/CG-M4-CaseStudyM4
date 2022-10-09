@@ -2,23 +2,33 @@ package com.ducanh.casestudy.controller;
 
 import com.ducanh.casestudy.model.*;
 import com.ducanh.casestudy.repository.jwt.IAppUserRepo;
+import com.ducanh.casestudy.service.IGeneralService;
+import com.ducanh.casestudy.service.approle.AppRoleService;
+import com.ducanh.casestudy.service.approle.IAppRoleService;
 import com.ducanh.casestudy.service.appuser.IAppUserService;
 
 import com.ducanh.casestudy.service.player.IPlayerService;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @CrossOrigin("*")
@@ -38,7 +48,13 @@ public class PlayerController {
 
     @Autowired
     private IPlayerService playerService;
+    @Autowired
+    private ServletContext servletContext;
+    @Autowired
+    private IAppRoleService appRoleService;
 
+    @Autowired
+    private IAppUserService appUserService;
 
     @GetMapping("/list-player")
     public ResponseEntity<Iterable<Player>> getPlayers() {
@@ -101,11 +117,11 @@ public class PlayerController {
     }
 
 
-    @PostMapping("/create-player")
-    public ResponseEntity<Player> createPlayer(@RequestBody Player player) {
-        playerService.save(player);
-        return new ResponseEntity<>(player, HttpStatus.CREATED);
-    }
+//    @PostMapping("/create-player")
+//    public ResponseEntity<Player> createPlayer(@RequestBody Player player) {
+//        playerService.save(player);
+//        return new ResponseEntity<>(player, HttpStatus.CREATED);
+//    }
 
     @PutMapping("/edit-player/{id}")
     public ResponseEntity<Player> editPlayer(@PathVariable Long id, @RequestBody Player player) {
@@ -128,8 +144,25 @@ public class PlayerController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
-//   @GetMapping("pagePlayerByPosition/{id}")
+    @PostMapping("create-player")
+    public ResponseEntity<Player> addPlayer(@ModelAttribute("player") Player player, @ModelAttribute("avaFile") MultipartFile avaFile) {
+        String path = servletContext.getRealPath("/");
+        System.out.println("path: "+ path);
+        if (avaFile != null) {
+            String avaFileName = avaFile.getOriginalFilename();
+            try {
+                FileCopyUtils.copy(avaFile.getBytes(), new File(upload_file_avatar + avaFileName));
+                player.setAvatarURL("/image/" + avaFileName);
+            } catch (IOException ex) {
+                player.setAvatarURL("image/Error");
+                System.out.println("Loi khi upload File");
+                ex.printStackTrace();
+            }
+        }
+        playerService.save(player);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    //   @GetMapping("pagePlayerByPosition/{id}")
 //    public ResponseEntity<Page<Player>> showPagePlayerByPosition(@PathVariable Long id, @PageableDefault(value = 5) Pageable pageable) {
 //        Page<Player> player_page = playerService.findPageByPosition(id, pageable);
 //        if (!player_page.iterator().hasNext()) {

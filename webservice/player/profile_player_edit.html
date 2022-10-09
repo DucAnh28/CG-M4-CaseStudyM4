@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <title>Player</title>
+
+
+</head>
+<body>
+<input id="id">
+<input id="name">
+<input id="country">
+<input id="achievement">
+<input id="salary">
+<input id="role">
+<input id="image">
+<button onclick="addNewCoach(this)">Add</button>
+<button onclick="updateCoach(this)">Update</button>
+
+<input type="submit" id="search" value="Search" onclick="searchCoach()">
+
+<table>
+  <tr>
+    <td>Id</td>
+    <td>Name</td>
+    <td>Country</td>
+    <td>chieu cao</td>
+    <td>cân năng</td>
+    <td>Achievement</td>
+    <td>Salary</td>
+    <td>Role</td>
+    <td>Image</td>
+  </tr>
+
+  <tr id="list"><br/>
+  </tr>
+</table>
+<!--<div>-->
+<!--    <a th:if="${coach.hasPrevious()}" th:href="@{'/coach/page'(page=${coach.number-1})}">Trang trước</a>-->
+<!--    <span th:text="${coach.number+1}"></span>/<span th:text="${coach.totalPages}"></span>-->
+<!--    <a th:if="${coach.hasNext()}" th:href="@{'/coach/page'(page =${coach.number+1})}">Trang sau</a>-->
+
+<!--</div>-->
+
+<script src="profile_player.js"></script>
+</body>
+
+</html>
