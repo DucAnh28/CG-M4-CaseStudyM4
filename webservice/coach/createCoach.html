@@ -5,6 +5,7 @@
     <title>Title</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="sorttable.js" type="text/javascript"></script>
     <script>
         function showAllCoach(){
             $.ajax({
@@ -61,8 +62,34 @@
                 data: formData,
                 success: function (data) {
                     console.log(data);
+                    showAllCoach();
                 }
             })
+
+        }
+        function showFormUpdate(element){
+            let id = element.getAttribute("href");
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: "get",
+                url: "http://localhost:2828/coach/"+id,
+                success: function (data) {
+                    console.log(data);
+                    console.log(id);
+                    $('#id').attr('value',`${data.id}`)
+                    $('#name').attr('value',`${data.name}`)
+                    $('#country').attr('value',`${data.country}`)
+                    $('#achievement').attr('value',`${data.achievement}`)
+                    $('#salary').attr('value',`${data.salary}`)
+                    $('#role').attr('value',`${data.role}`)
+                    $('#image').attr('value',`${data.image}`)
+                }
+
+            })
+
             event.preventDefault();
         }
 
@@ -112,49 +139,132 @@
             })
             event.preventDefault();
         }
+        function sortSalaryAsc(){
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type:"get",
+                url: "http://localhost:2828/coach/sortAsc/",
+                success:function (data){
+                    let content="";
+                    for (let i=0;i<data.length;i++){
+                        content+=`<tr>
+        <td>${data[i].id}</td>
+        <td>${data[i].name}</td>
+        <td>${data[i].country}</td>
+        <td>${data[i].achievement}</td>
+        <td>${data[i].salary}</td>
+        <td>${data[i].role}</td>
+        <td><img src="${'http://localhost:2828'+data[i].avatarURL}" width="80" height="80" alt="img"></td>
+        <td><a href="${data[i].id}" onclick="deleteCoach(this)">Delete</a></td>
+        <td><a href="${data[i].id}" onclick="showFormUpdate(this)">Update</a></td></tr>`;
+                    }
+                    document.getElementById("list").innerHTML = content;
+
+                    console.log(data);
+
+                    console.log("sort thanh cong")
+
+                }
+            })
+        }
+
+        function sortSalaryDesc(){
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type:"get",
+                url: "http://localhost:2828/coach/sortDesc/",
+                success:function (data){
+                    let content="";
+                    for (let i=0;i<data.length;i++){
+                        content+=`<tr>
+        <td>${data[i].id}</td>
+        <td>${data[i].name}</td>
+        <td>${data[i].country}</td>
+        <td>${data[i].achievement}</td>
+        <td>${data[i].salary}</td>
+        <td>${data[i].role}</td>
+        <td><img src="${'http://localhost:2828'+data[i].avatarURL}" width="80" height="80" alt="img"></td>
+        <td><a href="${data[i].id}" onclick="deleteCoach(this)">Delete</a></td>
+        <td><a href="${data[i].id}" onclick="showFormUpdate(this)">Update</a></td></tr>`;
+                    }
+                    document.getElementById("list").innerHTML = content;
+
+                    console.log(data);
+
+                    console.log("sort thanh cong")
+
+                }
+            })
+        }
     </script>
 </head>
 <body>
 <table>
     <tr>
         <td>name</td>
-        <td><input type="text" name="name" id="input-1"></td>
+        <td><input type="text" name="name" id="name"></td>
     </tr>
     <tr>
         <td>country</td>
-        <td><input type="text" name="country" id="input-2"></td>
+        <td><input type="text" name="country" id="country"></td>
     </tr>
     <tr>
         <td>achievement</td>
-        <td><input type="text" name="achievement" id="input-3"></td>
+        <td><input type="text" name="achievement" id="achievement"></td>
     </tr>
     <tr>
         <td>salary</td>
-        <td><input type="text" name="salary" id="input-4"></td>
+        <td><input type="text" name="salary" id="salary"></td>
     </tr>
     <tr>
         <td>role</td>
-        <td><input type="text" name="role" id="input-5"><br></td>
+        <td><input type="text" name="role" id="role"><br></td>
     </tr>
     <tr>
         <td>username</td>
-        <td><input type="text" name="username" id="input-6"></td>
+        <td><input type="text" name="username" id="username"></td>
     </tr>
     <tr>
         <td>password</td>
-        <td><input type="text" name="password" id="input-7"></td>
+        <td><input type="text" name="password" id="password"></td>
     </tr>
     <tr>
         <td>avatar</td>
-        <td><input type="file" name="avatar" id="input-8"></td>
+        <td><input type="file" name="avatar" id="avatar"></td>
     </tr>
     <tr>
         <td>
             <button onclick="createCoach()">AddNewCoach</button>
         </td>
     </tr>
+    <tr>
+        <td>
+            <button onclick="updateCoach()">UpdateCoach</button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button onclick="sortSalaryAsc()">Lương tăng dần</button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button onclick="sortSalaryDesc()">Lương giảm dần</button>
+        </td>
+    </tr>
 </table>
-<table border="1">
+<select>
+    <option >Sắp xếp lương</option>
+    <option onchange="sortSalaryAsc()">Lương tăng dần</option>
+    <option onchange="sortSalaryDesc()">Lương giảm dần</option>
+</select>
+<table border="1" >
     <tr>
         <td>Id</td>
         <td>Name</td>
