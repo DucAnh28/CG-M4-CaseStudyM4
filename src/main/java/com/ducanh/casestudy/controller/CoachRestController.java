@@ -87,7 +87,7 @@ public class CoachRestController {
         appUserService.save(newUser);
         coach.setAppUser(newUser);
         coachService.save(coach);
-        return new ResponseEntity<>( HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
