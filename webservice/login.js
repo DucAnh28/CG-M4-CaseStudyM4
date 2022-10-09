@@ -29,10 +29,10 @@ function login() {
                 localStorage.setItem("token", data.token);
                 localStorage.setItem("currentUser", JSON.stringify(data));
                 if (data.roles[0].name === "ROLE_ADMIN"){
-                    window.location.href = "admin/home.html";
+                    window.location = "admin/home.html";
                 }
                 if (data.roles[0].name === "ROLE_COACH"){
-                    window.location.href = "coach/home.html";
+                    window.location = "coach/home.html";
                 }
             }
         }
