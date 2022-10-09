@@ -23,10 +23,10 @@
 
     <script>
         function login() {
-            let gmail = $('#exampleInputUsername').val();
+            let username = $('#exampleInputUsername').val();
             let password = $('#exampleInputPassword').val();
-            if (gmail === "") {
-                document.getElementById("error_login").innerHTML = "Gmail address cannot be blank !";
+            if (username === "") {
+                document.getElementById("error_login").innerHTML = "username address cannot be blank !";
                 return false;
             }
             if (password === "") {
@@ -34,7 +34,7 @@
                 return false;
             }
             let data = {
-                name: gmail,
+                name: username,
                 password: password
             };
             $.ajax({
@@ -96,7 +96,7 @@
                         <label for="exampleInputUsername" class="sr-only">Username</label>
                         <div class="position-relative has-icon-right">
                             <input type="email" id="exampleInputUsername" class="form-control input-shadow"
-                                   placeholder="Enter Email" required>
+                                   placeholder="Enter Username" required>
                             <div class="form-control-position">
                                 <i class="icon-user"></i>
                             </div>
