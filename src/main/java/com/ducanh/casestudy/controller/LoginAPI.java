@@ -55,9 +55,14 @@ public class LoginAPI {
 
     @PostMapping("/register")
     public ResponseEntity<AppUser> register(@RequestBody AppUser appUser) {
-        Set<AppRole> roles = new HashSet<>();
-        roles.add(appRoleService.findById(3L).get());
-        appUser.setAppRole(roles);
-        return new ResponseEntity<>(userService.save(appUser), HttpStatus.OK);
+        if (userService.findUserByName(appUser.getName()) == null) {
+            Set<AppRole> roles = new HashSet<>();
+            roles.add(appRoleService.findById(3L).get());
+            appUser.setAppRole(roles);
+            return new ResponseEntity<>(userService.save(appUser), HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
     }
 }
