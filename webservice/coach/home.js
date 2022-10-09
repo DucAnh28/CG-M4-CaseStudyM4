@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 
-function showAllCoach(){
-=======
 function showAllCoach() {
->>>>>>> dc70d8df8889ca4a67e08df1fc1cf31b942f1075
     $.ajax({
             type: "get",
             url: "http://localhost:2828/coach",
@@ -68,15 +64,9 @@ function addNewCoach() {
         },
         type: "POST",
         data: JSON.stringify(newCoach),
-<<<<<<< HEAD
         url: "http://localhost:2828/coach",
         success: function (){
-            console.log("tao thanh cong"+newCoach)
-=======
-        url: "http://localhost:2828/coach/",
-        success: function () {
             console.log("tao thanh cong" + newCoach)
->>>>>>> dc70d8df8889ca4a67e08df1fc1cf31b942f1075
             showAllCoach();
         }
     });
