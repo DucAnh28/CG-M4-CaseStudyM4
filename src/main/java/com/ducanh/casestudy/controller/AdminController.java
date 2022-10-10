@@ -60,7 +60,7 @@ public class AdminController {
     }
 
     @GetMapping("/coach-page")
-    public ResponseEntity displayCoachPage(@PageableDefault(value = 2) Pageable pageable) {
+    public ResponseEntity<Page<Coach>> displayCoachPage(@PageableDefault(value = 2) Pageable pageable) {
         Page<Coach> coaches = coachService.findAllPage(pageable);
         return new ResponseEntity<>(coaches, HttpStatus.OK);
     }
