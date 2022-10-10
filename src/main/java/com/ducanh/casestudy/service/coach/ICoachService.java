@@ -13,10 +13,12 @@ import java.util.List;
 public interface ICoachService extends IGeneralService<Coach> {
     Page<Coach> findAllPage(Pageable pageable);
 
-     Iterable<Coach> findCoachByRole(String role);
+    Page<Coach> findCoachByRoleContaining(String role, Pageable pageable);
 
     Iterable<Coach> sortCoachSalaryAsc();
 
     Iterable<Coach> sortCoachSalaryDesc();
+
+    Page<Coach> findCoachByNameContaining(String name,Pageable pageable);
 
 }
