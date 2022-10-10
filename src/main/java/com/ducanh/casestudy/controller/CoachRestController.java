@@ -51,7 +51,7 @@ public class CoachRestController {
     }
 
     @GetMapping("/page")
-    public ResponseEntity displayCoachPage(@PageableDefault(value = 2) Pageable pageable) {
+    public ResponseEntity displayCoachPage(@PageableDefault(value = 2) @ModelAttribute("coach")Coach coach ,Pageable pageable) {
         Page<Coach> coaches = coachService.findAllPage(pageable);
         return new ResponseEntity<>(coaches, HttpStatus.OK);
     }
@@ -125,10 +125,17 @@ public class CoachRestController {
 
 
     @GetMapping("/role")
-    public ResponseEntity<Iterable<Coach>> findCoachByRole(@RequestParam String role){
-        Iterable<Coach> coach1 = coachService.findCoachByRole(role);
-        return new ResponseEntity<>(coach1,HttpStatus.OK);
+    public ResponseEntity<Iterable<Coach>> findCoachByRole(@RequestParam Optional<String> role,Pageable pageable){
+        Page<Coach> coaches=coachService.findAllPage(pageable);
+        if (coaches.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        if (role.isPresent()){
+            return new ResponseEntity<>(coachService.findCoachByRoleContaining(role.get(),pageable),HttpStatus.OK);
+        }
+        return new ResponseEntity<>(coaches,HttpStatus.OK);
     }
+//        Iterable<Coach> coach1 = coachService.findCoachByNameContaining(role);
 
     @RequestMapping(value = "/image/{path}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getImageAsResponseEntity(@PathVariable String path) throws IOException {
@@ -149,5 +156,16 @@ public class CoachRestController {
     public ResponseEntity<Iterable<Coach>> sortCoachBySalaryDesc(){
         Iterable<Coach> coaches=coachService.sortCoachSalaryDesc();
         return new ResponseEntity<>(coaches,HttpStatus.OK);
+    }
+    @GetMapping("/search")
+    public ResponseEntity<Iterable<Coach>> searchByName(@PageableDefault(value = 2) @RequestParam Optional<String> name,Pageable pageable){
+        Page<Coach> coaches = coachService.findAllPage(pageable);
+        if (coaches.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        if (name.isPresent()) {
+            return new ResponseEntity<>(coachService.findCoachByNameContaining(name.get(), pageable), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(coaches, HttpStatus.OK);
     }
 }

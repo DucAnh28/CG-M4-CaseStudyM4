@@ -44,9 +44,15 @@ public class CoachService implements ICoachService {
     }
 
     @Override
-    public Iterable<Coach> findCoachByRole(String role) {
-        return coachRepository.findCoachByRole(role);
+    public Page<Coach> findCoachByRoleContaining(String role, Pageable pageable) {
+        return coachRepository.findCoachByRoleContaining(role,pageable);
     }
+
+//    @Override
+//    public Iterable<Coach> findCoachByRoleContaining(String role, Pageable pageable) {
+//        return coachRepository.findCoachByRoleContaining(role,pageable);
+//    }
+
 
     @Override
     public Iterable<Coach> sortCoachSalaryAsc() {
@@ -58,6 +64,11 @@ public class CoachService implements ICoachService {
     @Override
     public Iterable<Coach> sortCoachSalaryDesc() {
         return coachRepository.sortCoachSalaryDesc();
+    }
+
+    @Override
+    public Page<Coach> findCoachByNameContaining(String name, Pageable pageable) {
+        return coachRepository.findCoachByNameContaining(name,pageable);
     }
 
 
