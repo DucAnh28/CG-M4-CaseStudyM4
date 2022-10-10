@@ -1,7 +1,7 @@
 function showAllCoach(){
     $.ajax({
             type:"get",
-            url:"http://localhost:2828/coach",
+            url:"http://localhost:2828/admin/coach",
             success:function (data){
                 let content="";
                 for (let i=0;i<data.length;i++){
@@ -48,7 +48,7 @@ function createCoach() {
         enctype: 'multipart/form-data',
         dataType: "json",
         type: "POST",
-        url: "http://localhost:2828/coach",
+        url: "http://localhost:2828/admin/coach",
         data: formData,
         success: function (data) {
             console.log(data);
@@ -65,7 +65,7 @@ function showFormUpdate(element){
             'Content-Type': 'application/json'
         },
         type: "get",
-        url: "http://localhost:2828/coach/"+id,
+        url: "http://localhost:2828/admin/coach/"+id,
         success: function (data) {
             console.log(data);
             console.log(id);
@@ -104,7 +104,7 @@ function updateCoach() {
         enctype: 'multipart/form-data',
         dataType: "json",
         type: "put",
-        url: "http://localhost:2828/coach/"+id,
+        url: "http://localhost:2828/admin/coach/"+id,
         data: formData,
         success: function (data) {
             console.log(data);
@@ -120,7 +120,7 @@ function deleteCoach(element){
     let id=element.getAttribute("href");
     $.ajax({
         type: "delete",
-        url: "http://localhost:2828/coach/"+id,
+        url: "http://localhost:2828/admin/coach/"+id,
         success:function (date){
             console.log("Xoa thanh cong ");
             showAllCoach();
@@ -135,7 +135,7 @@ function sortSalaryAsc(){
             'Content-Type': 'application/json'
         },
         type:"get",
-        url: "http://localhost:2828/coach/sortAsc/",
+        url: "http://localhost:2828/admin/coach/sortAsc/",
         success:function (data){
             let content="";
             for (let i=0;i<data.length;i++){
@@ -167,7 +167,7 @@ function sortSalaryDesc(){
             'Content-Type': 'application/json'
         },
         type:"get",
-        url: "http://localhost:2828/coach/sortDesc/",
+        url: "http://localhost:2828/admin/coach/sortDesc/",
         success:function (data){
             let content="";
             for (let i=0;i<data.length;i++){
@@ -201,7 +201,7 @@ function searchCoachByName(){
             'Content-Type': 'application/json'
         },
         type:"GET",
-        url: "http://localhost:2828/coach/search?name="+search,
+        url: "http://localhost:2828/admin/coach/search?name="+search,
         success:function (data){
             console.log(data.content[0])
             let content="";
@@ -237,7 +237,7 @@ function searchByRole(){
             'Content-Type': 'application/json'
         },
         type:"GET",
-        url: "http://localhost:2828/coach/role?role="+search,
+        url: "http://localhost:2828/admin/coach/role?role="+search,
         success:function (data){
             console.log(data.content[0])
             let content="";

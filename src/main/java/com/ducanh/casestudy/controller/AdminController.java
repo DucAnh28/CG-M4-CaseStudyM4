@@ -62,6 +62,14 @@ public class AdminController {
         List<Coach> coaches = (List<Coach>) coachService.findAll();
         return new ResponseEntity<>(coaches, HttpStatus.OK);
     }
+    @GetMapping("/coach/{id}")
+    public ResponseEntity<Coach> findCoachById(@PathVariable Long id) {
+        Optional<Coach> coachOptional = coachService.findById(id);
+        if (!coachOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(coachOptional.get(), HttpStatus.OK);
+    }
 
     @GetMapping("/coach-page")
     public ResponseEntity<Page<Coach>> displayCoachPage(@PageableDefault(value = 2) Pageable pageable) {
