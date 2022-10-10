@@ -43,15 +43,15 @@
       let weight = $('#weight').val();
       let height = $('#height').val();
       let salary = $('#salary').val();
-      let achievement = $('#achievement').val();
+      // let achievement = $('#achievement').val();
       let introduction = $('#introduction').val();
       let image = $('#image')[0].files[0];
       formData.append('name', name);
       formData.append('country', country);
-      formData.append('achievement', achievement);
-      formData.append('salary', salary);
       formData.append('weight', weight);
       formData.append('height', height);
+      // formData.append('achievement', achievement);
+      formData.append('salary', salary);
       formData.append('introduction', introduction);
       formData.append('avaFile', image);
       $.ajax({
@@ -60,7 +60,7 @@
         enctype: 'multipart/form-data',
         dataType: "json",
         type: "POST",
-        url: "http://localhost:2828/player/list-player",
+        url: "http://localhost:2828/coach/player/create",
         data: formData,
         success: function (data) {
           console.log(data);
@@ -132,7 +132,7 @@
       let id=element.getAttribute("href");
       $.ajax({
         type: "delete",
-        url: "http://localhost:2828/player/delete-player/"+id,
+        url: "http://localhost:2828/coach/player/delete/"+id,
         success:function (date){
           console.log("Xoa thanh cong ");
           showAllPlayer();
@@ -274,9 +274,10 @@
     <td>Id</td>
     <td>Name</td>
     <td>Country</td>
-    <td>Achievement</td>
+    <td>Weight</td>
+    <td>Height</td>
+    <td>Introduction</td>
     <td>Salary</td>
-    <td>Role</td>
     <td>Image</td>
     <td>Action</td>
     <td>Action</td>
