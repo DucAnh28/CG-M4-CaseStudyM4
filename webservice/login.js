@@ -29,8 +29,7 @@ function login() {
                 localStorage.setItem("token", data.token);
                 localStorage.setItem("currentUser", JSON.stringify(data));
                 if (data.roles[0].name === "ROLE_ADMIN"){
-                    console.log("hello")
-                    // location.href = "coach-home.html";
+                    location.href = "../admin/home.html";
                 }
                 if (data.roles[0].name === "ROLE_COACH"){
                     console.log("hi")
