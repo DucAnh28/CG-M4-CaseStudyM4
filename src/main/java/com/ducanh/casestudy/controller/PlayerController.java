@@ -32,29 +32,10 @@ import java.util.Set;
 
 @RestController
 @CrossOrigin("*")
-//@RequestMapping("")
+@RequestMapping("/player")
 public class PlayerController {
-
-
-    @Autowired
-    private IAppUserService iAppUserService;
-
-    @Autowired
-    private IAppUserRepo iAppUserRepo;
-
-
-    @Value("${upload_file_avatar}")
-    private String upload_file_avatar;
-
     @Autowired
     private IPlayerService playerService;
-    @Autowired
-    private ServletContext servletContext;
-    @Autowired
-    private IAppRoleService appRoleService;
-
-    @Autowired
-    private IAppUserService appUserService;
 
     @GetMapping("/list-player")
     public ResponseEntity<Iterable<Player>> getPlayers() {
@@ -115,72 +96,6 @@ public class PlayerController {
         }
         return new ResponseEntity<>(players, HttpStatus.OK);
     }
-
-
-//    @PostMapping("/create-player")
-//    public ResponseEntity<Player> createPlayer(@RequestBody Player player) {
-//        playerService.save(player);
-//        return new ResponseEntity<>(player, HttpStatus.CREATED);
-//    }
-
-    @PutMapping("/edit-player/{id}")
-    public ResponseEntity<Player> editPlayer(@PathVariable Long id, @RequestBody Player player) {
-        Optional<Player> playerOptional = playerService.findById(id);
-        if (!playerOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        player.setId(id);
-        playerService.save(player);
-        return new ResponseEntity<>(player, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/delete-player/{id}")
-    public ResponseEntity<Player> deletePlayer(@PathVariable Long id) {
-        Optional<Player> playerOptional = playerService.findById(id);
-        if (!playerOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        playerService.remove(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    @PostMapping("create-player")
-    public ResponseEntity<Player> addPlayer(@ModelAttribute("player") Player player, @ModelAttribute("avaFile") MultipartFile avaFile) {
-        String path = servletContext.getRealPath("/");
-        System.out.println("path: "+ path);
-        if (avaFile != null) {
-            String avaFileName = avaFile.getOriginalFilename();
-            try {
-                FileCopyUtils.copy(avaFile.getBytes(), new File(upload_file_avatar + avaFileName));
-                player.setAvatarURL("/image/" + avaFileName);
-            } catch (IOException ex) {
-                player.setAvatarURL("image/Error");
-                System.out.println("Loi khi upload File");
-                ex.printStackTrace();
-            }
-        }
-        playerService.save(player);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-    //   @GetMapping("pagePlayerByPosition/{id}")
-//    public ResponseEntity<Page<Player>> showPagePlayerByPosition(@PathVariable Long id, @PageableDefault(value = 5) Pageable pageable) {
-//        Page<Player> player_page = playerService.findPageByPosition(id, pageable);
-//        if (!player_page.iterator().hasNext()) {
-//            new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        }
-//        return new ResponseEntity<>(player_page, HttpStatus.OK);
-//    }
-
-
-
-//    @GetMapping("total-player")
-//    public ResponseEntity<Iterable<Player>> totalPlayer() {
-//        Iterable<Player> players = playerService.findAll();
-//        if (!players.iterator().hasNext()) {
-//            new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        }
-//        return new ResponseEntity<>(players, HttpStatus.OK);
-//    }
 
 }
 

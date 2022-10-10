@@ -18,8 +18,6 @@ public interface IPlayerService extends IGeneralService<Player> {
 
     Iterable<Status> findAllStatus();
 
-
-
     Iterable<Player> findAllByName(String name);
 
     Page<Player> findPage(Pageable pageable);
