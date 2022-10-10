@@ -1,11 +1,6 @@
 package com.ducanh.casestudy.controller;
 
 import com.ducanh.casestudy.model.*;
-import com.ducanh.casestudy.repository.jwt.IAppUserRepo;
-import com.ducanh.casestudy.service.IGeneralService;
-import com.ducanh.casestudy.service.approle.AppRoleService;
-import com.ducanh.casestudy.service.approle.IAppRoleService;
-import com.ducanh.casestudy.service.appuser.IAppUserService;
 
 import com.ducanh.casestudy.service.player.IPlayerService;
 import org.apache.commons.io.IOUtils;
@@ -98,4 +93,3 @@ public class PlayerController {
     }
 
 }
-
