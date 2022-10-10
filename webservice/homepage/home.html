@@ -7,13 +7,13 @@
     <meta name="viewport"
           content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
     <link rel="shortcut icon" href=../template/favicon.ico>
+    <link rel="shortcut icon" href=../template/favicon.ico>
     <link rel=stylesheet href=../template/css/vendor.css>
     <link rel=stylesheet href=../template/css/style.css>
     <link rel=stylesheet type=text/css href=../template/css/layerslider.css>
     <script src=../template/js/vendor/modernizr.js></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous">
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         $(function () {
             $("#header").load("header.html");
@@ -22,11 +22,12 @@
     </script>
     <title>Home</title>
 </head>
-<body>
+<body><!--[if lt IE 10]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
 <div class=wrapper>
-    <!--    header-->
-    <div id="header"></div>
-    <!--    content-->
+    <header id="header"></header>
     <div class=banner id=layerSlider style="width: 100%;">
         <div class=ls-slide data-ls="transition3d: 33,15; slidedelay: 8000 ; durationin:0;"><img
                 src=../template/images/banner/background01.jpg class=ls-bg alt="Slide background">
@@ -41,17 +42,23 @@
                  data-ls="offsetxin: left; offsetxout:left; scalexin:50; easingin: easeoutquart; durationin: 3000; delayin: 250;">
             <img src=../template/images/banner/back_particles.png alt=particles class=ls-l style="z-index:3; left:50%;"
                  data-ls="offsetxin: left; offsetxout:left; scalein:90; easingin: easeoutquart; durationin: 3000; delayin: 250;">
+
+            <h2 class="ls-l bannertext layercontent03" data-ls="offsetxin:left; rotatexin:90 ; durationin: 3500;">
+                Victory</h2>
+
+            <h2 class="ls-l bannertext01 italic01 layercontent04"
+                data-ls="offsetxin:left; scalexin:9; durationin: 4000;">Club</h2>
+
         </div>
     </div>
     <div class=banner-text>
         <div class=container>
-            <div class=row>Manchester United<sup>Victory</sup> Champion</div>
+            <div class=row>Manchester United<sup>Vicotry</sup> Champion</div>
         </div>
     </div>
     <section class=about>
         <div class=container>
             <div class=row><h2 class=heading>About <span>Manchester United</span></h2>
-
                 <div class=about-wrap>
                     <div class="tab-content nav-content"><p role=tabpanel class="tab-pane fade" id=matches>Câu lạc
                         bộ bóng đá Manchester United (tiếng Anh: Manchester United Football Club, hay ngắn gọn là MU
@@ -91,7 +98,7 @@
         <div class=container>
             <div class=row><h2 class=heading>latest <span>result</span></h2>
 
-                <div class=latestResult-wrap><h4>Premire League</h4>
+                <div class=latestResult-wrap><h4>Europa League</h4>
 
                     <p>Trận thi đấu với tinh thần không được tốt</p></div>
                 <div class="result clearfix">
@@ -103,8 +110,7 @@
                             <p>Karim (34)</p></div>
                         <div class=figure>
                             <div class=team-logo>
-                                <div style=background:url(../template/images/team-logo/omonia.png)
-                                     class=teamLogoImg></div>
+                                <div class=teamLogoImg><img src="/webservice/template/images/team-logo/omonia.png" alt=""> </div>
                             </div>
                         </div>
                     </div>
@@ -194,30 +200,28 @@
         <div class=container>
             <div class=row><h2 class=heading>awa<span>rds</span></h2>
 
-                <p class=headParagraph>Manchester United là một trong những câu lạc bộ thành công nhất tại Anh, giữ kỷ lục 20 lần vô địch bóng đá Anh, đoạt 12 Cúp FA, 5 Cúp Liên đoàn và giữ kỷ lục 21 lần đoạt Siêu cúp Anh.</p>
+                <p class=headParagraph>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis
+                    consequuntur animi, commodi, voluptatibus labore aperiam fugit maxime quos optio architecto cum?
+                    Laborum nesciunt doloribus expedita atque error rem molestias, ducimus.</p>
 
-                <div class="wrapper-container clearfix"><a class="prv awards_prev"></a> <a
-                        class="nxt awards_next"></a>
+                <div class="wrapper-container clearfix"><a class="prv awards_prev"></a> <a class="nxt awards_next"></a>
                     <ul class="awards-wrap clearfix">
-                        <li><a href=../template/achivement_details.html><img
-                                src=../template/images/awards/awards01.png
-                                alt=image>
+                        <li><a href=../template/achivement_details.html><img src=../template/images/awards/awards01.png
+                                                                             alt=image>
                             <ul class=awards-info>
                                 <li>uefa 2014</li>
                                 <li>champion</li>
                             </ul>
                         </a></li>
-                        <li><a href=../template/achivement_details.html><img
-                                src=../template/images/awards/awards02.png
-                                alt=image>
+                        <li><a href=../template/achivement_details.html><img src=../template/images/awards/awards02.png
+                                                                             alt=image>
                             <ul class=awards-info>
                                 <li>uefa 2014</li>
                                 <li>champion</li>
                             </ul>
                         </a></li>
-                        <li><a href=../template/achivement_details.html><img
-                                src=../template/images/awards/awards03.png
-                                alt=image>
+                        <li><a href=../template/achivement_details.html><img src=../template/images/awards/awards03.png
+                                                                             alt=image>
                             <ul class=awards-info>
                                 <li>uefa 2014</li>
                                 <li>champion</li>
@@ -229,9 +233,8 @@
                                 <li>champion</li>
                             </ul>
                         </a></li>
-                        <li><a href=../template/achivement_details.html><img
-                                src=../template/images/awards/awards02.png
-                                alt=image>
+                        <li><a href=../template/achivement_details.html><img src=../template/images/awards/awards02.png
+                                                                             alt=image>
                             <ul class=awards-info>
                                 <li>uefa 2014</li>
                                 <li>champion</li>
@@ -242,10 +245,10 @@
             </div>
         </div>
     </section>
-    <!--    footer-->
-    <div id="footer"></div>
+    <footer id="footer"></footer>
 </div>
-</body>
 <script src=../template/js/vendor/vendor.js></script>
 <script src=../template/js/main.js></script>
+</body>
+
 </html>
