@@ -103,7 +103,7 @@ public class AdminController {
     }
 
     @PutMapping("/coach/{id}")
-    public ResponseEntity<Coach> editCoach(@PathVariable Long id, Coach coach,@ModelAttribute("avaFile") MultipartFile avaFile) {
+    public ResponseEntity<Coach> editCoach(@PathVariable Long id,@ModelAttribute Coach coach,@ModelAttribute("avaFile") MultipartFile avaFile) {
         Optional<Coach> coachOptional = coachService.findById(id);
         if (!coachOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -120,6 +120,9 @@ public class AdminController {
                 System.out.println("Loi khi upload File");
                 ex.printStackTrace();
             }
+        }
+        else {
+            coach.setAvatarURL(coachOptional.get().getAvatarURL());
         }
         coach.setId(coachOptional.get().getId());
         return new ResponseEntity<>(coachService.save(coach), HttpStatus.OK);
