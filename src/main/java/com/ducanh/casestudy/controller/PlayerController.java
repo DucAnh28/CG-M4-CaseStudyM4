@@ -92,4 +92,19 @@ public class PlayerController {
         return new ResponseEntity<>(players, HttpStatus.OK);
     }
 
+    @GetMapping("/sort-salary-asc")
+    public ResponseEntity<Iterable<Player>> sortPlayerSalaryAsc() {
+        Iterable<Player> players = playerService.sortPlayerSalaryAsc();
+//        if (!players.iterator().hasNext()) {
+//            new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        return new ResponseEntity<>(players, HttpStatus.OK);
+    }
+
+    @GetMapping("/sort-salary-desc")
+    public ResponseEntity<Iterable<Player>> sortPlayerSalaryDesc() {
+        Iterable<Player> players = playerService.sortPlayerSalaryDesc();
+        return new ResponseEntity<>(players, HttpStatus.OK);
+
+    }
 }

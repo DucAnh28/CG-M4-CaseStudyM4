@@ -75,4 +75,15 @@ public class PlayerService implements IPlayerService{
     public Page<Player> findPage(Pageable pageable) {
         return playerRepository.findAll(pageable);
     }
+
+    @Override
+    public Iterable<Player> sortPlayerSalaryAsc() {
+        return playerRepository.sortPlayerSalaryAsc();
+    }
+
+    @Override
+    public Iterable<Player> sortPlayerSalaryDesc() {
+        return playerRepository.sortPlayerSalaryDesc();
+    }
+
 }

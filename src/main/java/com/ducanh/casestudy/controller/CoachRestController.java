@@ -142,14 +142,25 @@ public class CoachRestController {
     }
 
     @PutMapping("/player/edit/{id}")
-    public ResponseEntity<Player> editPlayer(@PathVariable Long id, @RequestBody Player player) {
+    public ResponseEntity<Player> editPlayer(@ModelAttribute("player") Player player, @ModelAttribute("avaFile") MultipartFile avaFile, @PathVariable Long id) {
         Optional<Player> playerOptional = playerService.findById(id);
         if (!playerOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        player.setId(id);
-        playerService.save(player);
-        return new ResponseEntity<>(player, HttpStatus.OK);
+        String path = servletContext.getRealPath("/");
+        if (avaFile != null) {
+            String avaFileName = avaFile.getOriginalFilename();
+            try {
+                FileCopyUtils.copy(avaFile.getBytes(), new File(upload_file_avatar + avaFileName));
+                player.setAvatarURL("/image/" + avaFileName);
+            } catch (IOException ex) {
+                player.setAvatarURL("image/Error");
+                System.out.println("Loi khi upload File");
+                ex.printStackTrace();
+            }
+        }
+      player.setId(playerOptional.get().getId());
+        return new ResponseEntity<>(playerService.save(player), HttpStatus.OK);
     }
 
     @DeleteMapping("/player/delete/{id}")

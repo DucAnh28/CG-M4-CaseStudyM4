@@ -16,12 +16,16 @@ public interface IPlayerRepository extends PagingAndSortingRepository<Player, Lo
 
     Iterable<Player> findAllByNameContaining(String name);
 
-    @Query(value = "select sum(p.salary) from player as p ;", nativeQuery = true)
-    Double totalPlayerSalary();
+  @Query(value = "select * from player as p order by p.salary desc limit 1;", nativeQuery = true)
+    Player findPlayerMaxSalary();
+  @Query(value = "select *from player order by salary asc;", nativeQuery = true)
+    Iterable<Player> sortPlayerSalaryAsc();
 
 //    @Query(value = "select sum(p.bonus) from player as p ;", nativeQuery = true)
 //    Double totalPlayerBonus();
-    @Query(value = "select sum(p.bonus) from player as p ;", nativeQuery = true)
-    Double totalPlayerBonus();
+
+    @Query (value = "select *from player order by salary desc;", nativeQuery = true)
+    Iterable<Player> sortPlayerSalaryDesc();
+
 
 }

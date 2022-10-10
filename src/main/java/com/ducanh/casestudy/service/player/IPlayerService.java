@@ -21,4 +21,6 @@ public interface IPlayerService extends IGeneralService<Player> {
     Iterable<Player> findAllByName(String name);
 
     Page<Player> findPage(Pageable pageable);
+    Iterable<Player> sortPlayerSalaryAsc();
+    Iterable<Player> sortPlayerSalaryDesc();
 }
