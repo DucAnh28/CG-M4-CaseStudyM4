@@ -32,7 +32,7 @@ import java.util.Set;
 
 @RestController
 @CrossOrigin("*")
-//@RequestMapping("")
+@RequestMapping("/player")
 public class PlayerController {
 
 
