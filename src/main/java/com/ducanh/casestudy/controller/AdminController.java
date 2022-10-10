@@ -138,11 +138,30 @@ public class AdminController {
         Iterable<Coach> coaches = coachService.sortCoachSalaryDesc();
         return new ResponseEntity<>(coaches, HttpStatus.OK);
     }
-    @GetMapping("/coach/role")
-    public ResponseEntity<Iterable<Coach>> findCoachByRole(@RequestParam String role) {
-        Iterable<Coach> coach1 = coachService.findCoachByRole(role);
-        return new ResponseEntity<>(coach1, HttpStatus.OK);
+
+    @GetMapping("/coach/search")
+    public ResponseEntity<Iterable<Coach>> searchByName(@PageableDefault(value = 2) @RequestParam Optional<String> name,Pageable pageable){
+        Page<Coach> coaches = coachService.findAllPage(pageable);
+        if (coaches.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        if (name.isPresent()) {
+            return new ResponseEntity<>(coachService.findCoachByNameContaining(name.get(), pageable), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(coaches, HttpStatus.OK);
     }
+    @GetMapping("/coach/role")
+    public ResponseEntity<Iterable<Coach>> findCoachByRole(@PageableDefault(value = 2) @RequestParam Optional<String> role,Pageable pageable) {
+        Page<Coach> coaches = coachService.findAllPage(pageable);
+        if (coaches.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        if (role.isPresent()) {
+            return new ResponseEntity<>(coachService.findCoachByNameContaining(role.get(), pageable), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(coaches, HttpStatus.OK);
+    }
+
     // Player:
     @GetMapping("/player/list")
     public ResponseEntity<Iterable<Player>> getPlayers() {

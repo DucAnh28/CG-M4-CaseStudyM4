@@ -58,11 +58,27 @@ public class CoachRestController {
         }
         return new ResponseEntity<>(coachOptional.get(), HttpStatus.OK);
     }
-
-    @GetMapping("/coach/role")
-    public ResponseEntity<Iterable<Coach>> findCoachByRole(@RequestParam String role) {
-        Iterable<Coach> coach1 = coachService.findCoachByRole(role);
-        return new ResponseEntity<>(coach1, HttpStatus.OK);
+    @GetMapping("/search")
+    public ResponseEntity<Iterable<Coach>> searchByName(@PageableDefault(value = 2) @RequestParam Optional<String> name,Pageable pageable){
+        Page<Coach> coaches = coachService.findAllPage(pageable);
+        if (coaches.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        if (name.isPresent()) {
+            return new ResponseEntity<>(coachService.findCoachByNameContaining(name.get(), pageable), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(coaches, HttpStatus.OK);
+    }
+    @GetMapping("/role")
+    public ResponseEntity<Iterable<Coach>> findCoachByRole(@PageableDefault(value = 2) @RequestParam Optional<String> role,Pageable pageable) {
+        Page<Coach> coaches = coachService.findAllPage(pageable);
+        if (coaches.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        if (role.isPresent()) {
+            return new ResponseEntity<>(coachService.findCoachByNameContaining(role.get(), pageable), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(coaches, HttpStatus.OK);
     }
     // Player:
     @GetMapping("/player/list")
@@ -164,6 +180,9 @@ public class CoachRestController {
         playerService.save(player);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+//        Iterable<Coach> coach1 = coachService.findCoachByNameContaining(role);
+
     @RequestMapping(value = "/image/{path}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getImageAsResponseEntity(@PathVariable String path) throws IOException {
         HttpHeaders headers = new HttpHeaders();
@@ -173,4 +192,16 @@ public class CoachRestController {
         ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
         return responseEntity;
     }
+
+    @GetMapping("/sortAsc")
+    public ResponseEntity<Iterable<Coach>> sortCoachBySalaryAsc(){
+        Iterable<Coach> coaches=coachService.sortCoachSalaryAsc();
+        return new ResponseEntity<>(coaches,HttpStatus.OK);
+    }
+    @GetMapping("/sortDesc")
+    public ResponseEntity<Iterable<Coach>> sortCoachBySalaryDesc(){
+        Iterable<Coach> coaches=coachService.sortCoachSalaryDesc();
+        return new ResponseEntity<>(coaches,HttpStatus.OK);
+    }
+
 }
