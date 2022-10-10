@@ -2,42 +2,40 @@ package com.ducanh.casestudy.controller;
 
 import com.ducanh.casestudy.model.*;
 import com.ducanh.casestudy.repository.jwt.IAppUserRepo;
+import com.ducanh.casestudy.service.IGeneralService;
+import com.ducanh.casestudy.service.approle.AppRoleService;
+import com.ducanh.casestudy.service.approle.IAppRoleService;
 import com.ducanh.casestudy.service.appuser.IAppUserService;
 
 import com.ducanh.casestudy.service.player.IPlayerService;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/player")
+@RequestMapping("/player")
 public class PlayerController {
-
-
-
-    @Autowired
-    private IAppUserService iAppUserService;
-
-    @Autowired
-    private IAppUserRepo iAppUserRepo;
-
-
-//    @Value("${upload_file_avatar}")
-//    private String upload_file_avatar;
-//
-//    @Value("${upload_file_background}")
-//    private String upload_file_background;
-
     @Autowired
     private IPlayerService playerService;
-
 
     @GetMapping("/list-player")
     public ResponseEntity<Iterable<Player>> getPlayers() {
@@ -49,7 +47,7 @@ public class PlayerController {
     }
 
     @GetMapping("/pagePlayer")
-    public ResponseEntity<Page<Player>> showPagePlayer(@PageableDefault(value = 8) Pageable pageable) {
+    public ResponseEntity<Page<Player>> showPagePlayer(@PageableDefault(value = 5) Pageable pageable) {
         Page<Player> player_page = playerService.findPage(pageable);
         if (!player_page.iterator().hasNext()) {
             new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -99,49 +97,5 @@ public class PlayerController {
         return new ResponseEntity<>(players, HttpStatus.OK);
     }
 
-
-    @PostMapping("/create-player")
-    public ResponseEntity<Player> createPlayer(@RequestBody Player player) {
-        playerService.save(player);
-        return new ResponseEntity<>(player, HttpStatus.CREATED);
-    }
-
-    @PutMapping("/edit-player/{id}")
-    public ResponseEntity<Player> editPlayer(@PathVariable Long id, @RequestBody Player player) {
-        Optional<Player> playerOptional = playerService.findById(id);
-        if (!playerOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        player.setId(id);
-        playerService.save(player);
-        return new ResponseEntity<>(player, HttpStatus.OK);
-    }
-    @DeleteMapping ("/delete-player/{id}")
-    public ResponseEntity<Player> deletePlayer(@PathVariable Long id){
-        Optional<Player> playerOptional = playerService.findById(id);
-        if (!playerOptional.isPresent()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        playerService.remove(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-
-    @GetMapping("/page-player")
-    public ResponseEntity<Page<Player>> showAllPage(@PageableDefault(value = 5) Pageable pageable) {
-        Page<Player> playerPage = playerService.findPage(pageable);
-        if (!playerPage.iterator().hasNext()) {
-            new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(playerPage, HttpStatus.OK);
-    }
-
-
-//    @GetMapping("/totalPlayerSalary")
-//    public ResponseEntity<?> totalPlayerSalary(){
-//        Double totalCoachSalary = playerRepository.totalPlayerSalary();
-//        return new ResponseEntity<>(totalCoachSalary, HttpStatus.OK);
-//    }
-
-
 }
+

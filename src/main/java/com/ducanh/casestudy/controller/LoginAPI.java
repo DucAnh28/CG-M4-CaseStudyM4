@@ -3,6 +3,7 @@ package com.ducanh.casestudy.controller;
 import com.ducanh.casestudy.model.AppRole;
 import com.ducanh.casestudy.model.AppUser;
 import com.ducanh.casestudy.model.dto.UserToken;
+import com.ducanh.casestudy.service.approle.IAppRoleService;
 import com.ducanh.casestudy.service.appuser.IAppUserService;
 import com.ducanh.casestudy.service.jwt.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @RestController
@@ -31,8 +33,11 @@ public class LoginAPI {
     @Autowired
     private IAppUserService userService;
 
+    @Autowired
+    private IAppRoleService appRoleService;
+
     @PostMapping("/login")
-    public UserToken login(@RequestBody AppUser appUser) {
+    public ResponseEntity<UserToken> login(@RequestBody AppUser appUser) {
         try {
             // Tạo 1 đối tượng authentication
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(appUser.getName(), appUser.getPassword()));
@@ -40,24 +45,24 @@ public class LoginAPI {
 
             String token = jwtService.createToken(authentication);
             AppUser appUser1 = userService.findUserByName(appUser.getName());
-            return new UserToken(appUser1.getId(), appUser1.getPassword(), token, appUser1.getAppRole());
+            UserToken userToken = new UserToken(appUser1.getId(), appUser1.getName(), token, appUser1.getAppRole());
+            return new ResponseEntity<>(userToken,HttpStatus.ACCEPTED);
         } catch (Exception e) {
             System.out.println("Loi khi dang nhap");
-            return null;
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 
     @PostMapping("/register")
     public ResponseEntity<AppUser> register(@RequestBody AppUser appUser) {
-        if (appUser.getAppRole() != null) {
-            AppRole appRole = new AppRole();
-            appRole.setId(2L);
-            appUser.setAppRole((Set<AppRole>) appRole);
-        } else if (appUser.getAppRole() == null) {
-            AppRole appRole = new AppRole();
-            appRole.setId(3L);
-            appUser.setAppRole((Set<AppRole>) appRole);
+        if (userService.findUserByName(appUser.getName()) == null) {
+            Set<AppRole> roles = new HashSet<>();
+            roles.add(appRoleService.findById(3L).get());
+            appUser.setAppRole(roles);
+            return new ResponseEntity<>(userService.save(appUser), HttpStatus.OK);
         }
-        return new ResponseEntity<>(userService.save(appUser), HttpStatus.OK);
+        else {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
     }
 }

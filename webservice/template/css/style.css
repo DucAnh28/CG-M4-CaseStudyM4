@@ -9287,7 +9287,7 @@ h6 a:hover {
 
 .footer-type02 {
     padding: 30px 0;
-    background-image: url("../images/background/heroesBg.jpg");
+    background-image: url("/webservice/template/images/background/blackbg.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -10180,7 +10180,7 @@ h6 a:hover {
 /* -------------- latest result section -----------*/
 .latestResult {
     padding: 100px 0;
-    background: url("../images/background/latestnews.jpg") no-repeat;
+    background: url("/webservice/template/images/background/latestnews.jpg") no-repeat;
     background-size: cover;
     background-position: center;
 }
@@ -10808,7 +10808,7 @@ ul.videoLive li a a.active {
     height: 600px;
     position: relative;
     overflow: hidden;
-    background: url(../images/background/innerpageBg.jpg) center no-repeat;
+    background: url(/webservice/template/images/background/blackbg.jpg) center no-repeat;
     /* Image Credit: Unsplash.me */
     background-size: cover;
     background-attachment: fixed;
@@ -14138,7 +14138,7 @@ ul.slick-dots li button:hover {
 
     .gallery-info p,
     .gallery-info01 p {
-        color: r #EEE8E8;
+        color: #EEE8E8;
         margin: 40px auto;
     }
 
