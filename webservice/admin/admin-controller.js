@@ -1,26 +1,45 @@
 function showAllCoach() {
     $.ajax({
-            type: "get",
-            url: "http://localhost:2828/admin/coach",
-            success: function (data) {
-                let content = "";
-                for (let i = 0; i < data.length; i++) {
-                    content += `<tr>
-        <td>${data[i].id}</td>
-        <td>${data[i].name}</td>
-        <td>${data[i].country}</td>
-        <td>${data[i].achievement}</td>
-        <td>${data[i].salary}</td>
-        <td>${data[i].role}</td>
-        <td><img src="${'http://localhost:2828' + data[i].avatarURL}" width="80" height="80" alt="img"></td>
-        <td><a href="${data[i].id}" onclick="deleteCoach(this)">Delete</a></td>
-        <td><a href="${data[i].id}" onclick="showFormUpdate(this)">Update</a></td></tr>`;
-                }
-                document.getElementById("list").innerHTML = content;
-
+        type: "get",
+        url: "http://localhost:2828/admin/coach",
+        success: function (data) {
+            console.log(data)
+            let content = "";
+            for (let i = 0; i < data.length; i++) {
+                content += `
+                 <tr>        
+                    <td>
+                     <div class="d-flex px-2 py-1">
+                      <div>
+                         <img src="${'http://localhost:2828' + data[0].avatarURL}" class="avatar avatar-sm me-3" alt="user1">
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">${data[i].name}</h6>
+                                <p class="text-xs text-secondary mb-0">${data[0].achievement}</p>
+                      </div>
+                      </div>
+                    </td>
+                    <td>
+                     <p class="text-xs font-weight-bold mb-0">${data[i].role}</p>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="badge badge-sm bg-gradient-success">${data[i].salary} $</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">${data[i].country}</span>
+                    </td>
+                    <td class="align-middle">
+                      <a href="${data[i].id}"  class="text-secondary font-weight-bold text-xs" 
+                      data-toggle="tooltip" data-original-title="Edit user" onclick="showFormUpdate(this)">Edit</a>
+                      <a href="${data[i].id}"  class="text-secondary font-weight-bold text-xs" 
+                      data-toggle="tooltip" data-original-title="Edit user" onclick="deleteCoach(this)">Delete</a>
+                    </td>
+                    </tr>`;
             }
+            document.getElementById("listCoach").innerHTML = content;
+
         }
-    )
+    })
 }
 
 showAllCoach();
@@ -42,7 +61,9 @@ function createCoach() {
     formData.append('role', role);
     formData.append('username', username);
     formData.append('password', password);
-    formData.append('avaFile', image);
+    if (image !== undefined){
+        formData.append('avaFile', image);
+    }
     $.ajax({
         contentType: false,
         processData: false,
@@ -56,22 +77,19 @@ function createCoach() {
             showAllCoach();
         }
     })
-
 }
 
 function showFormUpdate(element) {
     let id = element.getAttribute("href");
     $.ajax({
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Accept': 'application/json', 'Content-Type': 'application/json'
         },
-        type: "get",
-        url: "http://localhost:2828/admin/coach/" + id,
+        type: "get", url: "http://localhost:2828/admin/coach/" + id,
         success: function (data) {
             console.log(data);
             console.log(id);
-            $('#id').attr('value', `${data.id}`)
+            $('#id-coach').attr('value', `${data.id}`)
             $('#name').attr('value', `${data.name}`)
             $('#country').attr('value', `${data.country}`)
             $('#achievement').attr('value', `${data.achievement}`)
@@ -79,15 +97,13 @@ function showFormUpdate(element) {
             $('#role').attr('value', `${data.role}`)
             $('#image').attr('value', `${data.image}`)
         }
-
     })
-
     event.preventDefault();
 }
 
 function updateCoach() {
     let formData = new FormData();
-    let id = $('#id').val();
+    let id = $('#id-coach').val();
     let name = $('#name').val();
     let country = $('#country').val();
     let achievement = $('#achievement').val();
@@ -99,13 +115,15 @@ function updateCoach() {
     formData.append('achievement', achievement);
     formData.append('salary', salary);
     formData.append('role', role);
-    formData.append('avaFile', image);
+    if (image !== undefined){
+        formData.append('avaFile', image);
+    }
     $.ajax({
         contentType: false,
         processData: false,
         enctype: 'multipart/form-data',
         dataType: "json",
-        type: "put",
+        type: "PUT",
         url: "http://localhost:2828/admin/coach/" + id,
         data: formData,
         success: function (data) {
@@ -118,7 +136,6 @@ function updateCoach() {
 }
 
 function deleteCoach(element) {
-
     let id = element.getAttribute("href");
     $.ajax({
         type: "delete",
@@ -134,44 +151,8 @@ function deleteCoach(element) {
 function sortSalaryAsc() {
     $.ajax({
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        type: "get",
-        url: "http://localhost:2828/admin/coach/sortAsc/",
-        success: function (data) {
-            let content = "";
-            for (let i = 0; i < data.length; i++) {
-                content += `<tr>
-        <td>${data[i].id}</td>
-        <td>${data[i].name}</td>
-        <td>${data[i].country}</td>
-        <td>${data[i].achievement}</td>
-        <td>${data[i].salary}</td>
-        <td>${data[i].role}</td>
-        <td><img src="${'http://localhost:2828' + data[i].avatarURL}" width="80" height="80" alt="img"></td>
-        <td><a href="${data[i].id}" onclick="deleteCoach(this)">Delete</a></td>
-        <td><a href="${data[i].id}" onclick="showFormUpdate(this)">Update</a></td></tr>`;
-            }
-            document.getElementById("list").innerHTML = content;
-
-            console.log(data);
-
-            console.log("sort thanh cong")
-
-        }
-    })
-}
-
-function sortSalaryDesc() {
-    $.ajax({
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        type: "get",
-        url: "http://localhost:2828/admin/coach/sortDesc/",
-        success: function (data) {
+            'Accept': 'application/json', 'Content-Type': 'application/json'
+        }, type: "get", url: "http://localhost:2828/admin/coach/sortAsc/", success: function (data) {
             let content = "";
             for (let i = 0; i < data.length; i++) {
                 content += `<tr>
@@ -200,12 +181,8 @@ function searchCoachByName() {
 
     $.ajax({
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        type: "GET",
-        url: "http://localhost:2828/admin/coach/search?name=" + search,
-        success: function (data) {
+            'Accept': 'application/json', 'Content-Type': 'application/json'
+        }, type: "GET", url: "http://localhost:2828/admin/coach/search?name=" + search, success: function (data) {
             console.log(data.content[0])
             let content = "";
             for (let i = 0; i < data.content.length; i++) {
@@ -221,10 +198,7 @@ function searchCoachByName() {
         <td><a href="${data.content[i].id}" onclick="showFormUpdate(this)">Update</a></td></tr>`;
             }
             document.getElementById("list").innerHTML = content;
-
             console.log(data);
-
-
         }
     })
     event.preventDefault();
@@ -232,15 +206,10 @@ function searchCoachByName() {
 
 function searchByRole() {
     let search = $('#searchrole').val();
-
     $.ajax({
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        type: "GET",
-        url: "http://localhost:2828/admin/coach/role?role=" + search,
-        success: function (data) {
+            'Accept': 'application/json', 'Content-Type': 'application/json'
+        }, type: "GET", url: "http://localhost:2828/admin/coach/role?role=" + search, success: function (data) {
             console.log(data.content[0])
             let content = "";
             for (let i = 0; i < data.content.length; i++) {
@@ -256,51 +225,63 @@ function searchByRole() {
         <td><a href="${data.content[i].id}" onclick="showFormUpdate(this)">Update</a></td></tr>`;
             }
             document.getElementById("list").innerHTML = content;
-
             console.log(data);
             console.log("sort thanh cong")
-
         }
     })
     event.preventDefault();
-
 }
-function showMostSalaryCoach() {
+
+ // Player
+function showAllPlayer() {
     $.ajax({
-        type: "GET",
-        url: "http://localhost:2828/admin/coach/sortDesc",
+        type: "get",
+        url: "http://localhost:2828/admin/player/list",
         success: function (data) {
+            console.log(data)
             let content = "";
-                content += `<tr>
-                    <td class="w-30">
-                      <div class="d-flex px-2 py-1 align-items-center">
-                        <div class="ms-4">
-                          <p class="text-xs font-weight-bold mb-0">Country</p>
-                          <h6 class="text-sm mb-0">${data[0].country}</h6>
-                        </div>
+            for (let i = 0; i < data.length; i++) {
+                content += `
+                 <tr>        
+                    <td>
+                     <div class="d-flex px-2 py-1">
+                      <div>
+                         <img src="${'http://localhost:2828' + data[0].avatarURL}" class="avatar avatar-sm me-3" alt="user1">
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">${data[i].name}</h6>
+                                <p class="text-xs text-secondary mb-0">${data[0].country}</p>
+                      </div>
                       </div>
                     </td>
                     <td>
-                      <div class="text-center">
-                        <p class="text-xs font-weight-bold mb-0">Name</p>
-                        <h6 class="text-sm mb-0">${data[0].name}</h6>
-                      </div>
+                     <p class="text-xs font-weight-bold mb-0">${data[i].position}</p>
                     </td>
-                    <td>
-                      <div class="text-center">
-                        <p class="text-xs font-weight-bold mb-0">Salary</p>
-                        <h6 class="text-sm mb-0">${data[0].salary}</h6>
-                      </div>
+                    <td class="align-middle text-center text-sm">
+                      <span class="badge badge-sm bg-gradient-success">${data[i].status}</span>
                     </td>
-                    <td class="align-middle text-sm">
-                      <div class="col text-center">
-                        <p class="text-xs font-weight-bold mb-0">Role</p>
-                        <h6 class="text-sm mb-0">${data[0].role}</h6>
-                      </div>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">${data[i].height}</span>
                     </td>
-                  </tr>`;
-            document.getElementById("mostSalaryCoach").innerHTML = content;
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">${data[i].weight}</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">${data[i].salary} $</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">${data[i].position}</span>
+                    </td>
+                    <td class="align-middle">
+                      <a href="${data[i].id}"  class="text-secondary font-weight-bold text-xs" 
+                      data-toggle="tooltip" data-original-title="Edit user" onclick="showFormUpdate(this)">Edit</a>
+                      <a href="${data[i].id}"  class="text-secondary font-weight-bold text-xs" 
+                      data-toggle="tooltip" data-original-title="Edit user" onclick="deleteCoach(this)">Delete</a>
+                    </td>
+                    </tr>`;
+            }
+            document.getElementById("listPlayer").innerHTML = content;
         }
     })
 }
-showMostSalaryCoach();
+showAllPlayer();
