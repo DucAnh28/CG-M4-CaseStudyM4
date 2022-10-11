@@ -220,7 +220,7 @@ function searchCoachByName() {
         },
         type: "GET",
         beforeSend: function (xhr) {
-            xhr.setRequestHeader("Authorization", "Bearer" + token)
+            xhr.setRequestHeader("Authorization", "Bearer " + token);
         },
         url: "http://localhost:2828/coach/search?name=" + search,
         success: function (data) {
@@ -258,7 +258,7 @@ function searchByRole() {
         },
         type: "GET",
         beforeSend: function (xhr) {
-            xhr.setRequestHeader("Authorization", "Bearer" + token)
+            xhr.setRequestHeader("Authorization", "Bearer " + token);
         },
         url: "http://localhost:2828/coach/role?role=" + search,
         success: function (data) {
