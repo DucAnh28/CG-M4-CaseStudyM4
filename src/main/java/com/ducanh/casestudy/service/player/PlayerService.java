@@ -1,8 +1,5 @@
 package com.ducanh.casestudy.service.player;
-import com.ducanh.casestudy.model.Performance;
-import com.ducanh.casestudy.model.Player;
-import com.ducanh.casestudy.model.Position;
-import com.ducanh.casestudy.model.Status;
+import com.ducanh.casestudy.model.*;
 import com.ducanh.casestudy.repository.player.IPerformanceRepository;
 import com.ducanh.casestudy.repository.player.IPlayerRepository;
 import com.ducanh.casestudy.repository.player.IPositionRepository;
@@ -85,5 +82,20 @@ public class PlayerService implements IPlayerService{
     public Iterable<Player> sortPlayerSalaryDesc() {
         return playerRepository.sortPlayerSalaryDesc();
     }
+
+    @Override
+    public Page<Player> findAllPage(Pageable pageable) {
+        return playerRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Player> findPlayerByNameContaining(String name, Pageable pageable) {
+      return playerRepository.findPlayerByNameContaining(name,pageable);
+    }
+//    @Override
+//    public Page<Coach> findCoachByNameContaining(String name, Pageable pageable) {
+//        return coachRepository.findCoachByNameContaining(name,pageable);
+//    }
+
 
 }

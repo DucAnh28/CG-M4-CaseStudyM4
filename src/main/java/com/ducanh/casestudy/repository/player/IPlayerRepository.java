@@ -1,6 +1,9 @@
 package com.ducanh.casestudy.repository.player;
 
+import com.ducanh.casestudy.model.Coach;
 import com.ducanh.casestudy.model.Player;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -28,4 +31,6 @@ public interface IPlayerRepository extends PagingAndSortingRepository<Player, Lo
     Iterable<Player> sortPlayerSalaryDesc();
 
 
+  Page<Player> findPlayerByNameContaining(String name, Pageable pageable);
+//  Page<Coach> findCoachByNameContaining(String name, Pageable pageable);
 }

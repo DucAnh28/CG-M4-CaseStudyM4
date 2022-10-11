@@ -107,4 +107,17 @@ public class PlayerController {
         return new ResponseEntity<>(players, HttpStatus.OK);
 
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<Iterable<Player>> searchByName(@PageableDefault(value = 2) @RequestParam Optional<String> name,Pageable pageable){
+        Page<Player> players = playerService.findAllPage(pageable);
+        if (players.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        if (name.isPresent()) {
+            return new ResponseEntity<>(playerService.findPlayerByNameContaining(name.get(), pageable), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(players, HttpStatus.OK);
+    }
 }
+

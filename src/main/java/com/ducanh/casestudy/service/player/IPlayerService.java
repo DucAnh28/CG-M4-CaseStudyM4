@@ -1,9 +1,6 @@
 package com.ducanh.casestudy.service.player;
 
-import com.ducanh.casestudy.model.Performance;
-import com.ducanh.casestudy.model.Player;
-import com.ducanh.casestudy.model.Position;
-import com.ducanh.casestudy.model.Status;
+import com.ducanh.casestudy.model.*;
 import com.ducanh.casestudy.service.IGeneralService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,4 +20,11 @@ public interface IPlayerService extends IGeneralService<Player> {
     Page<Player> findPage(Pageable pageable);
     Iterable<Player> sortPlayerSalaryAsc();
     Iterable<Player> sortPlayerSalaryDesc();
+
+    Page<Player> findAllPage(Pageable pageable);
+
+//    Object findPlayerByNameContaining(String s, Pageable pageable);
+Page<Player> findPlayerByNameContaining(String name, Pageable pageable);
+
 }
+
