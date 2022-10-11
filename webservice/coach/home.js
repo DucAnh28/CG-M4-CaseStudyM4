@@ -1,5 +1,6 @@
+let token = localStorage.getItem("token");
 function showAllCoach(){
-    let token = localStorage.getItem("token");
+
     $.ajax({
 
             type:"get",
@@ -17,9 +18,9 @@ function showAllCoach(){
         <td>${data[i].achievement}</td>
         <td>${data[i].salary}</td>
         <td>${data[i].role}</td>
-        <td><img src="${'http://localhost:2828'+data[i].avatarURL}" width="80" height="80" alt="img"></td>
-        <td><a href="${data[i].id}" onclick="deleteCoach(this)">Delete</a></td>
-        <td><a href="${data[i].id}" onclick="showFormUpdate(this)">Update</a></td></tr>`;
+        <td><img src="${'http://localhost:2828'+data[i].avatarURL}" width="250" height="180" alt="img"></td>
+        
+        `;
                 }
                 document.getElementById("list").innerHTML = content;
 
@@ -30,6 +31,7 @@ function showAllCoach(){
 showAllCoach();
 
 function createCoach() {
+    let token = localStorage.getItem("token");
     let formData = new FormData();
     let name = $('#name').val();
     let country = $('#country').val();
@@ -53,6 +55,9 @@ function createCoach() {
         enctype: 'multipart/form-data',
         dataType: "json",
         type: "POST",
+        beforeSend:function (xhr){
+            xhr.setRequestHeader("Authorization","Bearer" +token)
+        },
         url: "http://localhost:2828/coach",
         data: formData,
         success: function (data) {
@@ -63,6 +68,7 @@ function createCoach() {
 
 }
 function showFormUpdate(element){
+    let token = localStorage.getItem("token");
     let id = element.getAttribute("href");
     $.ajax({
         headers: {
@@ -70,6 +76,9 @@ function showFormUpdate(element){
             'Content-Type': 'application/json'
         },
         type: "get",
+        beforeSend:function (xhr){
+            xhr.setRequestHeader("Authorization","Bearer" +token)
+        },
         url: "http://localhost:2828/coach/"+id,
         success: function (data) {
             console.log(data);
@@ -89,6 +98,7 @@ function showFormUpdate(element){
 }
 
 function updateCoach() {
+    let token = localStorage.getItem("token");
     let formData = new FormData();
     let id = $('#id').val();
     let name = $('#name').val();
@@ -109,6 +119,9 @@ function updateCoach() {
         enctype: 'multipart/form-data',
         dataType: "json",
         type: "put",
+        beforeSend:function (xhr){
+            xhr.setRequestHeader("Authorization","Bearer" +token)
+        },
         url: "http://localhost:2828/coach/"+id,
         data: formData,
         success: function (data) {
@@ -121,10 +134,14 @@ function updateCoach() {
 }
 
 function deleteCoach(element){
+    let token = localStorage.getItem("token");
 
     let id=element.getAttribute("href");
     $.ajax({
         type: "delete",
+        beforeSend:function (xhr){
+            xhr.setRequestHeader("Authorization","Bearer" +token)
+        },
         url: "http://localhost:2828/admin/coach/"+id,
         success:function (date){
             console.log("Xoa thanh cong ");
@@ -134,12 +151,16 @@ function deleteCoach(element){
     event.preventDefault();
 }
 function sortSalaryAsc(){
+    let token = localStorage.getItem("token");
     $.ajax({
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         type:"get",
+        beforeSend:function (xhr){
+            xhr.setRequestHeader("Authorization","Bearer" +token)
+        },
         url: "http://localhost:2828/coach/sortAsc/",
         success:function (data){
             let content="";
@@ -166,12 +187,16 @@ function sortSalaryAsc(){
 }
 
 function sortSalaryDesc(){
+    let token = localStorage.getItem("token");
     $.ajax({
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         type:"get",
+        beforeSend:function (xhr){
+            xhr.setRequestHeader("Authorization","Bearer" +token)
+        },
         url: "http://localhost:2828/coach/sortDesc/",
         success:function (data){
             let content="";
@@ -198,6 +223,7 @@ function sortSalaryDesc(){
 }
 
 function searchCoachByName(){
+    let token = localStorage.getItem("token");
     let search= $('#search').val();
 
     $.ajax({
@@ -206,6 +232,9 @@ function searchCoachByName(){
             'Content-Type': 'application/json'
         },
         type:"GET",
+        beforeSend:function (xhr){
+            xhr.setRequestHeader("Authorization","Bearer" +token)
+        },
         url: "http://localhost:2828/coach/search?name="+search,
         success:function (data){
             console.log(data.content[0])
@@ -234,6 +263,7 @@ function searchCoachByName(){
 }
 
 function searchByRole(){
+    let token = localStorage.getItem("token");
     let search= $('#searchrole').val();
 
     $.ajax({
@@ -242,6 +272,9 @@ function searchByRole(){
             'Content-Type': 'application/json'
         },
         type:"GET",
+        beforeSend:function (xhr){
+            xhr.setRequestHeader("Authorization","Bearer" +token)
+        },
         url: "http://localhost:2828/coach/role?role="+search,
         success:function (data){
             console.log(data.content[0])
@@ -276,4 +309,9 @@ function checkValue(){
     if (value==2){
         sortSalaryDesc();
     }
+}
+
+function logoutCoach() {
+    localStorage.clear();
+    window.location.href = "../homepage/login.html";
 }
