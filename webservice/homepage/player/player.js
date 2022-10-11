@@ -34,7 +34,6 @@ function showAllCoach(){
         }
     })
 }
-<<<<<<< HEAD
 showAllPlayer();
 
 function showAllPlayer(){
@@ -237,6 +236,4 @@ function sortSalaryDesc(){
         }
     })
 }
-=======
 showAllCoach();
->>>>>>> qa
