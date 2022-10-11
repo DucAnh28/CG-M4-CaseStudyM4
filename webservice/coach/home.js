@@ -1,24 +1,25 @@
 let token = localStorage.getItem("token");
-function showAllCoach(){
 
+function showAllCoach() {
+    console.log(token)
     $.ajax({
 
-            type:"get",
-        beforeSend:function (xhr){
-                xhr.setRequestHeader("Authorization","Bearer" +token)
-        },
-            url:"http://localhost:2828/coach",
-            success:function (data){
-                let content="";
-                for (let i=0;i<data.length;i++){
-                    content+=`<tr>
+            type: "get",
+            url: "http://localhost:2828/coach",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", "Bearer " + token);
+            },
+            success: function (data) {
+                let content = "";
+                for (let i = 0; i < data.length; i++) {
+                    content += `<tr>
         <td>${data[i].id}</td>
         <td>${data[i].name}</td>
         <td>${data[i].country}</td>
         <td>${data[i].achievement}</td>
         <td>${data[i].salary}</td>
         <td>${data[i].role}</td>
-        <td><img src="${'http://localhost:2828'+data[i].avatarURL}" width="250" height="180" alt="img"></td>
+        <td><img src="${'http://localhost:2828' + data[i].avatarURL}" width="250" height="180" alt="img"></td>
         
         `;
                 }
@@ -28,10 +29,10 @@ function showAllCoach(){
         }
     )
 }
+
 showAllCoach();
 
 function createCoach() {
-    let token = localStorage.getItem("token");
     let formData = new FormData();
     let name = $('#name').val();
     let country = $('#country').val();
@@ -55,8 +56,8 @@ function createCoach() {
         enctype: 'multipart/form-data',
         dataType: "json",
         type: "POST",
-        beforeSend:function (xhr){
-            xhr.setRequestHeader("Authorization","Bearer" +token)
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Authorization", "Bearer" + token)
         },
         url: "http://localhost:2828/coach",
         data: formData,
@@ -67,8 +68,9 @@ function createCoach() {
     })
 
 }
-function showFormUpdate(element){
-    let token = localStorage.getItem("token");
+
+function showFormUpdate(element) {
+    // let token = localStorage.getItem("token");
     let id = element.getAttribute("href");
     $.ajax({
         headers: {
@@ -76,20 +78,20 @@ function showFormUpdate(element){
             'Content-Type': 'application/json'
         },
         type: "get",
-        beforeSend:function (xhr){
-            xhr.setRequestHeader("Authorization","Bearer" +token)
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Authorization", "Bearer" + token)
         },
-        url: "http://localhost:2828/coach/"+id,
+        url: "http://localhost:2828/coach/" + id,
         success: function (data) {
             console.log(data);
             console.log(id);
-            $('#id').attr('value',`${data.id}`)
-            $('#name').attr('value',`${data.name}`)
-            $('#country').attr('value',`${data.country}`)
-            $('#achievement').attr('value',`${data.achievement}`)
-            $('#salary').attr('value',`${data.salary}`)
-            $('#role').attr('value',`${data.role}`)
-            $('#image').attr('value',`${data.image}`)
+            $('#id').attr('value', `${data.id}`)
+            $('#name').attr('value', `${data.name}`)
+            $('#country').attr('value', `${data.country}`)
+            $('#achievement').attr('value', `${data.achievement}`)
+            $('#salary').attr('value', `${data.salary}`)
+            $('#role').attr('value', `${data.role}`)
+            $('#image').attr('value', `${data.image}`)
         }
 
     })
@@ -119,10 +121,10 @@ function updateCoach() {
         enctype: 'multipart/form-data',
         dataType: "json",
         type: "put",
-        beforeSend:function (xhr){
-            xhr.setRequestHeader("Authorization","Bearer" +token)
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Authorization", "Bearer" + token)
         },
-        url: "http://localhost:2828/coach/"+id,
+        url: "http://localhost:2828/coach/" + id,
         data: formData,
         success: function (data) {
             console.log(data);
@@ -133,46 +135,46 @@ function updateCoach() {
     event.preventDefault();
 }
 
-function deleteCoach(element){
-    let token = localStorage.getItem("token");
+function deleteCoach(element) {
 
-    let id=element.getAttribute("href");
+    let id = element.getAttribute("href");
     $.ajax({
         type: "delete",
-        beforeSend:function (xhr){
-            xhr.setRequestHeader("Authorization","Bearer" +token)
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Authorization", "Bearer" + token)
         },
-        url: "http://localhost:2828/admin/coach/"+id,
-        success:function (date){
+        url: "http://localhost:2828/admin/coach/" + id,
+        success: function (date) {
             console.log("Xoa thanh cong ");
             showAllCoach();
         }
     })
     event.preventDefault();
 }
-function sortSalaryAsc(){
+
+function sortSalaryAsc() {
     let token = localStorage.getItem("token");
     $.ajax({
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        type:"get",
-        beforeSend:function (xhr){
-            xhr.setRequestHeader("Authorization","Bearer" +token)
+        type: "get",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Authorization", "Bearer" + token)
         },
         url: "http://localhost:2828/coach/sortAsc/",
-        success:function (data){
-            let content="";
-            for (let i=0;i<data.length;i++){
-                content+=`<tr>
+        success: function (data) {
+            let content = "";
+            for (let i = 0; i < data.length; i++) {
+                content += `<tr>
         <td>${data[i].id}</td>
         <td>${data[i].name}</td>
         <td>${data[i].country}</td>
         <td>${data[i].achievement}</td>
         <td>${data[i].salary}</td>
         <td>${data[i].role}</td>
-        <td><img src="${'http://localhost:2828'+data[i].avatarURL}" width="80" height="80" alt="img"></td>
+        <td><img src="${'http://localhost:2828' + data[i].avatarURL}" width="80" height="80" alt="img"></td>
         <td><a href="${data[i].id}" onclick="deleteCoach(this)">Delete</a></td>
         <td><a href="${data[i].id}" onclick="showFormUpdate(this)">Update</a></td></tr>`;
             }
@@ -186,29 +188,29 @@ function sortSalaryAsc(){
     })
 }
 
-function sortSalaryDesc(){
+function sortSalaryDesc() {
     let token = localStorage.getItem("token");
     $.ajax({
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        type:"get",
-        beforeSend:function (xhr){
-            xhr.setRequestHeader("Authorization","Bearer" +token)
+        type: "get",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Authorization", "Bearer" + token)
         },
         url: "http://localhost:2828/coach/sortDesc/",
-        success:function (data){
-            let content="";
-            for (let i=0;i<data.length;i++){
-                content+=`<tr>
+        success: function (data) {
+            let content = "";
+            for (let i = 0; i < data.length; i++) {
+                content += `<tr>
         <td>${data[i].id}</td>
         <td>${data[i].name}</td>
         <td>${data[i].country}</td>
         <td>${data[i].achievement}</td>
         <td>${data[i].salary}</td>
         <td>${data[i].role}</td>
-        <td><img src="${'http://localhost:2828'+data[i].avatarURL}" width="80" height="80" alt="img"></td>
+        <td><img src="${'http://localhost:2828' + data[i].avatarURL}" width="80" height="80" alt="img"></td>
         <td><a href="${data[i].id}" onclick="deleteCoach(this)">Delete</a></td>
         <td><a href="${data[i].id}" onclick="showFormUpdate(this)">Update</a></td></tr>`;
             }
@@ -222,32 +224,31 @@ function sortSalaryDesc(){
     })
 }
 
-function searchCoachByName(){
-    let token = localStorage.getItem("token");
-    let search= $('#search').val();
+function searchCoachByName() {
+    let search = $('#search').val();
 
     $.ajax({
-        headers:{
-            'Accept':'application/json',
+        headers: {
+            'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        type:"GET",
-        beforeSend:function (xhr){
-            xhr.setRequestHeader("Authorization","Bearer" +token)
+        type: "GET",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Authorization", "Bearer" + token)
         },
-        url: "http://localhost:2828/coach/search?name="+search,
-        success:function (data){
+        url: "http://localhost:2828/coach/search?name=" + search,
+        success: function (data) {
             console.log(data.content[0])
-            let content="";
-            for (let i=0;i<data.content.length;i++){
-                content+=`<tr>
+            let content = "";
+            for (let i = 0; i < data.content.length; i++) {
+                content += `<tr>
         <td>${data.content[i].id}</td>
         <td>${data.content[i].name}</td>
         <td>${data.content[i].country}</td>
         <td>${data.content[i].achievement}</td>
         <td>${data.content[i].salary}</td>
         <td>${data.content[i].role}</td>
-        <td><img src="${'http://localhost:2828'+data.content[i].avatarURL}" width="80" height="80" alt="img"></td>
+        <td><img src="${'http://localhost:2828' + data.content[i].avatarURL}" width="80" height="80" alt="img"></td>
         <td><a href="${data.content[i].id}" onclick="deleteCoach(this)">Delete</a></td>
         <td><a href="${data.content[i].id}" onclick="showFormUpdate(this)">Update</a></td></tr>`;
             }
@@ -256,38 +257,36 @@ function searchCoachByName(){
             console.log(data);
 
 
-
         }
     })
     event.preventDefault();
 }
 
-function searchByRole(){
-    let token = localStorage.getItem("token");
-    let search= $('#searchrole').val();
+function searchByRole() {
+    let search = $('#searchrole').val();
 
     $.ajax({
-        headers:{
-            'Accept':'application/json',
+        headers: {
+            'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        type:"GET",
-        beforeSend:function (xhr){
-            xhr.setRequestHeader("Authorization","Bearer" +token)
+        type: "GET",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Authorization", "Bearer" + token)
         },
-        url: "http://localhost:2828/coach/role?role="+search,
-        success:function (data){
+        url: "http://localhost:2828/coach/role?role=" + search,
+        success: function (data) {
             console.log(data.content[0])
-            let content="";
-            for (let i=0;i<data.content.length;i++){
-                content+=`<tr>
+            let content = "";
+            for (let i = 0; i < data.content.length; i++) {
+                content += `<tr>
         <td>${data.content[i].id}</td>
         <td>${data.content[i].name}</td>
         <td>${data.content[i].country}</td>
         <td>${data.content[i].achievement}</td>
         <td>${data.content[i].salary}</td>
         <td>${data.content[i].role}</td>
-        <td><img src="${'http://localhost:2828'+data.content[i].avatarURL}" width="80" height="80" alt="img"></td>
+        <td><img src="${'http://localhost:2828' + data.content[i].avatarURL}" width="80" height="80" alt="img"></td>
         <td><a href="${data.content[i].id}" onclick="deleteCoach(this)">Delete</a></td>
         <td><a href="${data.content[i].id}" onclick="showFormUpdate(this)">Update</a></td></tr>`;
             }
@@ -301,12 +300,13 @@ function searchByRole(){
     event.preventDefault();
 
 }
-function checkValue(){
-    let value=$('.check').val();
-    if (value==1){
+
+function checkValue() {
+    let value = $('.check').val();
+    if (value == 1) {
         sortSalaryAsc();
     }
-    if (value==2){
+    if (value == 2) {
         sortSalaryDesc();
     }
 }
