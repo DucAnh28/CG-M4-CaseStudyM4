@@ -1,6 +1,12 @@
+// let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+// let token = localStorage.getItem("token");
+
 function showAllCoach() {
     $.ajax({
         type: "get",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
         url: "http://localhost:2828/admin/coach",
         success: function (data) {
             console.log(data)
@@ -70,6 +76,9 @@ function createCoach() {
         enctype: 'multipart/form-data',
         dataType: "json",
         type: "POST",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
         url: "http://localhost:2828/admin/coach",
         data: formData,
         success: function (data) {
@@ -84,6 +93,9 @@ function showFormUpdate(element) {
     $.ajax({
         headers: {
             'Accept': 'application/json', 'Content-Type': 'application/json'
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
         },
         type: "get", url: "http://localhost:2828/admin/coach/" + id,
         success: function (data) {
@@ -122,6 +134,9 @@ function updateCoach() {
         contentType: false,
         processData: false,
         enctype: 'multipart/form-data',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
         dataType: "json",
         type: "PUT",
         url: "http://localhost:2828/admin/coach/" + id,
@@ -139,6 +154,9 @@ function deleteCoach(element) {
     let id = element.getAttribute("href");
     $.ajax({
         type: "delete",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
         url: "http://localhost:2828/admin/coach/" + id,
         success: function (date) {
             console.log("Xoa thanh cong ");
@@ -236,6 +254,9 @@ function searchByRole() {
 function showAllPlayer() {
     $.ajax({
         type: "get",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
         url: "http://localhost:2828/admin/player/list",
         success: function (data) {
             console.log(data)
@@ -258,7 +279,7 @@ function showAllPlayer() {
                      <p class="text-xs font-weight-bold mb-0">${data[i].position}</p>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm bg-gradient-success">${data[i].status}</span>
+                      <span class="badge badge-sm bg-gradient-success">${data[i].status.state}</span>
                     </td>
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">${data[i].height}</span>
@@ -270,13 +291,13 @@ function showAllPlayer() {
                       <span class="text-secondary text-xs font-weight-bold">${data[i].salary} $</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">${data[i].position}</span>
+                      <span class="text-secondary text-xs font-weight-bold">${data[i].performance}</span>
                     </td>
                     <td class="align-middle">
                       <a href="${data[i].id}"  class="text-secondary font-weight-bold text-xs" 
-                      data-toggle="tooltip" data-original-title="Edit user" onclick="showFormUpdate(this)">Edit</a>
+                      data-toggle="tooltip" data-original-title="Edit user" onclick="showFormUpdatePlayer(this)">Edit</a>
                       <a href="${data[i].id}"  class="text-secondary font-weight-bold text-xs" 
-                      data-toggle="tooltip" data-original-title="Edit user" onclick="deleteCoach(this)">Delete</a>
+                      data-toggle="tooltip" data-original-title="Edit user" onclick="deletePlayer(this)">Delete</a>
                     </td>
                     </tr>`;
             }
@@ -285,3 +306,129 @@ function showAllPlayer() {
     })
 }
 showAllPlayer();
+
+function createPlayer() {
+    let formData = new FormData();
+    let name = $('#name').val();
+    let country = $('#country').val();
+    let weight = $('#weight').val();
+    let height = $('#height').val();
+    let salary = $('#salary').val();
+    let introduction = $('#introduction').val();
+    let status = $('#status').val();
+    let performance = $('#performance').val();
+    let image = $('#image')[0].files[0];
+    formData.append('name', name);
+    formData.append('country', country);
+    formData.append('weight', weight);
+    formData.append('height', height);
+    formData.append('salary', salary);
+    formData.append('introduction', introduction);
+    formData.append('status', status);
+    formData.append('performance', performance);
+    if (image !== undefined){
+        formData.append('avaFile', image);
+    }
+    $.ajax({
+        contentType: false,
+        processData: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
+        enctype: 'multipart/form-data',
+        dataType: "json",
+        type: "POST",
+        url: "http://localhost:2828/coach/player/create",
+        data: formData,
+        success: function (data) {
+            console.log(data);
+            showAllPlayer();
+        }
+    })
+}
+
+function showFormUpdatePlayer(element){
+    let id = element.getAttribute("href");
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
+        type: "get",
+        url: "http://localhost:2828/player/find-player-by-id/"+id,
+        success: function (data) {
+            console.log(data);
+            console.log(id);
+            $('#id').attr('value',`${data.id}`)
+            $('#name').attr('value',`${data.name}`)
+            $('#country').attr('value',`${data.country}`)
+            $('#weight').attr('value',`${data.weight}`)
+            $('#height').attr('value',`${data.height}`)
+            $('#introduction').attr('value',`${data.introduction}`)
+            $('#salary').attr('value',`${data.salary}`)
+            $('#image').attr('value',`${data.image}`)
+        }
+    })
+    event.preventDefault();
+}
+
+function updatePlayer() {
+    let formData = new FormData();
+    let name = $('#name').val();
+    let country = $('#country').val();
+    let weight = $('#weight').val();
+    let height = $('#height').val();
+    let salary = $('#salary').val();
+    let introduction = $('#introduction').val();
+    let status = $('#status').val();
+    let performance = $('#performance').val();
+    let image = $('#image')[0].files[0];
+    formData.append('name', name);
+    formData.append('country', country);
+    formData.append('weight', weight);
+    formData.append('height', height);
+    formData.append('salary', salary);
+    formData.append('introduction', introduction);
+    formData.append('status', status);
+    formData.append('performance', performance);
+    if (image !== undefined){
+        formData.append('avaFile', image);
+    }
+    $.ajax({
+        contentType: false,
+        processData: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
+        enctype: 'multipart/form-data',
+        dataType: "json",
+        type: "put",
+        url: "http://localhost:2828/coach/player/edit/"+id,
+        data: formData,
+        success: function (data) {
+            console.log(data);
+            showAllPlayer();
+        }
+    })
+    event.preventDefault();
+}
+
+function deletePlayer(element){
+
+    let id=element.getAttribute("href");
+    $.ajax({
+        type: "delete",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
+        url: "http://localhost:2828/coach/player/delete/"+id,
+        success:function (date){
+            console.log("Xoa thanh cong ");
+            showAllPlayer();
+        }
+    })
+    event.preventDefault();
+}

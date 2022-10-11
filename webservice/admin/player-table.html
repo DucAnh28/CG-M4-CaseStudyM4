@@ -114,7 +114,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                     <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
-                    <li class="breadcrumb-item text-sm text-white active" aria-current="page">Player</li>
+                    <li class="breadcrumb-item text-sm text-white active" aria-current="page">Home Admin</li>
                 </ol>
             </nav>
             <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
@@ -141,8 +141,7 @@
                         </a>
                     </li>
                     <li class="nav-item dropdown pe-2 d-flex align-items-center">
-                        <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-bell cursor-pointer"></i>
+                        <a class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" onclick="logout()">Logout
                         </a>
                     </li>
                 </ul>
@@ -161,39 +160,46 @@
                                     <h6 class="mb-0">Input Box</h6>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <p class="btn bg-gradient-dark mb-0" onclick=""><i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add New Player</p>
-                                    <p class="btn bg-gradient-dark mb-0" onclick=""><i aria-hidden="true"></i>&nbsp;&nbsp;Update Player</p>
+                                    <p class="btn bg-gradient-dark mb-0" onclick="createPlayer()"><i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add New Player</p>
+                                    <p class="btn bg-gradient-dark mb-0" onclick="updatePlayer()"><i aria-hidden="true"></i>&nbsp;&nbsp;Update Player</p>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body p-3">
                             <div class="row"><input hidden type="number" id="id-player" name="value">
                                 <div class="col-md-6 mb-md-0 mb-4">
-                                    <label>Name<input type="text" class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row"></label>
+                                    <label>Name<input name="value" id="name" type="text" class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row"></label>
                                 </div>
                                 <div class="col-md-6 mb-md-0 mb-4">
-                                    <label>Country<input type="text" class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row"></label>
+                                    <label>Country<input id="country" type="text" class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row"></label>
                                 </div>
                                 <div class="col-md-6 mb-md-0 mb-4">
-                                    <label>Height<input type="number" class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row"></label>
+                                    <label>Height<input id="height" type="number" class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row"></label>
                                 </div>
                                 <div class="col-md-6 mb-md-0 mb-4">
-                                    <label>Weight<input type="number" class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row"></label>
+                                    <label>Weight<input id="weight" type="number" class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row"></label>
                                 </div>
                                 <div class="col-md-6 mb-md-0 mb-4">
-                                    <label>Salary<input type="number" class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row"></label>
+                                    <label>Salary<input id="salary" type="number" class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row"></label>
                                 </div>
                                 <div class="col-md-6 mb-md-0 mb-4">
-                                    <label>Status<input class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row"></label>
+                                    Status<select id="status" class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row">
+                                    <option value="1">Good</option>
+                                    <option value="2">Injured</option>
+                                </select>
                                 </div>
                                 <div class="col-md-6 mb-md-0 mb-4">
-                                    <label>Performance<input class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row"></label>
+                                    Performance<select id="performance" class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row">
+                                    <option value="1">Good</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Bad</option>
+                                </select>
                                 </div>
                                 <div class="col-md-6 mb-md-0 mb-4">
                                     <label>Position<input class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row"></label>
                                 </div>
                                 <div class="col-md-6 mb-md-0 mb-4">
-                                    <label>Introduction<input class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row"></label>
+                                    <label>Introduction<input id="introduction" class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row"></label>
                                 </div>
                                 <div class="col-md-6 mb-md-0 mb-4">
                                     <label>Avatar<input type="file" class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row"></label>
@@ -416,6 +422,7 @@
 <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="assets/js/argon-dashboard.min.js?v=2.0.4"></script>
 </body>
-<script src="admin-controller.js"></script>
 <script src="header-admin.js"></script>
+<script src="admin-controller.js"></script>
+
 </html>
