@@ -1,6 +1,11 @@
 function showAllCoach(){
+    let token = localStorage.getItem("token");
     $.ajax({
+
             type:"get",
+        beforeSend:function (xhr){
+                xhr.setRequestHeader("Authorization","Bearer" +token)
+        },
             url:"http://localhost:2828/coach",
             success:function (data){
                 let content="";

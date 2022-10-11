@@ -14,7 +14,7 @@ function showAllCoach(){
                                 </label>
                             </td>
                             <td class="d-flex align-items-center border-bottom-0">
-                                <div class="img" style="background-image: url(image/2021.jpg);"></div>
+                                <div class="img" style="background-image: url(coach/images/2021.jpg);"></div>
                                
                                 <div class="pl-3 email">
                                     <span>${data[i].name}</span>
