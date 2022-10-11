@@ -33,7 +33,7 @@ function login() {
                 }
                 if (data.roles[0].name === "ROLE_COACH"){
                     console.log("hi")
-                    location.href = "../coach/coach-home.html";
+                    location.href = "../coach/home.html";
                 }
             }
         }
