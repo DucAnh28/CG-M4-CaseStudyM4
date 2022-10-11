@@ -3,7 +3,6 @@ let token = localStorage.getItem("token");
 function showAllCoach() {
     console.log(token)
     $.ajax({
-
             type: "get",
             url: "http://localhost:2828/coach",
             beforeSend: function (xhr) {
@@ -20,7 +19,64 @@ function showAllCoach() {
         <td>${data[i].salary}</td>
         <td>${data[i].role}</td>
         <td><img src="${'http://localhost:2828' + data[i].avatarURL}" width="250" height="180" alt="img"></td>
-        
+
+        `;
+                }
+                document.getElementById("list").innerHTML = content;
+
+            }
+        }
+    )
+}
+
+function sortSalaryDesc() {
+    console.log(token)
+    $.ajax({
+            type: "get",
+            url: "http://localhost:2828/coach/sortDesc",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", "Bearer " + token);
+            },
+            success: function (data) {
+                let content = "";
+                for (let i = 0; i < data.length; i++) {
+                    content += `<tr>
+        <td>${data[i].id}</td>
+        <td>${data[i].name}</td>
+        <td>${data[i].country}</td>
+        <td>${data[i].achievement}</td>
+        <td>${data[i].salary}</td>
+        <td>${data[i].role}</td>
+        <td><img src="${'http://localhost:2828' + data[i].avatarURL}" width="250" height="180" alt="img"></td>
+
+        `;
+                }
+                document.getElementById("list").innerHTML = content;
+
+            }
+        }
+    )
+}
+function sortSalaryAsc() {
+    console.log(token)
+    $.ajax({
+            type: "get",
+            url: "http://localhost:2828/coach/sortAsc",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", "Bearer " + token);
+            },
+            success: function (data) {
+                let content = "";
+                for (let i = 0; i < data.length; i++) {
+                    content += `<tr>
+        <td>${data[i].id}</td>
+        <td>${data[i].name}</td>
+        <td>${data[i].country}</td>
+        <td>${data[i].achievement}</td>
+        <td>${data[i].salary}</td>
+        <td>${data[i].role}</td>
+        <td><img src="${'http://localhost:2828' + data[i].avatarURL}" width="250" height="180" alt="img"></td>
+
         `;
                 }
                 document.getElementById("list").innerHTML = content;
@@ -70,6 +126,7 @@ function createCoach() {
 }
 
 function showFormUpdate(element) {
+
     // let token = localStorage.getItem("token");
     let id = element.getAttribute("href");
     $.ajax({
@@ -152,77 +209,6 @@ function deleteCoach(element) {
     event.preventDefault();
 }
 
-function sortSalaryAsc() {
-    let token = localStorage.getItem("token");
-    $.ajax({
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        type: "get",
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("Authorization", "Bearer" + token)
-        },
-        url: "http://localhost:2828/coach/sortAsc/",
-        success: function (data) {
-            let content = "";
-            for (let i = 0; i < data.length; i++) {
-                content += `<tr>
-        <td>${data[i].id}</td>
-        <td>${data[i].name}</td>
-        <td>${data[i].country}</td>
-        <td>${data[i].achievement}</td>
-        <td>${data[i].salary}</td>
-        <td>${data[i].role}</td>
-        <td><img src="${'http://localhost:2828' + data[i].avatarURL}" width="80" height="80" alt="img"></td>
-        <td><a href="${data[i].id}" onclick="deleteCoach(this)">Delete</a></td>
-        <td><a href="${data[i].id}" onclick="showFormUpdate(this)">Update</a></td></tr>`;
-            }
-            document.getElementById("list").innerHTML = content;
-
-            console.log(data);
-
-            console.log("sort thanh cong")
-
-        }
-    })
-}
-
-function sortSalaryDesc() {
-    let token = localStorage.getItem("token");
-    $.ajax({
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        type: "get",
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("Authorization", "Bearer" + token)
-        },
-        url: "http://localhost:2828/coach/sortDesc/",
-        success: function (data) {
-            let content = "";
-            for (let i = 0; i < data.length; i++) {
-                content += `<tr>
-        <td>${data[i].id}</td>
-        <td>${data[i].name}</td>
-        <td>${data[i].country}</td>
-        <td>${data[i].achievement}</td>
-        <td>${data[i].salary}</td>
-        <td>${data[i].role}</td>
-        <td><img src="${'http://localhost:2828' + data[i].avatarURL}" width="80" height="80" alt="img"></td>
-        <td><a href="${data[i].id}" onclick="deleteCoach(this)">Delete</a></td>
-        <td><a href="${data[i].id}" onclick="showFormUpdate(this)">Update</a></td></tr>`;
-            }
-            document.getElementById("list").innerHTML = content;
-
-            console.log(data);
-
-            console.log("sort thanh cong")
-
-        }
-    })
-}
 
 function searchCoachByName() {
     let search = $('#search').val();
@@ -304,7 +290,9 @@ function searchByRole() {
 function checkValue() {
     let value = $('.check').val();
     if (value == 1) {
+        console.log("tao da sort")
         sortSalaryAsc();
+        // taodangsort();
     }
     if (value == 2) {
         sortSalaryDesc();

@@ -102,14 +102,6 @@
     </table>
 </div>
 
-
-
-<div th:objec="coach">
-    <a th:if="${coach.hasPrevious()}" th:href="@{'/coach/page'(page=${coach.number-1})}">Trang trước</a>
-    <span th:text="${coach.number+1}"></span>/<span th:text="${coach.totalPages}"></span>
-    <a th:if="${coach.hasNext()}" th:href="@{'/coach/page'(page =${coach.number+1})}">Trang sau</a>
-
-</div>
 </body>
 <footer id="footer"></footer>
 </html>
