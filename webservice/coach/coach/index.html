@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Table 05</title>
+    <title>Coach</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
@@ -10,13 +10,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="player.js"></script>
+<!--    <script>-->
+<!--        $(function () {-->
+<!--            $("#header").load("header.html");-->
+<!--            $("#footer").load("footer.html");-->
+<!--        });-->
+<!--    </script>-->
 </head>
+
 <body>
+<!--<header id="header"></header>-->
 <section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
-                <h2 class="heading-section">Table #05</h2>
+                <h2 class="heading-section">Coach</h2>
             </div>
         </div>
         <div class="row">
@@ -28,11 +36,12 @@
                             <th></th>
                             <th>Name</th>
                             <th>Country</th>
-                            <th>Status</th>
+                            <th>Achievement</th>
+                            <th>Detail</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr class="alert" role="alert">
+                        <tbody id="list">
+                        <tr class="alert" role="alert" >
                             <td>
                                 <label class="checkbox-wrap checkbox-primary">
                                     <input type="checkbox" checked>
@@ -40,13 +49,13 @@
                                 </label>
                             </td>
                             <td class="d-flex align-items-center">
-                                <div class="img" style="background-image: url(images/Erik-Ten-Hag.jpg);"></div>
+                                <div class="img" style="background-image: url(image/person_1.jpg);"></div>
                                 <div class="pl-3 email">
                                     <span>markotto@email.com</span>
                                     <span>Added: 01/03/2020</span>
                                 </div>
                             </td>
-                            <td></td>
+                            <td>Markotto89</td>
                             <td class="status"><span class="active">Active</span></td>
                             <td>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -62,7 +71,7 @@
                                 </label>
                             </td>
                             <td class="d-flex align-items-center">
-                                <div class="img" style="background-image: url(images/person_2.jpg);"></div>
+                                <div class="img" style="background-image: url(image/person_2.jpg);"></div>
                                 <div class="pl-3 email">
                                     <span>jacobthornton@email.com</span>
                                     <span>Added: 01/03/2020</span>
@@ -84,7 +93,7 @@
                                 </label>
                             </td>
                             <td class="d-flex align-items-center">
-                                <div class="img" style="background-image: url(images/person_3.jpg);"></div>
+                                <div class="img" style="background-image: url(image/person_3.jpg);"></div>
                                 <div class="pl-3 email">
                                     <span>larrybird@email.com</span>
                                     <span>Added: 01/03/2020</span>
@@ -106,7 +115,7 @@
                                 </label>
                             </td>
                             <td class="d-flex align-items-center">
-                                <div class="img" style="background-image: url(images/person_4.jpg);"></div>
+                                <div class="img" style="background-image: url(image/person_4.jpg);"></div>
                                 <div class="pl-3 email">
                                     <span>johndoe@email.com</span>
                                     <span>Added: 01/03/2020</span>
@@ -128,7 +137,7 @@
                                 </label>
                             </td>
                             <td class="d-flex align-items-center border-bottom-0">
-                                <div class="img" style="background-image: url(images/person_1.jpg);"></div>
+                                <div class="img" style="background-image: url(image/person_1.jpg);"></div>
                                 <div class="pl-3 email">
                                     <span>garybird@email.com</span>
                                     <span>Added: 01/03/2020</span>
@@ -143,7 +152,7 @@
                                 </button>
                             </td>
                         </tr>
-                        <tr id="list"></tr>
+<!--                        <tr id="list"></tr>-->
                         </tbody>
                     </table>
                 </div>
@@ -156,7 +165,7 @@
 <script src="js/popper.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/main.js"></script>
-
+<!--<footer id="footer"></footer>-->
 </body>
 </html>
 
