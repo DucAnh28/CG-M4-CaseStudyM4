@@ -17,11 +17,11 @@ function showAllCoach() {
                     <td>
                      <div class="d-flex px-2 py-1">
                       <div>
-                         <img src="${'http://localhost:2828' + data[0].avatarURL}" class="avatar avatar-sm me-3" alt="user1">
+                         <img src="${'http://localhost:2828' + data[i].avatarURL}" class="avatar avatar-sm me-3" alt="user1">
                       </div>
                       <div class="d-flex flex-column justify-content-center">
                             <h6 class="mb-0 text-sm">${data[i].name}</h6>
-                                <p class="text-xs text-secondary mb-0">${data[0].achievement}</p>
+                                <p class="text-xs text-secondary mb-0">${data[i].achievement}</p>
                       </div>
                       </div>
                     </td>
@@ -267,11 +267,11 @@ function showAllPlayer() {
                     <td>
                      <div class="d-flex px-2 py-1">
                       <div>
-                         <img src="${'http://localhost:2828' + data[0].avatarURL}" class="avatar avatar-sm me-3" alt="user1">
+                         <img src="${'http://localhost:2828' + data[i].avatarURL}" class="avatar avatar-sm me-3" alt="user1">
                       </div>
                       <div class="d-flex flex-column justify-content-center">
                             <h6 class="mb-0 text-sm">${data[i].name}</h6>
-                                <p class="text-xs text-secondary mb-0">${data[0].country}</p>
+                                <p class="text-xs text-secondary mb-0">${data[i].country}</p>
                       </div>
                       </div>
                     </td>
@@ -362,7 +362,7 @@ function showFormUpdatePlayer(element){
         success: function (data) {
             console.log(data);
             console.log(id);
-            $('#id').attr('value',`${data.id}`)
+            $('#id-player').attr('value',`${data.id}`)
             $('#name').attr('value',`${data.name}`)
             $('#country').attr('value',`${data.country}`)
             $('#weight').attr('value',`${data.weight}`)
@@ -377,6 +377,7 @@ function showFormUpdatePlayer(element){
 
 function updatePlayer() {
     let formData = new FormData();
+    let id = $('#id-player').val();
     let name = $('#name').val();
     let country = $('#country').val();
     let weight = $('#weight').val();
