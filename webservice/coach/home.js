@@ -120,7 +120,7 @@ function deleteCoach(element){
     let id=element.getAttribute("href");
     $.ajax({
         type: "delete",
-        url: "http://localhost:2828/coach/"+id,
+        url: "http://localhost:2828/admin/coach/"+id,
         success:function (date){
             console.log("Xoa thanh cong ");
             showAllCoach();

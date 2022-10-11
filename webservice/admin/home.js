@@ -55,7 +55,7 @@ function createCoach() {
             showAllCoach();
         }
     })
-
+    event.preventDefault();
 }
 function showFormUpdate(element){
     let id = element.getAttribute("href");
