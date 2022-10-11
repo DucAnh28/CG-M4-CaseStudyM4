@@ -6,12 +6,12 @@ function checkLogin() {
     if (currentUser === null) {
         window.location.href = "../homepage/login.html";
     }
-    if (currentUser.roles.name !== "ROLE_ADMIN") {
+    if (currentUser.roles[0].authority !== "ROLE_ADMIN") {
         window.location.href = "../homepage/login.html"
     }
 }
 
-// checkLogin();
+checkLogin();
 
 function logout() {
     localStorage.clear();
