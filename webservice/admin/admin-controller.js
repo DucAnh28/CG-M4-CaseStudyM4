@@ -291,7 +291,7 @@ function showAllPlayer() {
                       <span class="text-secondary text-xs font-weight-bold">${data[i].salary} $</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">${data[i].performance}</span>
+                      <span class="text-secondary text-xs font-weight-bold">${data[i].performance.name}</span>
                     </td>
                     <td class="align-middle">
                       <a href="${data[i].id}"  class="text-secondary font-weight-bold text-xs" 
