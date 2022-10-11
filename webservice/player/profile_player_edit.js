@@ -42,6 +42,7 @@ function showAllPlayer(){
             }
         }
     )
+    event.preventDefault();
 }
 showAllPlayer();
 
@@ -75,6 +76,7 @@ function createPlayer() {
             showAllPlayer();
         }
     })
+    event.preventDefault();
 
 }
 
