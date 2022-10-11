@@ -1,7 +1,7 @@
-function showAllPlayer(){
+function showAllCoach(){
     $.ajax({
         type: "get",
-        url: "http://localhost:2828/player/list-player",
+        url: "http://localhost:2828/coach",
         success: function (data) {
             console.log(data);
             let content = "";
@@ -14,14 +14,14 @@ function showAllPlayer(){
                                 </label>
                             </td>
                             <td class="d-flex align-items-center border-bottom-0">
-                                <div class="img" style="background-image: url(images/person_1.jpg);"></div>
+                                <div class="img" style="background-image: url(images/Erik-Ten-Hag.jpg); "></div>
                                 <div class="pl-3 email">
                                     <span>${data[i].name}</span>
                                     <span>Added: 01/03/2020</span>
                                 </div>
                             </td>
                             <td class="border-bottom-0">${data[i].country}</td>
-                            <td class="status border-bottom-0"><span class="waiting">${data[i].status.state}</span>
+                            <td class="status border-bottom-0"><span class="waiting">${data[i].achievement}</span>
                             </td>
                             <td class="border-bottom-0">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -34,4 +34,4 @@ function showAllPlayer(){
         }
     })
 }
-showAllPlayer();
+showAllCoach();
