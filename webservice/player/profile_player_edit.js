@@ -16,16 +16,20 @@
 // }
 //
 // getPerformance();
+let token = localStorage.getItem("token");
 
 //done show all player
-function showAllPlayer(){
+function showAllPlayer() {
     $.ajax({
-            type:"get",
-            url:"http://localhost:2828/player/list-player",
-            success:function (data){
-                let content="";
-                for (let i=0;i<data.length;i++){
-                    content+=`<tr>
+            type: "get",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", "Bearer " + token);
+            },
+            url: "http://localhost:2828/player/list-player",
+            success: function (data) {
+                let content = "";
+                for (let i = 0; i < data.length; i++) {
+                    content += `<tr>
         <td>${data[i].id}</td>
         <td>${data[i].country}</td>
         <td>${data[i].height}</td>
@@ -33,16 +37,16 @@ function showAllPlayer(){
         <td>${data[i].introduction}</td>
         <td>${data[i].name}</td>
         <td>${data[i].salary}</td>
-        <td><img src="${'http://localhost:2828'+data[i].avatarURL}" width="80" height="80" alt="img"></td>
+        <td><img src="${'http://localhost:2828' + data[i].avatarURL}" width="80" height="80" alt="img"></td>
         <td><a href="${data[i].id}" onclick="deletePlayer(this)">Delete</a></td>
         <td><a href="${data[i].id}" onclick="showFormUpdate(this)">Update</a></td></tr>`;
                 }
                 document.getElementById("list").innerHTML = content;
-
             }
         }
     )
 }
+
 showAllPlayer();
 
 //done create player
@@ -79,7 +83,7 @@ function createPlayer() {
 }
 
 
-function showFormUpdate(element){
+function showFormUpdate(element) {
     let id = element.getAttribute("href");
     $.ajax({
         headers: {
@@ -87,18 +91,18 @@ function showFormUpdate(element){
             'Content-Type': 'application/json'
         },
         type: "get",
-        url: "http://localhost:2828/player/find-player-by-id/"+id,
+        url: "http://localhost:2828/player/find-player-by-id/" + id,
         success: function (data) {
             console.log(data);
             console.log(id);
-            $('#id').attr('value',`${data.id}`)
-            $('#name').attr('value',`${data.name}`)
-            $('#country').attr('value',`${data.country}`)
-            $('#weight').attr('value',`${data.weight}`)
-            $('#height').attr('value',`${data.height}`)
-            $('#introduction').attr('value',`${data.introduction}`)
-            $('#salary').attr('value',`${data.salary}`)
-            $('#image').attr('value',`${data.image}`)
+            $('#id').attr('value', `${data.id}`)
+            $('#name').attr('value', `${data.name}`)
+            $('#country').attr('value', `${data.country}`)
+            $('#weight').attr('value', `${data.weight}`)
+            $('#height').attr('value', `${data.height}`)
+            $('#introduction').attr('value', `${data.introduction}`)
+            $('#salary').attr('value', `${data.salary}`)
+            $('#image').attr('value', `${data.image}`)
         }
 
     })
@@ -129,7 +133,7 @@ function updatePlayer() {
         enctype: 'multipart/form-data',
         dataType: "json",
         type: "put",
-        url: "http://localhost:2828/coach/player/edit/"+id,
+        url: "http://localhost:2828/coach/player/edit/" + id,
         data: formData,
         success: function (data) {
             console.log(data);
@@ -139,32 +143,37 @@ function updatePlayer() {
 
     event.preventDefault();
 }
-// done delete player
-function deletePlayer(element){
 
-    let id=element.getAttribute("href");
+// done delete player
+function deletePlayer(element) {
+
+    let id = element.getAttribute("href");
     $.ajax({
         type: "delete",
-        url: "http://localhost:2828/coach/player/delete/"+id,
-        success:function (date){
+        url: "http://localhost:2828/coach/player/delete/" + id,
+        success: function (date) {
             console.log("Xoa thanh cong ");
             showAllPlayer();
         }
     })
     event.preventDefault();
 }
-function sortSalaryAsc(){
+
+function sortSalaryAsc() {
     $.ajax({
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        type:"get",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
+        type: "get",
         url: "http://localhost:2828/player/sort-salary-asc",
-        success:function (data){
-            let content="";
-            for (let i=0;i<data.length;i++){
-                content+=`<tr>
+        success: function (data) {
+            let content = "";
+            for (let i = 0; i < data.length; i++) {
+                content += `<tr>
         <td>${data[i].id}</td>
         <td>${data[i].country}</td>
         <td>${data[i].height}</td>
@@ -172,7 +181,7 @@ function sortSalaryAsc(){
         <td>${data[i].introduction}</td>
         <td>${data[i].name}</td>
         <td>${data[i].salary}</td>
-        <td><img src="${'http://localhost:2828'+data[i].avatarURL}" width="80" height="80" alt="img"></td>
+        <td><img src="${'http://localhost:2828' + data[i].avatarURL}" width="80" height="80" alt="img"></td>
         <td><a href="${data[i].id}" onclick="deletePlayer(this)">Delete</a></td>
         <td><a href="${data[i].id}" onclick="showFormUpdate(this)">Update</a></td></tr>`;
             }
@@ -186,18 +195,21 @@ function sortSalaryAsc(){
     })
 }
 
-function sortSalaryDesc(){
+function sortSalaryDesc() {
     $.ajax({
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        type:"get",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
+        type: "get",
         url: "http://localhost:2828/player/sort-salary-desc/",
-        success:function (data){
-            let content="";
-            for (let i=0;i<data.length;i++){
-                content+=`<tr>
+        success: function (data) {
+            let content = "";
+            for (let i = 0; i < data.length; i++) {
+                content += `<tr>
       <td>${data[i].id}</td>
         <td>${data[i].country}</td>
         <td>${data[i].height}</td>
@@ -205,7 +217,7 @@ function sortSalaryDesc(){
         <td>${data[i].introduction}</td>
         <td>${data[i].name}</td>
         <td>${data[i].salary}</td>
-        <td><img src="${'http://localhost:2828'+data[i].avatarURL}" width="80" height="80" alt="img"></td>
+        <td><img src="${'http://localhost:2828' + data[i].avatarURL}" width="80" height="80" alt="img"></td>
         <td><a href="${data[i].id}" onclick="deletePlayer(this)">Delete</a></td>
         <td><a href="${data[i].id}" onclick="showFormUpdate(this)">Update</a></td></tr>`;
             }
@@ -219,21 +231,23 @@ function sortSalaryDesc(){
     })
 }
 
-function searchPlayerByName(){
-    let search= $('#search').val();
-
+function searchPlayerByName() {
+    let search = $('#search').val();
     $.ajax({
-        headers:{
-            'Accept':'application/json',
+        headers: {
+            'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        type:"GET",
-        url: "http://localhost:2828/player/search?name="+search,
-        success:function (data){
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
+        type: "GET",
+        url: "http://localhost:2828/player/search?name=" + search,
+        success: function (data) {
             console.log(data.content[0])
-            let content="";
-            for (let i=0;i<data.content.length;i++){
-                content+=`<tr>
+            let content = "";
+            for (let i = 0; i < data.content.length; i++) {
+                content += `<tr>
         <td>${data[i].id}</td>
         <td>${data[i].country}</td>
         <td>${data[i].height}</td>
@@ -241,16 +255,12 @@ function searchPlayerByName(){
         <td>${data[i].introduction}</td>
         <td>${data[i].name}</td>
         <td>${data[i].salary}</td>
-        <td><img src="${'http://localhost:2828'+data.content[i].avatarURL}" width="80" height="80" alt="img"></td>
+        <td><img src="${'http://localhost:2828' + data.content[i].avatarURL}" width="80" height="80" alt="img"></td>
         <td><a href="${data.content[i].id}" onclick="deletePlayer(this)">Delete</a></td>
         <td><a href="${data.content[i].id}" onclick="showFormUpdate(this)">Update</a></td></tr>`;
             }
             document.getElementById("list").innerHTML = content;
-
             console.log(data);
-
-
-
         }
     })
     event.preventDefault();

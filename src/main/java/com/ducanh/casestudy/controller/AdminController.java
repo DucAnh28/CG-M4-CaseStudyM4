@@ -3,7 +3,6 @@ package com.ducanh.casestudy.controller;
 import com.ducanh.casestudy.model.*;
 import com.ducanh.casestudy.model.dto.ICountRole;
 import com.ducanh.casestudy.service.approle.IAppRoleService;
-import com.ducanh.casestudy.service.appuser.AppUserService;
 import com.ducanh.casestudy.service.appuser.IAppUserService;
 import com.ducanh.casestudy.service.coach.ICoachService;
 import com.ducanh.casestudy.service.player.IPlayerService;
