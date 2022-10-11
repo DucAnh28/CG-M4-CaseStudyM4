@@ -40,19 +40,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests().antMatchers("/login", "/register","/home/**").permitAll()
-//                .and().authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
-//                .and().authorizeRequests().antMatchers("/coach/**").hasAnyRole("ADMIN","COACH")
-//                .and().authorizeRequests().antMatchers("/player/**").hasAnyRole("ADMIN","COACH","USER")
-//                .and().csrf().disable();
-
-
-//        chưa phân quyền:
-        http.authorizeRequests().antMatchers("/login", "/register", "/home/**").permitAll()
-                .and().authorizeRequests().antMatchers("/admin/**").permitAll()
-                .and().authorizeRequests().antMatchers("/coach/**").permitAll()
-                .and().authorizeRequests().antMatchers("/player/**").permitAll()
+        http.authorizeRequests().antMatchers("/login", "/register","/home/**").permitAll()
+                .and().authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
+                .and().authorizeRequests().antMatchers("/coach/**").hasAnyRole("ADMIN","COACH")
+                .and().authorizeRequests().antMatchers("/player/**").hasAnyRole("ADMIN","COACH","USER")
                 .and().csrf().disable();
+
+
+////        chưa phân quyền:
+//        http.authorizeRequests().antMatchers("/login", "/register", "/home/**").permitAll()
+//                .and().authorizeRequests().antMatchers("/admin/**").permitAll()
+//                .and().authorizeRequests().antMatchers("/coach/**").permitAll()
+//                .and().authorizeRequests().antMatchers("/player/**").permitAll()
+//                .and().csrf().disable();
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class).exceptionHandling();
 //        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());

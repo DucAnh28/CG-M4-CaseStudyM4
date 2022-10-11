@@ -141,8 +141,7 @@
               </a>
             </li>
             <li class="nav-item dropdown pe-2 d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-bell cursor-pointer"></i>
+              <a class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" onclick="logout()">Logout
               </a>
             </li>
           </ul>
@@ -422,8 +421,12 @@
 </body>
 <script>
   function showMostSalaryCoach() {
+    let token = localStorage.getItem("token");
     $.ajax({
       type: "GET", url: "http://localhost:2828/admin/coach/sortDesc",
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader ("Authorization", "Bearer " + token);
+      },
       success: function (data) {
         console.log(data)
           let content = "";
