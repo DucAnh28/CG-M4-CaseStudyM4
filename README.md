@@ -22,16 +22,8 @@ default shelf. Default user include:
 - **COACH** - account with role coach, can access every thing with player but only can see the list of coach.
 - **USER** - account with role user only can see list of player and coach without edit
 
-All generated user using same password: 1.
-
 Role and permission will be auto generated and setup for each logic. There are some special permissions that you cannot
-delete:
-
-- ```ADMIN```: special permission allow you to access everything.
-- ```LIBRARIAN```: permission that allow you to access librarian app, without this permission, your account will only be
-  a reader account and can not access library manage app, even if you have ```ADMIN``` permission
-- ```FORCE```: permission that allow you to execute dangerous action, for example delete an author that affect related
-  books
+update or delete
 
 ### Production
 
